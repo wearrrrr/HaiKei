@@ -1,0 +1,17 @@
+{
+    "name": "GogoAnime API",
+    "description": "A free anime streaming restful API serving anime from GogoAnime.",
+    "keywords": ["express", "gogoanime", "scrapper", "api", "streaming"],
+    "website": "https://github.com/riimuru/gogoanime#readme",
+    "repository": "https://github.com/riimuru/gogoanime",
+    "logo": "https://raw.githubusercontent.com/riimuru/gogoanime/main/images/image1.png",
+
+    "env": {
+        "PORT": {
+            "description": "Set PORT for the express application to run on.",
+            "value": "3000"
+        }
+    },
+    "image": "heroku/nodejs",
+    "stack": "heroku-20"
+}
