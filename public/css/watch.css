@@ -1,0 +1,38 @@
+@import url("https://fonts.cdnfonts.com/css/space-mono");
+.episode {
+    display: flex;
+    gap: 35px;
+    list-style: none;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.epi-me {
+    width: 100px;
+    padding: 5px;
+    border: 5px solid rgb(204, 204, 204);
+    background-color: rgb(71, 71, 71);
+    border-radius: 10px;
+}
+.epi-me > a > div > span {
+    color: white;
+    font-family: "Space Mono";
+}
+
+.epi-me > a {
+    text-decoration: none;
+}
+
+.container {
+    width: 65%;
+    max-width: 100%;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+.section-title {
+    font-family: 'Space Mono';
+    color: white;
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/watch.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <center>
+        <iframe id="ifr" allow="fullscreen" scrolling="no" src="<%- apiUrl %>watch/<%- epData[0]%>/<%- epData[1] %>" style="width: 1024px; height: 640px; max-width: 100%; max-height: 100%; border:none;" ></iframe>
+    </center>
+     <section class="tv-series" id="episodes" >
+        <div class="container">
+          <h2 class="h2 section-title">Episodes</h2>
+          <ul class="episode">
+<% info.epList.forEach((ep) => { %>
+			<li class="epi-me">
+				<a href="/watch/<%- ep.id %>">
+				<div title="<%- ep.number %>" class="name">
+				<span><%- ep.number %></span>
+				</div>
+				</a>
+			</li>	
+  <% }) %>
+  </ul>
+        </div>
+</section>
+</body>
+</html>

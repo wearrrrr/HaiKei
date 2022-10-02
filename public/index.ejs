@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenericAnimeWeb</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.21/dist/js/splide.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.21/dist/css/splide.min.css">
+    <header class="main-header">
+        <div class="container">
+            <h1 class="mh-logo">
+                <a href="/"><img src="./img/logo.webp" width="170" height="95" alt="GenericAnimeWeb"></a>
+            </h1>
+            <nav class="main-nav">
+                <ul class="main-nav-list">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/trending">Trending</a></li>
+                    <li><a href="/releases">New Releases</a></li>
+                    <li><a href="/updates">Updates</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+<div class="new-releases">
+<div class="splide">
+    <h1 class="new_releases">New Releases</h1>
+  <div class="splide__track" id="popular__track">
+		<ul id="splide__list" class="splide__list">
+<% info %>
+    <% info.results.forEach(() => { %>
+        
+                <li class="splide__slide">
+                    <a href="/watch/<%- results.id %>">
+                    <div title="EP <%- info.image %>" class="name">
+                    <span><%-  %></span>
+                    </div>
+                    <div class="vien">
+                    </div>
+                    <div class="cate"> EP </div>
+                    </a>
+                </li>	
+    
+    <% }) %>
+		</ul>
+  </div>
+</div>
+</div>
+
+
+<!-- <script src="./js/script.js"></script> -->
+</body>
+</html>
