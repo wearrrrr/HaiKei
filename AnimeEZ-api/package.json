@@ -1,0 +1,29 @@
+{
+  "name": "vercelapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node api/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "cheerio": "^1.0.0-rc.3",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "ejs": "^3.1.8",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "http": "0.0.1-security",
+    "nodemon": "^2.0.7",
+    "path": "^0.12.7",
+    "quick.db": "^7.1.3",
+    "request": "^2.88.2",
+    "superagent": "^6.1.0",
+    "uuid": "^8.3.1"
+  }
+}
