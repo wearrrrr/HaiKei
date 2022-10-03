@@ -13,23 +13,15 @@ const config = require("./config.js");
 const app = express();
 const port = 3000;
 
-// const ngrok = require('ngrok');
-// (async function() {
-//   const url = await ngrok.connect({
-//     authtoken: "2EvM5q5NKGc9O2AqJSYuH1XHg8h_3WhuESrEcFHHS4F6trkqm",
-//     addr: 3000,
-//   });
-//   console.log(url)
-// })();
-
 app.use(express.static('public'))
 app.set('view engine', 'ejs')
 app.engine('ejs', require('ejs').__express);
 app.set('views', 'public')
 app.listen(port);
 
-app.use('/', require('./routers/index.js'))
+app.use('/', require('./routers/index.js'));
+app.use('/search', require('./routers/search.js'));
 
-app.use('/watch', require("./routers/anime/watch.js"))
+app.use('/watch', require("./routers/anime/watch.js"));
 
 // let init = process.send("Web Server Init!")

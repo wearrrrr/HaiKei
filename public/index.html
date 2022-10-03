@@ -10,6 +10,7 @@
 <body>
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.21/dist/js/splide.min.js"></script>
 <link rel="stylesheet" href="./vendor/splide/css/splide.css">
+    <script src="./js/splide__fn.js"></script>
     <header class="main-header">
         <div class="container">
             <h1 class="mh-logo">
@@ -17,10 +18,10 @@
             </h1>
             <nav class="main-nav">
                 <ul class="main-nav-list">
+                    <li><label><input type="text" id="search-box" placeholder="Search"></label></li>
                     <li><a href="/">Home</a></li>
                     <li><a href="/trending">Trending</a></li>
                     <li><a href="/releases">New Releases</a></li>
-                    <li><a href="/updates">Updates</a></li>
                 </ul>
             </nav>
         </div>
@@ -41,7 +42,7 @@
 </div>
 </div>
 
-
-<script src="./js/script.js"></script>
+<script src="./js/main.js"></script>
+<script src="./js/recent-release.js"></script>
 </body>
 </html>

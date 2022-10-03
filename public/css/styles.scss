@@ -12,6 +12,28 @@ body {
     color: #F73D93;
 }
 
+label {
+  position: relative;
+}
+
+label:before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  background: url("../assets/search.svg") center / contain no-repeat;
+}
+
+input {
+  padding: 10px 30px;
+  background-color: #373548;
+  border: none;
+  border-radius: 10px;
+  color: white;
+}
+
 img {
 	max-width: 100%;
 	height: auto;

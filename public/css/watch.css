@@ -13,6 +13,7 @@
     border: 5px solid rgb(204, 204, 204);
     background-color: rgb(71, 71, 71);
     border-radius: 10px;
+    margin-right: 35px;
 }
 .epi-me > a > div > span {
     color: white;
@@ -23,7 +24,7 @@
     text-decoration: none;
 }
 
-.container {
+.episode-container {
     width: 65%;
     max-width: 100%;
     margin: 0 auto;

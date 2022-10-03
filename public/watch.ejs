@@ -9,11 +9,26 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+<header class="main-header">
+    <div class="container">
+        <h1 class="mh-logo">
+            <a href="/"><img src="/img/logo.webp" width="170" height="95" alt="GenericAnimeWeb"></a>
+        </h1>
+        <nav class="main-nav">
+            <ul class="main-nav-list">
+                <li><label><input type="text" id="search-box" placeholder="Search"></label></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/trending">Trending</a></li>
+                <li><a href="/releases">New Releases</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
     <center>
         <iframe id="ifr" allow="fullscreen" scrolling="no" src="<%- apiUrl %>watch/<%- epData[0]%>/<%- epData[1] %>" style="width: 1024px; height: 640px; max-width: 100%; max-height: 100%; border:none;" ></iframe>
     </center>
      <section class="tv-series" id="episodes" >
-        <div class="container">
+        <div class="episode-container">
           <h2 class="h2 section-title">Episodes</h2>
           <ul class="episode">
 <% info.epList.forEach((ep) => { %>
@@ -28,5 +43,6 @@
   </ul>
         </div>
 </section>
+<script src="/js/main.js"></script>
 </body>
 </html>
