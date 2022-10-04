@@ -29,7 +29,7 @@
     </header>
 
     <div class="splide">
-    <h1>Search Results for: <%= query %>  </h1>
+    <h1 class="header">Search Results for: "<%= query %>"  </h1>
     <div class="splide__track" id="popular__track">
             <ul id="splide__list" class="splide__list">
         <% searchData.forEach((searchData) => { %>
@@ -41,5 +41,6 @@
             </ul>
     </div>
     </div>
+<script src="/js/main.js"></script>
 </body>
 </html>

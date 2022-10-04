@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenericAnimeWeb</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.21/dist/js/splide.min.js"></script>
+<link rel="stylesheet" href="./vendor/splide/css/splide.css">
+    <script src="./js/splide__fn.js"></script>
+    <header class="main-header">
+        <div class="container">
+            <h1 class="mh-logo">
+                <a href="/"><img src="./img/logo.webp" width="170" height="95" alt="GenericAnimeWeb"></a>
+            </h1>
+            <nav class="main-nav">
+                <ul class="main-nav-list">
+                    <li><label><input type="text" id="search-box" placeholder="Search"></label></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/trending">Trending</a></li>
+                    <li><a href="/releases">New Releases</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+<div class="new-releases">
+<div class="splide">
+    <h1 class="new_releases header">Trending Shows</h1>
+  <div class="splide__track" id="popular__track">
+		<ul id="splide__list" class="splide__list">
+
+		</ul>
+  </div>
+</div>
+</div>
+
+<script src="./js/main.js"></script>
+<script src="./js/trending.js"></script>
+</body>
+</html>

@@ -76,11 +76,8 @@ img {
 }
 
 @media (min-width: 960px) {
-  .main-header .container .mh-logo:not() {
+  .main-header .container {
     justify-content: space-between;
-  }
-  .mh-logo {
-    justify-content: center;
   }
 }
 .news {
@@ -127,4 +124,5 @@ img {
 .splide__episodeNum {
   color: #e0def4;
   font-family: "Space Mono";
+  text-align: center;
 }/*# sourceMappingURL=styles.css.map */
