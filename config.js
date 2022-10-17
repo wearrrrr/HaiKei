@@ -1,10 +1,14 @@
-module.exports = {
-  "api_url": "http://localhost:6969",
-  // Enter your api host's url or if hosting locally/on your own computer use https://localhost:6969
-  
-  "time_update": "200",
-  // Enter Seconds for updating recently added and popular list. For disabling it Enter disable
-  
-  "port": "8000", 
-    // Enter port for your website
-}
+const config = {
+ app: {
+   port: 3000,
+   api_url2: 'http://localhost:3001',
+   api_url: 'http://localhost:6969/'
+ },
+ db: {
+   host: 'localhost',
+   port: 27017,
+   name: 'db'
+ }
+};
+
+module.exports = config;

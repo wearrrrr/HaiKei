@@ -22,6 +22,8 @@ app.listen(port);
 app.use('/', require('./routers/index.js'));
 app.use('/search', require('./routers/search.js'));
 app.use('/trending', require('./routers/trending.js'));
+app.use('/releases', require('./routers/releases.js'));
+app.use('/genres', require('./routers/genres.js'));
 
 app.use('/watch', require("./routers/anime/watch.js"));
 

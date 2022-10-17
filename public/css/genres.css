@@ -1,0 +1,39 @@
+.genres {
+    width: 60%;
+    max-width: 100%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    text-align: center;
+    flex-wrap: wrap;
+}
+.genre-item {
+    width: 150px;
+    padding: 5px;
+    border: 5px solid rgb(204, 204, 204);
+    background-color: rgb(71, 71, 71);
+    border-radius: 10px;
+    margin: 10px;
+    transition: 250ms ease-in-out;
+}
+@media only screen and (max-width: 716px) {
+    .genre-item {
+        margin-left: 40px;
+    }
+}
+.genre-item:hover {
+    background-color: rgb(95, 95, 95);
+}
+.grp-checkbx {
+    display: none;
+}
+.genre-item > div > span {
+    color: white;
+    font-family: "Space Mono";
+    text-align: center;
+}
+
+.genre-item {
+    list-style: none;
+}

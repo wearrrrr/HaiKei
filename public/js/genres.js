@@ -1,18 +1,18 @@
-async function getTrending() {
-    let trending;
+async function getGenres() {
+    let genres;
 
-    const res = await fetch(window.location.protocol + "//" + window.location.hostname + ":3001" + "/top-airing", {
+    const res = await fetch(window.location.protocol + "//" + window.location.hostname + ":8080" + `/consumet/meta/anilist/genres?genres=`, {
 
     })
 
-    trending = await res.json();
+    genres = await res.json();
 
-    console.log(trending)
+    console.log(genres)
 
     const slideContainer = document.getElementById("splide__list")
     slideContainer.style = "display: flex; align-items: center; justify-content: center"
 
-    for (let c in trending) {
+    for (let c in genres) {
         // create slides
         const card = document.createElement("li")
         card.className = "splide__slide"
@@ -46,4 +46,7 @@ async function getTrending() {
 
     }
 carouselInit()
-getTrending()
+
+function toggle() {
+    console.log(genre)
+}

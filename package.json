@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "chalk": "^4.1.2",
+    "config": "^3.3.8",
     "ejs": "^3.1.8",
     "ngrok": "^4.3.3",
     "node-fetch": "^2.6.7",

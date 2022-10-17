@@ -27,6 +27,7 @@ webServer.on("exit", function(exitCode) {
 
 let apiServer = cp.fork("api.js", {cwd: "./gogoanime-api/lib"})
 let watchServer = cp.fork("index.js", {cwd: "./AnimeEZ-api/api"})
+let aioServer = cp.fork("bin.js", { cwd: "./all-in-one/"})
 
 
 

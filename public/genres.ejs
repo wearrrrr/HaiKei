@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenericAnimeWeb - Genres</title>
+    <link rel="stylesheet" href="/css/genres.css">
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.21/dist/js/splide.min.js"></script>
+<link rel="stylesheet" href="./vendor/splide/css/splide.css">
+    <script src="./js/splide__fn.js"></script>
+    <header class="main-header">
+        <div class="container">
+            <h1 class="mh-logo">
+                <a href="/"><img src="./img/logo.webp" width="170" height="95" alt="GenericAnimeWeb"></a>
+            </h1>
+            <nav class="main-nav">
+                <ul class="main-nav-list">
+                    <li><label><input type="text" id="search-box" placeholder="Search"></label></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/trending">Trending</a></li>
+                    <li><a href="/genres">Genres</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+<div class="genres">
+    <li id="action" onclick="toggle(genre = 'action');" class="genre-item">
+        <div title="" class="name">
+        <span>Action</span>
+        </div>
+    </li>
+    <li id="adventure" onclick="toggle(genre = 'adventure');" class="genre-item">
+        <div title="" class="name">
+        <span>Adventure</span>
+        </div>
+    </li>
+    <li id="cars" onclick="toggle(genre = 'cars');" class="genre-item">
+        <div title="" class="name">
+        <span>Cars</span>
+        </div>
+    </li>
+    <li id="comedy" onclick="toggle(genre = 'comedy');" class="genre-item">
+        <div title="" class="name">
+        <span>Comedy</span>
+        </div>
+    </li>
+    <li class="genre-item">
+        <div title="" class="name">
+        <span>Drama</span>
+        </div>
+    </li>
+    <li class="genre-item">
+        <div title="" class="name">
+        <span>Fantasy</span>
+        </div>
+    </li>
+    <li class="genre-item">
+        <div title="" class="name">
+        <span>Horror</span>
+        </div>
+    </li>
+    <li class="genre-item">
+        <div title="" class="name">
+        <span>Magical Girl</span>
+        </div>
+    </li>
+    <li class="genre-item">
+        <div title="" class="name">
+        <span>Mecha</span>
+        </div>
+    </li>
+    <li class="genre-item">
+        <div title="" class="name">
+        <span>Music</span>
+        </div>
+    </li>
+    <li class="genre-item">
+        <div title="" class="name">
+        <span>Mystery</span>
+        </div>
+    </li>
+    <li class="genre-item">
+        <div title="" class="name">
+        <span>Psychological</span>
+        </div>
+    </li>
+    <li class="genre-item">
+        <div title="" class="name">
+        <span>Romance</span>
+        </div>
+    </li>
+    <li class="genre-item">
+        <div title="" class="name">
+        <span>Sci-Fi</span>
+        </div>
+    </li>
+    <li class="genre-item">
+        <div title="" class="name">
+        <span>Slice of Life</span>
+        </div>
+    </li>
+    <li class="genre-item">
+        <div title="" class="name">
+        <span>Sports</span>
+        </div>
+    </li>
+    <li class="genre-item">
+        <div title="" class="name">
+        <span>Supernatural</span>
+        </div>
+    </li>
+    <li class="genre-item">
+        <div title="" class="name">
+        <span>Thriller</span>
+        </div>
+    </li>
+</div>
+
+<div class="new-releases">
+<div class="splide">
+    <h1 class="new_releases header">Trending Shows</h1>
+  <div class="splide__track" id="popular__track">
+		<ul id="splide__list" class="splide__list">
+
+		</ul>
+  </div>
+</div>
+</div>
+
+<script src="./js/main.js"></script>
+<script src="./js/genres.js"></script>
+</body>
+</html>

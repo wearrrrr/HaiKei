@@ -88,6 +88,7 @@ img {
   margin: 0;
   padding: 0;
   flex-direction: column;
+  align-items: center;
 }
 
 .news-item {
@@ -102,6 +103,7 @@ img {
   justify-content: center;
   align-items: center;
   padding: 5px;
+  cursor: pointer;
 }
 
 .splide__animeTitle {
@@ -116,11 +118,10 @@ img {
   max-width: 100%;
 }
 
-@media only screen and (max-width: 1086px) {
-  .splide__animeTitle {
-    height: 40px;
-  }
+.searchResult {
+  height: 75px !important;
 }
+
 .splide__episodeNum {
   color: #e0def4;
   font-family: "Space Mono";
