@@ -23,8 +23,9 @@ app.use('/', require('./routers/index.js'));
 app.use('/search', require('./routers/search.js'));
 app.use('/trending', require('./routers/trending.js'));
 app.use('/releases', require('./routers/releases.js'));
-app.use('/genres', require('./routers/genres.js'));
 
+app.use('/genres', require('./routers/anime/genre/genres.js'));
+app.use('/genre/', require('./routers/anime/genre/genre.js'))
 app.use('/watch', require("./routers/anime/watch.js"));
 
 // let init = process.send("Web Server Init!")

@@ -1,0 +1,406 @@
+{
+    "currentPage": 1,
+    "hasNextPage": true,
+    "results": [
+        {
+            "id": "5",
+            "malId": 5,
+            "title": {
+                "romaji": "Cowboy Bebop: Tengoku no Tobira",
+                "english": "Cowboy Bebop: The Movie - Knockin' on Heaven's Door",
+                "native": "カウボーイビバップ天国の扉",
+                "userPreferred": "Cowboy Bebop: Tengoku no Tobira"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx5-NozHwXWdNLCz.jpg",
+            "trailer": {},
+            "description": "As the Cowboy Bebop crew travels the stars, they learn of the largest bounty yet, a huge 300 million Woolongs. Apparently, someone is wielding a hugely powerful chemical weapon, and of course the authorities are at a loss to stop it. The war to take down the most dangerous criminal yet forces the crew to face a true madman, with bare hope to succeed.\n<br><br>\n(Source: Anime News Network)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/5-VOcSZFepDDhm.jpg",
+            "rating": 82,
+            "releaseDate": 2001,
+            "color": "#f13500",
+            "totalEpisodes": 1,
+            "duration": 115,
+            "type": "MOVIE"
+        },
+        {
+            "id": "7",
+            "malId": 7,
+            "title": {
+                "romaji": "Witch Hunter ROBIN",
+                "english": "Witch Hunter ROBIN",
+                "native": "Witch Hunter ROBIN",
+                "userPreferred": "Witch Hunter ROBIN"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx7-6uh1fPvbgS9t.png",
+            "trailer": {},
+            "description": "Robin Sena is a powerful craft user drafted into the STNJ - a group of specialized hunters that fight deadly beings known as Witches. Though her fire power is great, she’s got a lot to learn about her powers and working with her cool and aloof partner, Amon. But the truth about the Witches and herself will leave Robin on an entirely new path that she never expected!<br>\n<br>\n(Source: Funimation)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/7-hjjlCe3yO7lO.jpg",
+            "rating": 68,
+            "releaseDate": 2002,
+            "color": "#e4935d",
+            "totalEpisodes": 26,
+            "duration": 25,
+            "type": "TV"
+        },
+        {
+            "id": "15",
+            "malId": 15,
+            "title": {
+                "romaji": "Eyeshield 21",
+                "english": "Eyeshield 21",
+                "native": "アイシールド21",
+                "userPreferred": "Eyeshield 21"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx15-A4F2t0TgWoi4.png",
+            "trailer": {},
+            "description": "Welcome To the Gridiron of the Damned!   Huge hulking bodies throw themselves at each other, while a tiny lithe body runs between them for the goal!  No, it&rsquo;s not a game of football, it&rsquo;s Sena Kobayakawa trying to evade the monstrous Ha-Ha brothers down the halls of Deimon High School!  But wait!  Sena&rsquo;s incredible skills at not getting caught have been spotted by the devilish (possibly actually demonic) captain of the school&rsquo;s embryonic American style football team, and when Sena asks to be the teams manager, he gets  thrust onto the field as a running back instead!  But there are two BIG catches: first, to keep the identity of their new &ldquo;star&rdquo; player an absolute secret, Yoichi makes Sena wear an opaque visor on his helmet and gives him the alias of &ldquo;Eyeshield 21.&rdquo;  And the second catch?  Well, in order to hit his fastest &ldquo;speed of light&rdquo; running mode, Sena usually has to be absolutely terrified. Not that THAT will be a problem with the monstrous players that he&rsquo;ll soon find himself running from!  The insanity hits the streets when the feet meet the cleats in EYESHIELD 21! <br><br>\n(Source: Sentai Filmworks)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/n15-1eTutXlxYzYl.jpg",
+            "rating": 75,
+            "releaseDate": 2005,
+            "color": "#d6bb1a",
+            "totalEpisodes": 145,
+            "duration": 23,
+            "type": "TV"
+        },
+        {
+            "id": "22",
+            "malId": 22,
+            "title": {
+                "romaji": "Tennis no Ouji-sama",
+                "english": "The Prince of Tennis",
+                "native": "テニスの王子様",
+                "userPreferred": "Tennis no Ouji-sama"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx22-8Qg3NZXH6asP.png",
+            "trailer": {},
+            "description": "Echizen Ryoma is a young tennis prodigy who has won 4 consecutive tennis championships but who constantly lies in the shadow of his father, a former pro tennis player. He joins the Seishun Gakuen junior highschool, one of the best tennis schools in Japan, and there along with his teamates he learns to find his own type of tennis in an attempt to defeat his biggest obstacle of all: his father as well as himself.\n<br><br>\n(Source: Anime News Network)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/22-wVJjA9tGMt4k.jpg",
+            "rating": 74,
+            "releaseDate": 2001,
+            "color": "#d6936b",
+            "totalEpisodes": 178,
+            "duration": 22,
+            "type": "TV"
+        },
+        {
+            "id": "23",
+            "malId": 23,
+            "title": {
+                "romaji": "Ring ni Kakero 1",
+                "english": null,
+                "native": "リングにかけろ１",
+                "userPreferred": "Ring ni Kakero 1"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx23-OwtP69d9B9kg.jpg",
+            "trailer": {},
+            "description": "In order to fulfill their dead father's wish, the siblings, Kiku Takane and Ryuuji Takane aim for the champion title of the boxing arena. The sister, Kiku, will act as the trainer while her brother, Ryuuji, will concentrate on the role of the boxer and learn the Boomerang Hook technique. His battle with many rivals has led to the growth and maturity of Ryuuji. The junior high boxing tournament has began and Ryuuji will be fighting his arch-rival, Jun Kenzaki. The battle begins.\n<br><br>\n(Source: Anime News Network)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/23-CFzo2xKsa7e7.jpg",
+            "rating": 53,
+            "releaseDate": 2004,
+            "color": "#e46b1a",
+            "totalEpisodes": 12,
+            "duration": 25,
+            "type": "TV"
+        },
+        {
+            "id": "25",
+            "malId": 25,
+            "title": {
+                "romaji": "Sunabouzu",
+                "english": "Desert Punk",
+                "native": "砂ぼうず",
+                "userPreferred": "Sunabouzu"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx25-H1etX7IgfFtQ.jpg",
+            "trailer": {},
+            "description": "In the future, Japan is a wasteland. In the Great Kantou Desert, scattered humans eke out a living in the hot sand. Among them, a short-statured man they call \"Sunabouzu\" makes a living as a bounty hunter. Like a demon of the sand, he seems unbeatable. Yet, like all men, he has a particular weakness for the opposite sex... <br><br>\n(Source: Anime News Network)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/25-F2qEJ3hvFzHj.jpg",
+            "rating": 68,
+            "releaseDate": 2004,
+            "color": "#e4785d",
+            "totalEpisodes": 24,
+            "duration": 24,
+            "type": "TV"
+        },
+        {
+            "id": "26",
+            "malId": 26,
+            "title": {
+                "romaji": "TEXHNOLYZE",
+                "english": "Texhnolyze",
+                "native": "TEXHNOLYZE",
+                "userPreferred": "TEXHNOLYZE"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx26-u2SawALYH3w3.jpg",
+            "trailer": {},
+            "description": "In a man-made underground society, descendants of a banished generation vie for control of the crumbling city of Lux. Ichise, an orphan turned prize fighter, loses a leg and an arm to satisfy an enraged fight promoter. On the brink of death he is taken in by a young woman doctor and used as a guinea pig for the next evolution of Texhnolyze. With his new limbs, Ichise is taken under the wing of Oonishi, a powerful leader of Organ, an organization with some hold on Lux. As Ichise is drawn deeper into a war for territorial control of the city, he learns of his possible future from the young girl prophet Ran, who guides him from the shadows in his darkest times. With the explosion of the warfare, Ichise must uncover the truth about Lux and fight for his survival as he realizes his destiny.\n<br><br>\n(Source: Anime News Network)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/26-FWJgAONj7etr.jpg",
+            "rating": 76,
+            "releaseDate": 2003,
+            "color": "#86c9e4",
+            "totalEpisodes": 22,
+            "duration": 23,
+            "type": "TV"
+        },
+        {
+            "id": "29",
+            "malId": 29,
+            "title": {
+                "romaji": "Zipang",
+                "english": null,
+                "native": "ジパング",
+                "userPreferred": "Zipang"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx29-0PsnJVadMG7k.jpg",
+            "trailer": {},
+            "description": "Mirai, an improved Kongou-class Aegis guided missile destroyer, is one of the newest and most advanced ships in the entire Japanese Self Defense Force (SDF). Her crew, also one of the newest, is lead by Capt. Umezu Saburo and Executive Officer Kadomatsu Yosuke. While running scheduled training exercises one day, Mirai encounters a fierce storm that throws their navigation systems into temporary disarray. After a few minutes of recovery, the crew is shocked to discover that they've been transported back in time to June 4, 1942&mdash;The Battle of Midway, during World War II. Letting history take its course for this battle, they manage to avoid the conflict firsthand and make a vow to remain annonymous, changing history as little as possible. However, when the crew comes across the dying Lt. Commander Kusaka Takumi, XO. Kadomatsu's instincts to save lives takes over, changing the course of history more than he could've imagined.\n<br><br>\n(Source: Anime News Network)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx29-0PsnJVadMG7k.jpg",
+            "rating": 70,
+            "releaseDate": 2004,
+            "color": "#e4d65d",
+            "totalEpisodes": 26,
+            "duration": 24,
+            "type": "TV"
+        },
+        {
+            "id": "54",
+            "malId": 54,
+            "title": {
+                "romaji": "Appleseed (Movie)",
+                "english": null,
+                "native": "アップルシード",
+                "userPreferred": "Appleseed (Movie)"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx54-EIMIUlH3FuJb.jpg",
+            "trailer": {},
+            "description": "Growing out of the chaos of a global war, the city of Utopia is populated by humans and bioroids (artificial humans). On the surface, everything is harmonious, but tensions lurk. Into this seemingly perfect society comes a survivor of the wars, Deunan Knute, who carries a legacy that will turn out to be of critical importance to the future of humanity. <br><br>\n(Source: Anime News Network)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx54-EIMIUlH3FuJb.jpg",
+            "rating": 65,
+            "releaseDate": 2004,
+            "color": "#0d786b",
+            "totalEpisodes": 1,
+            "duration": 105,
+            "type": "MOVIE"
+        },
+        {
+            "id": "55",
+            "malId": 55,
+            "title": {
+                "romaji": "Arc the Lad",
+                "english": null,
+                "native": "アークザラッド",
+                "userPreferred": "Arc the Lad"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx55-uG26UwIxEJkJ.png",
+            "trailer": {},
+            "description": "The story follows Elk, a bounty hunter in some strange futuristic world. On this world archaic but advanced technology exists side by side with primitive attitudes, beasts and magic. In other words it's got a bit of everything. It also has an evil conspiracy who are able to produce powerful monsters called chimera, who can also appear as human. Naturally it is not long before Elk has rescued a young female beast-master and gained himself some serious enemies.\n<br><br>\n(Source: Anime News Network)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/n55-GkpzkjVbaMxb.jpg",
+            "rating": 59,
+            "releaseDate": 1999,
+            "color": "#e4c95d",
+            "totalEpisodes": 26,
+            "duration": 22,
+            "type": "TV"
+        },
+        {
+            "id": "60",
+            "malId": 60,
+            "title": {
+                "romaji": "Chrno Crusade",
+                "english": "Chrono Crusade",
+                "native": "クロノクルセイド",
+                "userPreferred": "Chrno Crusade"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx60-N28VFNCZyvhI.png",
+            "trailer": {},
+            "description": "The year is 1928 A.D. The place is New York, U.S.A. The economic prosperity brought forth after the Great War also heightened the presence of something far darker and much more sinister: the demonic Sinners. The Magdalene Order is an organization that tries to counter this force. Two of its exorcists are Rosette Christopher and her assistant, Chrono. Both appear out of place in an organization like this, and they are in a quest to find Rosette's missing brother, Joshua. Their relationships, secrets and fates can only be revealed in time...\n<br><br>\n(Source: Anime News Network)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/60-qiQMlaoG6mqL.jpg",
+            "rating": 71,
+            "releaseDate": 2003,
+            "color": "#e4ae5d",
+            "totalEpisodes": 24,
+            "duration": 23,
+            "type": "TV"
+        },
+        {
+            "id": "61",
+            "malId": 61,
+            "title": {
+                "romaji": "D.N.Angel",
+                "english": "D.N.Angel",
+                "native": "Ｄ・Ｎ・ＡＮＧＥＬ",
+                "userPreferred": "D.N.Angel"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/61.jpg",
+            "trailer": {},
+            "description": "Niwa Daisuke is your average teenager, until his fourteenth birthday. He tries to declare his love to the girl of his dreams, but fails. Suddenly, whenever he thinks about this girl he turns into the legendary phantom thief known as Dark Mousy. Daisuke's mother, very much aware of this, makes him turn into Dark and steal valuable works of art for a purpose unknown to Daisuke. As the story unfolds, he learns why, and about his classmate who seems to have the same ability.\n<br><br>\n(Source: Anime News Network)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/61-VZW3RDx4ZDem.jpg",
+            "rating": 66,
+            "releaseDate": 2003,
+            "color": "#e4bba1",
+            "totalEpisodes": 26,
+            "duration": 23,
+            "type": "TV"
+        },
+        {
+            "id": "65",
+            "malId": 65,
+            "title": {
+                "romaji": "Rozen Maiden: Träumend",
+                "english": "Rozen Maiden: Dreaming",
+                "native": "ローゼンメイデン ~ トロイメント",
+                "userPreferred": "Rozen Maiden: Träumend"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx65-SnVu0Txb00nV.jpg",
+            "trailer": {},
+            "description": "As summer break arrives for the students, Jun Sakurada is busily studying on his own in the library, making up for time lost while he had confined himself to his home. Meanwhile, his Rozen Maiden doll, Shinku, has been having troubling dreams of late. The pain and sadness of defeating Suigintou was overwhelming, despite the inevitable battle they waged. After waking suddenly from a nightmare, she finds Suigintou's companion spirit wandering; upon giving chase, she discovers that the seventh Doll-- Barasuishou-- has awakened. She now realizes that Suigintou's fate may very well befall the other Dolls, for the appearance of the last Doll signals the beginning of the end of the Alice Games.\n<br><br>\n(Source: Anime News Network)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx65-SnVu0Txb00nV.jpg",
+            "rating": 72,
+            "releaseDate": 2005,
+            "color": "#d65de4",
+            "totalEpisodes": 12,
+            "duration": 24,
+            "type": "TV"
+        },
+        {
+            "id": "69",
+            "malId": 69,
+            "title": {
+                "romaji": "CLUSTER EDGE",
+                "english": null,
+                "native": "CLUSTER EDGE",
+                "userPreferred": "CLUSTER EDGE"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/69.jpg",
+            "trailer": {},
+            "description": "Cluster Edge Academy isn't just any school; it's THE school, where the offspring of the elite come together to prepare for their roles running a world where artificial soldiers and religious sects are major factors in the battle for total control. Which may be part of why new transfer student Agate Fluorite doesn't quite seem to fit in. It's not just that Agate's enthusiastic attitude stands out among the somber, brooding balance of the student body. There's something about him that demands notice, even from jaded honors students like Beryl Jasper, and from the moment of arrival he's been at the center of a series of mysteries that not even Agate understands. Because Agate's not just another student, he's part of a something so momentous, and dangerous, that the world that built Cluster Edge may not survive its passing. <br><br>\n(Source: Sentai Filmworks) ",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/69.jpg",
+            "rating": 53,
+            "releaseDate": 2005,
+            "color": "#ffd6ae",
+            "totalEpisodes": 25,
+            "duration": 24,
+            "type": "TV"
+        },
+        {
+            "id": "71",
+            "malId": 71,
+            "title": {
+                "romaji": "Full Metal Panic!",
+                "english": "Full Metal Panic!",
+                "native": "フルメタル・パニック！",
+                "userPreferred": "Full Metal Panic!"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx71-Fi08vs7xNBMW.png",
+            "trailer": {},
+            "description": "Sousuke Sagara, a seventeen year old military specialist working for the secret organization MITHRIL, has been assigned to protect the latest \"Whispered\" candidate Kaname Chidori. To complete this task Sousuke will have to deal with enemies from his past as well as the occasional panty thief. Unfortunately for Sousuke, the toughest part of his mission isn't only protecting Miss Chidori but also getting used to living an average High School students life, no easy task for someone raised on the battlefield.<br><br>\n(Source: Anime News Network)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/71-vSM3St7ZNwju.png",
+            "rating": 72,
+            "releaseDate": 2002,
+            "color": "#2893a1",
+            "totalEpisodes": 24,
+            "duration": 24,
+            "type": "TV"
+        },
+        {
+            "id": "90",
+            "malId": 90,
+            "title": {
+                "romaji": "Shin Kidou Senki Gundam Wing",
+                "english": "Mobile Suit Gundam Wing",
+                "native": "新機動戦記ガンダムW",
+                "userPreferred": "Shin Kidou Senki Gundam Wing"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b90-umBjF3yaeIdo.png",
+            "trailer": {},
+            "description": "Mankind has moved into space. Thousands of people live on giant orbiting space colonies called \"Sides.\" However, the Earth Government, which rules the colonies, is unjust and cruel. A group of revolutionaries build five robotic weapons called Gundams and plan to send them to Earth to begin their fight for independence. Piloted by five young men, these Gundams carry the colonists' hopes and dreams of freedom with them as they descend to Earth to begin Operation Meteor!<br>\n<br>\n(Source: Nozomi Entertainment)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/90-hhE4GDd5rx1G.jpg",
+            "rating": 71,
+            "releaseDate": 1995,
+            "color": "#f1935d",
+            "totalEpisodes": 49,
+            "duration": 24,
+            "type": "TV"
+        },
+        {
+            "id": "91",
+            "malId": 91,
+            "title": {
+                "romaji": "Shin Kidou Senki Gundam Wing: Endless Waltz",
+                "english": "Mobile Suit Gundam Wing: Endless Waltz",
+                "native": "新機動戦記ガンダムW Endless Waltz",
+                "userPreferred": "Shin Kidou Senki Gundam Wing: Endless Waltz"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx91-YkrzbtuWZThG.png",
+            "trailer": {},
+            "description": "After Colony 196 - One year has passed since the war between Earth and its colonies ended. Heero, Duo, Trowa and Quatre bid farewell to their Gundams and jettison them to the sun. Relena Darlian is now the deputy minister of the Earth Sphere Unified Nation. But as the Gundam pilots are adjusting to the peace on Earth, Relena is kidnapped and a new threat appears, led by Marimeia Khushrenada - daughter of the late dictator Treize Khushrenada and heir to the Barton Foundation. To make matters more complicated, Gundam Nataku pilot Wufei has sided with this faction. The Gundam pilots must recover their mobile suits and once again engage in battle before Marimeia's forces succeed on their bid for global domination.\n<br><br>\n(Source: Anime News Network)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/n91-kLkJ0iJHHutY.jpg",
+            "rating": 71,
+            "releaseDate": 1997,
+            "color": "#f1a15d",
+            "totalEpisodes": 3,
+            "duration": 30,
+            "type": "OVA"
+        },
+        {
+            "id": "95",
+            "malId": 95,
+            "title": {
+                "romaji": "∀ Gundam",
+                "english": "Turn A Gundam",
+                "native": "∀ガンダム",
+                "userPreferred": "∀ Gundam"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx95-5okHk1B0VKro.jpg",
+            "trailer": {},
+            "description": "This story is set thousands of years in the future. The people of Earth have forgotten the space wars of the past, reverting back to a pre-industrial existence. But the lunar settlers known as the Moonrace, who have retained their high technology, now plan to seize their mother planet for themselves. As the war of the worlds begins, a young Moonrace citizen named Loran Cehack, pilot of the legendary Turn A Gundam, struggles to bridge the gap between humanity's long-separated branches.<br><br>\n(Source: GundamOfficial)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/95-kLBJfcuG0Yb7.jpg",
+            "rating": 78,
+            "releaseDate": 1999,
+            "color": "#f1ae43",
+            "totalEpisodes": 50,
+            "duration": 24,
+            "type": "TV"
+        },
+        {
+            "id": "97",
+            "malId": 97,
+            "title": {
+                "romaji": "Last Exile",
+                "english": "Last Exile",
+                "native": "ラストエグザイル",
+                "userPreferred": "Last Exile"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx97-Loi1Ppy4quXy.jpg",
+            "trailer": {},
+            "description": "It's the dawn of the Golden Age of Aviation on planet Prester, and retro-futuristic sky vehicles known as vanships dominate the horizon. Claus Valca &ndash; a flyboy born with the right stuff &ndash; and his fiery navigator Lavie are fearless racers obsessed with becoming the first sky couriers to cross the Grand Stream in a vanship. But when the high-flying duo encounters a mysterious girl named Alvis, they are thrust into the middle of an endless battle between Anatoray and Disith &ndash; two countries systematically destroying each other according to the code of chivalric warfare. Lives will be lost and legacies determined as Claus and Lavie attempt to bring peace to their world by solving the riddle of its chaotic core.<br>\n<br>\n(Source: Funimation)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/97-kaw3UsKX7IkQ.jpg",
+            "rating": 74,
+            "releaseDate": 2003,
+            "color": "#5daee4",
+            "totalEpisodes": 26,
+            "duration": 24,
+            "type": "TV"
+        },
+        {
+            "id": "112",
+            "malId": 112,
+            "title": {
+                "romaji": "Chou Henshin Cosprayers",
+                "english": "The Cosmopolitan Prayers",
+                "native": "超変身コス∞プレイヤー",
+                "userPreferred": "Chou Henshin Cosprayers"
+            },
+            "image": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/112.jpg",
+            "trailer": {},
+            "description": "Koto unknowingly seals away the Sun Goddess Amaterasu, and now she is in a different world and can't return. Meeting priestesses who combat the evil in this strange place she learns that Black Towers throughout the land keep Amatersu sealed away and are guarded by evil monsters. Koto must now find a way to help defeat these monsters and return the world to the way it was.\n<br><br>\n(Source: Anime News Network)",
+            "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/112.jpg",
+            "rating": 38,
+            "releaseDate": 2004,
+            "color": "#e46b43",
+            "totalEpisodes": 8,
+            "duration": 14,
+            "type": "TV_SHORT"
+        }
+    ]
+}

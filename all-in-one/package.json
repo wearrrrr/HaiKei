@@ -1,0 +1,43 @@
+{
+  "name": "all-in-one",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "main": "dist/cli.js",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "bin.js"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "start": "node dist/cli.js"
+  },
+  "bin": {
+    "all-in-one": "./bin.js"
+  },
+  "dependencies": {
+    "@consumet/extensions": "^1.1.5",
+    "@fastify/cors": "^8.1.0",
+    "axios": "^1.0.0",
+    "chalk": "4.1.2",
+    "cheerio": "^1.0.0-rc.12",
+    "commander": "^9.4.1",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.3",
+    "fastify": "^4.7.0",
+    "reconnecting-websocket": "^4.4.0",
+    "redis": "^4.3.1",
+    "ws": "^8.9.0"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
+    "@types/node": "^18.8.2",
+    "@types/ws": "^8.5.3",
+    "@typescript-eslint/eslint-plugin": "^5.39.0",
+    "@typescript-eslint/parser": "^5.39.0",
+    "eslint": "^8.24.0",
+    "tsc": "^2.0.4",
+    "typescript": "^4.8.4"
+  }
+}

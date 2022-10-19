@@ -46,7 +46,6 @@ async function getGenres() {
 
     }
 carouselInit()
-
 function toggle() {
-    console.log(genre)
+    window.location.href = `/genre/${genre}`
 }

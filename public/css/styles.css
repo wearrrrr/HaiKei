@@ -110,11 +110,9 @@ img {
   color: #F73D93;
   font-family: "Space Mono";
   text-align: center;
-  height: 25px;
-  max-height: 60px;
+  height: 50px;
+  max-height: 50px;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   max-width: 100%;
 }
 

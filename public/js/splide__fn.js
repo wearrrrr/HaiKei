@@ -1,4 +1,4 @@
-let perPage = 5
+let perPage = 6
 
 function carouselInit() {
     carousel = new Splide('.splide', {
@@ -6,7 +6,10 @@ function carouselInit() {
         perPage: perPage,
         gap: "10px",
         breakpoints: {
-            1000: {
+            1800: {
+                perPage: 8
+            },
+            1500: {
                 perPage: 4,
             },
             730: {
@@ -15,6 +18,9 @@ function carouselInit() {
             525: {
                 perPage: 2,
             },
+            350: {
+                perPage: 1,
+            }
         },
         paginationKeyboard: true,
         height: '480px',
