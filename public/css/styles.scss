@@ -39,9 +39,19 @@ img {
 	height: auto;
 }
 .container {
-	width: 65%;
+    height: 140px;
+	width: 100%;
 	max-width: 100%;
 	margin: 0 auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: darken(#2b2938, 3);
+    transition: 250ms ease-in-out;
+}
+.mh-logo {
+    margin-left: 20px;
 }
 .main-header .container {
 	display: flex;
@@ -49,12 +59,16 @@ img {
 	justify-content: space-around;
 	flex-wrap: wrap;
 }
+.main-nav {
+    margin-bottom: 20px;
+}
 .main-nav ul {
 	margin: 1em 0 .5em;
 	text-align: center;
 }
 .main-nav li {
 	display: inline;
+    transition: 250ms ease-in-out;
 }
 .main-nav a {
 	display: inline-block;
@@ -68,14 +82,33 @@ img {
 .main-nav a:hover {
     color: #c2236d;
 }
+@media (max-width: 888px) {
+    .container {
+        height: 300px;
+    }
+    .new-releases {
+        margin-top: 350px !important;
+    }
+}
+@media (max-width: 458px) {
+    .main-nav li {
+        display: block;
+    }
+    .container {
+        height: 350px;
+    }
+}
 @media (min-width: 960px) {
 	.main-header .container {
 		justify-content: space-between;
-	}
+    }
 }
 
 // News
-
+.new-releases {
+    margin-top: 200px;
+    transition: 250ms ease-in-out;
+}
 .news {
     height: 20%;
     width: 100%;
@@ -122,4 +155,9 @@ img {
     color: #e0def4;
     font-family: 'Space Mono';
     text-align: center;
+}
+.splide__releaseDate {
+  color: #e0def4;
+  font-family: "Space Mono";
+  text-align: center;
 }

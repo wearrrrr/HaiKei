@@ -1,4 +1,5 @@
 .genres {
+    margin-top: 200px !important;
     width: 60%;
     max-width: 100%;
     margin: 0 auto;
@@ -7,6 +8,11 @@
     display: flex;
     text-align: center;
     flex-wrap: wrap;
+}
+@media (max-width: 888px) {
+    .genres {
+        margin-top: 350px !important;
+    }
 }
 .genre-item {
     width: 150px;

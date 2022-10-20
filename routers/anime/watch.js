@@ -11,6 +11,44 @@ try {
         return res.redirect("/");
     }
     let epData = req.params.id.split("-episode-");
+    switch (epData[0]) {
+        case "Azumanga-Daiou-THE-ANIMATION":
+            epData[0] = "azumanga-daioh"
+            break;
+        case "AIR":
+            epData[0] = "air-tv"
+            break;
+        case "Boys-Be...":
+            epData[0] = "boys-be"
+            break;
+        case "HUNTER×HUNTER-(2011)":
+            epData[0] = "hunter-x-hunter-2011"
+            break;
+        case "Kita-e.-Diamond-Dust-Drops":
+            epData[0] = "diamond-daydreams"
+            break;
+        case "Maria-sama-ga-Miteru":
+            epData[0] = "-maria-sama-ga-miteru-1st"
+            break;
+        case "Love-Hina-Christmas-Special-Silent-Eve":
+            epData[0] = "love-hina-christmas-special"
+            break;
+        case "GTO":
+            epData[0] = "great-teacher-onizuka"
+            break;
+        case "Happy☆Lesson-(TV)":
+            epData[0] = "happy-lesson"
+            break;
+        case "TEXHNOLYZE":
+            epData[0] = "texhnolyze-"
+            break;
+        case "Appleseed-(Movie)":
+            epData[0] = "appleseed"
+            break;
+        default:
+            break;
+    }
+    console.log(epData[0])
 
     let resx = await axios.get(apiUrl +"api/watching/" + epData[0] + "/" + epData[1]);
     let showDetails = await axios.get(apiUrl +"api/details/" + epData[0])
@@ -19,8 +57,8 @@ try {
     let info = await resx.data;
     return res.render('watch.ejs', {info:info, apiUrl:apiUrl, epData: epData, title: showInfo.results[0].title});
     } catch(e) {
-        console.log(e);
-        return res.send("<h1> 404 </h1>")
+        // this is where we will check against the blacklist to modify the request and hopefully redirect them to the correct show, thanks consumet
+        return res.send("<h1>404! Make an issue on github if this keeps appearing</h1>")
     }
  })
 

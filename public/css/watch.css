@@ -1,4 +1,14 @@
 @import url("https://fonts.cdnfonts.com/css/space-mono");
+iframe {
+    margin-top: 150px;
+}
+
+@media (max-width: 961px) {
+    iframe {
+        margin-top: 350px;
+    }
+}
+
 .episode {
     display: flex;
     gap: 35px;

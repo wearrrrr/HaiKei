@@ -2,6 +2,8 @@ const ex = require('express');
 const app = ex.Router();
 const axios = require('axios')
 const fetch = require('node-fetch')
+const config = require('../../../config.js')
+const consumetURL = config.app.api_url3
 
 app.get("/:id", async(req, res) => {
 try {
@@ -18,7 +20,7 @@ try {
     if (genreData.includes('Sci-fi')) {
         genreData = [ 'Sci-Fi' ]
     }
-    let genreInfo = await axios(`http://localhost:8080/consumet/meta/anilist/genre?genres=["${genreData}"]`)
+    let genreInfo = await axios(`${consumetURL}/consumet/meta/anilist/advanced-search?genres=["${genreData}"]&sort=["POPULARITY_DESC"]`)
     let genreListing = await genreInfo.data;
 
     return res.render('genre.ejs', {genre: genreData, listings: genreListing});

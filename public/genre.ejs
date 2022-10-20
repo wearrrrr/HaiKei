@@ -38,15 +38,11 @@
   <div class="splide__track" id="popular__track">
 		<ul id="splide__list" class="splide__list">
         <% listings.results.forEach((ep) => { %>
-        <% function cleanStr() {
-                console.log(str)
-                str.replace(/\s/,' ')
-                return str
-            } %>
-            <li class="splide__slide" onclick="window.location.href=`/watch/<%= ep.title.romaji.replace(/ /g, '-').replace(/:/g, '').replace(/!/g, '')%>-episode-1`">
+            <li class="splide__slide" onclick="window.location.href=`/watch/<%= ep.title.romaji.replace(/ /g, '-').replace(/:/g, '').replace(/!/g, '').replace(/~/g, '').replace(/ä/g, 'a')%>-episode-1`">
             <img style="width: 164px; height: 231px; align-self: center;" src="<%- ep.image %>" alt="<%- ep.title.userPreferred %>">
                 <div title="<%- ep.number %>" class="name">
                 <p class="splide__animeTitle"><%- ep.title.userPreferred %></p>
+                <p class="splide__releaseDate">Released: <%- ep.releaseDate %></p>
                 </div>
                 </a>
             </li>	
