@@ -53,9 +53,9 @@ class Server {
         });
         await fastify.register(movies_1.default, { prefix: "/consumet/movies" });
         await fastify.register(meta_1.default, { prefix: "/consumet/meta" });
-        await fastify.register(new rapid_cloud_1.default().returnSID, {
-            prefix: "/consumet/utils",
-        });
+        // await fastify.register(new rapid_cloud_1.default().returnSID, {
+        //     prefix: "/consumet/utils",
+        // });
         try {
             fastify.get("/", (_, rp) => {
                 rp.status(200).send({
