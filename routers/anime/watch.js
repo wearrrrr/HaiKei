@@ -4,6 +4,7 @@ const fetch = require('node-fetch')
 const app = ex.Router();
 const config = require('../../config');
 const apiUrl = config.app.api_url;
+const consumetURL = config.app.api_url3
 
 app.get("/:id", async(req, res) => {
 try { 
@@ -48,14 +49,12 @@ try {
         default:
             break;
     }
-    console.log(epData[0])
 
-    let resx = await axios.get(apiUrl +"api/watching/" + epData[0] + "/" + epData[1]);
-    let showDetails = await axios.get(apiUrl +"api/details/" + epData[0])
+    let resx = await axios.get(`${consumetURL}consumet/anime/gogoanime/watch/${epData[0]}-episode-${epData[1]}?server=gogocdn`)
+    let showDetails = await axios.get(`${consumetURL}consumet/anime/gogoanime/info/${epData[0]}`)
     let showInfo = await showDetails.data
-//  console.log(showInfo.results[0].title) use showInfo.results[0] to extract data from the request!
     let info = await resx.data;
-    return res.render('watch.ejs', {info:info, apiUrl:apiUrl, epData: epData, title: showInfo.results[0].title});
+    return res.render('watch.ejs', {info:info, apiUrl:consumetURL, showInfo: showInfo});
     } catch(e) {
         // this is where we will check against the blacklist to modify the request and hopefully redirect them to the correct show, thanks consumet
         return res.send("<h1>404! Make an issue on github if this keeps appearing</h1>")

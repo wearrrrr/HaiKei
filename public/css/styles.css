@@ -93,7 +93,7 @@ img {
   color: #c2236d;
 }
 
-@media (max-width: 888px) {
+@media (max-width: 944px) {
   .container {
     height: 300px;
   }
@@ -102,6 +102,9 @@ img {
   }
   .header {
     margin-top: 300px;
+  }
+  .plyr--video {
+    margin-top: 350px !important;
   }
 }
 @media (max-width: 458px) {

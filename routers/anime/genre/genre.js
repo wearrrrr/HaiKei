@@ -20,7 +20,7 @@ try {
     if (genreData.includes('Sci-fi')) {
         genreData = [ 'Sci-Fi' ]
     }
-    let genreInfo = await axios(`${consumetURL}/consumet/meta/anilist/advanced-search?genres=["${genreData}"]&sort=["POPULARITY_DESC"]`)
+    let genreInfo = await axios(`${consumetURL}consumet/meta/anilist/advanced-search?genres=["${genreData}"]&sort=["POPULARITY_DESC"]`)
     let genreListing = await genreInfo.data;
 
     return res.render('genre.ejs', {genre: genreData, listings: genreListing});

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %> - GenericAnimeWeb</title>
+    <title><%#= title %> - GenericAnimeWeb</title>
     <link rel="stylesheet" href="/css/watch.css">
     <link rel="stylesheet" href="/css/styles.css">
 </head>
@@ -25,13 +25,22 @@
     </div>
 </header>
     <center>
-        <iframe id="ifr" allow="fullscreen" scrolling="no" src="<%- apiUrl %>watch/<%- epData[0]%>/<%- epData[1] %>" style="width: 1024px; height: 100vh; max-width: 100%; max-height: 100%; border:none;" ></iframe>
+        <!-- <iframe id="ifr" allow="fullscreen" scrolling="no" src="<%#- apiUrl %>watch/<%#- epData[0]%>/<%#- epData[1] %>" style="width: 1024px; height: 100vh; max-width: 100%; max-height: 100%; border:none;" ></iframe> -->
+        <link rel="stylesheet" href="https://cdn.plyr.io/3.5.6/plyr.css">
+
+        <video id="player" controls preload="metadata">
+
+        </video>
+
+        <script src='https://cdn.jsdelivr.net/hls.js/latest/hls.js'></script> 
+        <script src="https://unpkg.com/plyr@3.7.2/dist/plyr.min.js"></script>
     </center>
      <section class="tv-series" id="episodes" >
         <div class="episode-container">
           <h2 class="h2 section-title">Episodes</h2>
           <ul class="episode">
-<% info.epList.forEach((ep) => { %>
+            <% let showReverse = showInfo.episodes.reverse() %>
+<% showReverse.forEach((ep) => { %>
 			<li class="epi-me">
 				<a href="/watch/<%- ep.id %>">
 				<div title="<%- ep.number %>" class="name">
@@ -42,10 +51,96 @@
   <% }) %>
   </ul>
         </div>
+<ul>
+</ul>
 </section>
-<section id="comments">
+<style>
+    .plyr--video {
+        max-width: 60%;
+        margin-top: 200px;
+    }
+    center {
+        margin-top: 200px;
+    }
+</style>
+<%
+    streamSource = info.sources.find(x => x.quality === 'default')
+    console.log(streamSource)
+ %>
+<script>
+    // animation because stupid :D
+
+
+    // HLS loading function
+    const plyrConfig = {
+        settings: ['quality', 'speed', 'loop'],
+    }
+    var video = document.querySelector('#player');
+    if (Hls.isSupported()) { var hls = new Hls(); 
+        hls.loadSource('<%- streamSource.url %>');
+        hls.attachMedia(video); 
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            video.play(); 
+        }); 
+    } 
+// register detailed HLS errors if debug is enabled in Plyr.
+if (plyrConfig.debug == true) {
+    hls.on(Hls.Events.ERROR, function (event, data) { console.log(data)
+    console.log(event)});
+} else {
+    hls.on(Hls.Events.ERROR, function (event, data) { console.log("Video Stream Buffering...") });
+}
+
+      
+ 
+hls.on(Hls.Events.MANIFEST_PARSED, () => {
+ player = loadPlayer();
+});
+ function updateQuality(newQuality) {
+  hls.levels.forEach((level, levelIndex) => {
+      if (level.height === newQuality) {
+        console.log("Found quality match with " + newQuality);
+      hls.currentLevel = levelIndex;
+      }
+    });
+  }
+  
+
+
+
+function loadPlayer() {
+
+
+  // If HLS is supported, we add video quality settings
+
+let defaultOptions = {
+
+
+
+};
+
+ const availableQualities = hls.levels.map((l) => l.height)
+
+      // Add new qualities to option
+      defaultOptions.quality = {
+        default: availableQualities[1],
+        options: availableQualities,
+        // this ensures Plyr to use Hls to update quality level
+        forced: true,        
+        onChange: (e) => updateQuality(e),
+      }
+
+      // Initialize here
+     
     
-</section>
+ const player = new Plyr('#player', defaultOptions); player.on('enterfullscreen', event => {  screen.orientation.lock('landscape');});player.on('exitfullscreen', event => { screen.orientation.lock('portrait');});
+
+  // Start HLS load on play event
+
+return player;
+  
+}
+</script>
 <script src="/js/main.js"></script>
 </body>
 </html>
