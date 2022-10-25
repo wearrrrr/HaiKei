@@ -9,49 +9,44 @@
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.21/dist/js/splide.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.21/dist/css/splide.min.css">
-    <header class="main-header">
-        <div class="container">
-            <h1 class="mh-logo">
-                <a href="/"><img src="./img/logo.webp" width="170" height="95" alt="GenericAnimeWeb"></a>
-            </h1>
-            <nav class="main-nav">
-                <ul class="main-nav-list">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/trending">Trending</a></li>
-                    <li><a href="/releases">New Releases</a></li>
-                    <li><a href="/updates">Updates</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
+<link rel="stylesheet" href="./vendor/splide/css/splide.css">
+<script src="./js/splide__fn.js"></script>
+        <header class="main-header">
+            <div class="container">
+                <h1 class="mh-logo">
+                    <a href="/"><img src="./img/logo.webp" width="170" height="95" alt="GenericAnimeWeb"></a>
+                </h1>
+                <nav class="main-nav">
+                    <ul class="main-nav-list">
+                        <li><label><input type="text" id="search-box" placeholder="Search"></label></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/trending">Trending</a></li>
+                        <li><a href="/genres">Genres</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
 <div class="new-releases">
 <div class="splide">
-    <h1 class="new_releases">New Releases</h1>
+    <h1 class="new_releases header">New Releases</h1>
   <div class="splide__track" id="popular__track">
 		<ul id="splide__list" class="splide__list">
-<% info %>
-    <% info.results.forEach(() => { %>
-        
-                <li class="splide__slide">
-                    <a href="/watch/<%- results.id %>">
-                    <div title="EP <%- info.image %>" class="name">
-                    <span><%-  %></span>
-                    </div>
-                    <div class="vien">
-                    </div>
-                    <div class="cate"> EP </div>
-                    </a>
-                </li>	
-    
-    <% }) %>
+            <% recentReleases.results.forEach(card => { %>
+                <li class="splide__slide" onclick="window.location.href = `${window.location.origin}/watch/<%- card.episodeId %>`">
+                    <img src="<%- card.image %>" style="width: 164px; height: 231px; align-self: center"> 
+                    <p class="splide__animeTitle"><%- card.title %></p>
+                    <p class="splide__episodeNum">Episode:  <%- card.episodeNumber %></p>
+                </li>
+            <% }) %>
 		</ul>
   </div>
 </div>
 </div>
-
-
-<!-- <script src="./js/script.js"></script> -->
+<script>
+    carouselInit()
+    carousel.mount();
+</script>
+<script src="./js/main.js"></script>
+<!-- <script src="./js/recent-release.js"></script> -->
 </body>
 </html>

@@ -3,7 +3,6 @@ const axios = require('axios');
 const fetch = require('node-fetch')
 const app = ex.Router();
 const config = require('../../config');
-const apiUrl = config.app.api_url;
 const consumetURL = config.app.api_url3
 
 app.get("/:id", async(req, res) => {

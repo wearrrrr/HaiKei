@@ -4,12 +4,6 @@ const axios = require('axios');
 const prompt = require('prompt-sync')({sigint: true});
 const config = require("./config.js");
 
-// WIP!
-// const devMode = prompt("Enable Developer Mode? Expect WEIRD results!")
-// if (devMode == 1) {
-//     console.log("dev mode enabled!")
-// }
-
 const app = express();
 const port = 3000;
 
