@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GenericAnimeWeb</title>
+    <title>Trending - HaiKei</title>
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
@@ -14,7 +14,7 @@
     <header class="main-header">
         <div class="container">
             <h1 class="mh-logo">
-                <a href="/"><img src="./img/logo.webp" width="170" height="95" alt="GenericAnimeWeb"></a>
+                <a href="/"><img src="./img/logo.webp" width="170" height="95" alt="HaiKei"></a>
             </h1>
             <nav class="main-nav">
                 <ul class="main-nav-list">
@@ -31,13 +31,23 @@
     <h1 class="new_releases header">Trending Shows</h1>
   <div class="splide__track" id="popular__track">
 		<ul id="splide__list" class="splide__list">
-
+            <% console.log(trending) %>
+            <% trending.results.forEach(card => { %>
+                <li class="splide__slide" onclick="window.location.href = `${window.location.origin}/watch/<%- card.id %>-episode-1`">
+                    <img src="<%- card.image %>" style="width: 164px; height: 231px; align-self: center"> 
+                    <p class="splide__animeTitle"><%- card.title %></p>
+                    <p class="splide__episodeNum"><%= card.genres[0 + 1] %></p>
+                </li>
+            <% }) %>
 		</ul>
   </div>
 </div>
 </div>
-
+<script>
+    carouselInit();
+    carousel.mount();
+</script>
 <script src="./js/main.js"></script>
-<script src="./js/trending.js"></script>
+<!-- <script src="./js/trending.js"></script> -->
 </body>
 </html>

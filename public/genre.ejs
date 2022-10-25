@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GenericAnimeWeb</title>
+    <title><%= genre %> - HeiKei</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
@@ -38,7 +38,7 @@
   <div class="splide__track" id="popular__track">
 		<ul id="splide__list" class="splide__list">
         <% listings.results.forEach((ep) => { %>
-            <li class="splide__slide" onclick="window.location.href=`/watch/<%= ep.title.romaji.replace(/ /g, '-').replace('.', '').replace(/:/g, '').replace(/!/g, '').replace(/☆/g, '-').replace(/~/g, '').replace(/ä/g, 'a')%>-episode-1`">
+            <li class="splide__slide" onclick="window.location.href=`/watch/<%= ep.title.romaji.replace(/ /g, '-').replace('.', '').replace('/', '').replace('?', '').replace(/:/g, '').replace(/!/g, '').replace('∞', '').replace(/☆/g, '-').replace(/;/g, '').replace(/~/g, '').replace(/ä/g, 'a')%>-episode-1`">
             <img style="width: 164px; height: 231px; align-self: center;" src="<%- ep.image %>" alt="<%- ep.title.userPreferred %>">
                 <div title="<%- ep.number %>" class="name">
                 <p class="splide__animeTitle"><%- ep.title.userPreferred %></p>

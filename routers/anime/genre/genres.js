@@ -1,7 +1,5 @@
 const express = require('express')
 const app = express.Router();
-const axios = require('axios');
-const apiUrl = "http://localhost:6969/"
 
 app.get('/', async (req, res) => {
 try {

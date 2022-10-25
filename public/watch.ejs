@@ -19,7 +19,7 @@
                 <li><label><input type="text" id="search-box" placeholder="Search"></label></li>
                 <li><a href="/">Home</a></li>
                 <li><a href="/trending">Trending</a></li>
-                <li><a href="/releases">New Releases</a></li>
+                <li><a href="/genres">Genres</a></li>
             </ul>
         </nav>
     </div>
@@ -65,7 +65,10 @@
 </style>
 <%
     streamSource = info.sources.find(x => x.quality === 'default')
-    console.log(streamSource)
+    if (streamSource == undefined) {
+        console.log("Default resolution not found! Falling back to 480p")
+        streamSource = info.sources.find(x => x.quality === '480p')
+    }
  %>
 <script>
     // animation because stupid :D
