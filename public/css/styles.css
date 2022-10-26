@@ -10,8 +10,6 @@ body {
 .header {
   font-family: "Space Mono";
   color: #F73D93;
-  margin-top: 150px;
-  transition: 250ms ease-in-out;
 }
 
 label {
@@ -93,20 +91,54 @@ img {
   color: #c2236d;
 }
 
-@media (max-width: 944px) {
+@media (max-width: 888px) {
   .container {
     height: 300px;
   }
   .new-releases {
     margin-top: 350px !important;
   }
-  .header {
-    margin-top: 300px;
-  }
+}
+.plyr--video {
+  transition: 250ms ease-in-out;
+  max-width: 80% !important;
+}
+
+@media (max-width: 960px) {
   .plyr--video {
-    margin-top: 350px !important;
+    margin-top: 325px !important;
+    max-width: 100% !important;
+  }
+  center {
+    margin-top: 325px;
   }
 }
+#plyr__time_skip {
+  background: rgba(17, 17, 17, 0.8);
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  left: 50%;
+  min-width: 80px;
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+  max-width: 100px;
+  max-height: 90px;
+  opacity: 0;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  transform: translate(-50%, -50%);
+  padding-top: 20px;
+  position: absolute;
+  top: 50%;
+  transition: 500ms ease-in;
+  z-index: 3;
+  pointer-events: none;
+  box-shadow: 0px 0px 45px #000000;
+}
+
 @media (max-width: 458px) {
   .main-nav li {
     display: block;
@@ -114,8 +146,8 @@ img {
   .container {
     height: 350px;
   }
-  .header {
-    margin-top: 350px;
+  .plyr--video {
+    margin-top: 375px !important;
   }
 }
 @media (min-width: 960px) {

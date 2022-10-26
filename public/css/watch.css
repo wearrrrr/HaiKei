@@ -11,19 +11,25 @@ iframe {
 
 .episode {
     display: flex;
-    gap: 35px;
+    row-gap: 10px;
+    column-gap: 5px;
     list-style: none;
+    margin-left: 50px;
     flex-wrap: wrap;
     text-align: center;
 }
 
 .epi-me {
     width: 100px;
-    padding: 5px;
+    padding: 0px;
     border: 5px solid rgb(204, 204, 204);
-    background-color: rgb(71, 71, 71);
+    background-color: #F73D93;
     border-radius: 10px;
     margin-right: 35px;
+    transition: 250ms ease-in-out;
+}
+.epi-me:hover {
+    background-color: #c2236d;
 }
 .epi-me > a > div > span {
     color: white;
@@ -33,15 +39,34 @@ iframe {
 .epi-me > a {
     text-decoration: none;
 }
-
 .episode-container {
-    width: 65%;
+    width: 100%;
     max-width: 100%;
     margin: 0 auto;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     display: flex;
+}
+@media (max-width: 341px) {
+    .episode-container {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+.reverse-episode-listings {
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 5px solid rgb(204, 204, 204);
+    background-color: rgb(71, 71, 71);
+    color: white;
+    font-family: 'Space Mono';
+    transition: 250ms ease-in-out;
+    cursor: pointer;
+}
+.reverse-episode-listings:hover {
+    background-color: rgb(95, 95, 95);
 }
 .section-title {
     font-family: 'Space Mono';
