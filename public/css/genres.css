@@ -8,6 +8,8 @@
     display: flex;
     text-align: center;
     flex-wrap: wrap;
+    cursor: pointer;
+
 }
 @media (max-width: 888px) {
     .genres {
