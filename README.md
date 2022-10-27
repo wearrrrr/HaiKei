@@ -1,8 +1,8 @@
-# Generic-Anime-Web
-Generic Anime Web is an anime streaming website that uses the [consumet](https://github.com/consumet/api.consumet.org) API, and runs ontop of express and ejs.
+# HaiKei
+HaiKei is an anime streaming website that uses the [consumet](https://github.com/consumet/api.consumet.org) API, and runs ontop of express and ejs.
 
 # What is this good for? 
-Generic Anime Web is a streaming website that focuses on minimial loading times and an interface that is optimized for any device
+HaiKei is a streaming website that focuses on minimial loading times and an interface that is optimized for any device
 
 # Why is it so ugly?
 
