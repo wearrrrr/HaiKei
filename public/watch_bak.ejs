@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/watch.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.2.3/controls.min.css" integrity="sha512-+8BR6lbGCJm021MhjZMszue47HrhbLww8rZqeelgkqAgTWsWvYe7m8/H7V9lUVrPDI18vxBTdJogoxVPBB3Qjg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="/css/youtube-theme.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <h1 class="mh-logo">
+                <a href="/"><img src="/img/logo.webp" width="170" height="95" alt="GenericAnimeWeb"></a>
+            </h1>
+            <nav class="main-nav">
+                <ul class="main-nav-list">
+                    <li><label class="search"><input type="text" id="search-box" placeholder="Search"></label></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/trending">Trending</a></li>
+                    <li><a href="/genres">Genres</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+<%
+    streamSource = data.sources.find(x => x.quality === 'default')
+    if (streamSource == undefined) {
+        console.log("Default resolution not found! Falling back to 480p")
+        streamSource = data.sources.find(x => x.quality === '480p')
+    }
+ %>
+    <center id="wrap">
+<div class="vertical-wrap">
+    <h2 class="h2 section-title">Episodes</h2>
+    <label class="episode-filter"><input type="text" id="episode-search" placeholder="Filter"></label>
+    <ul class="episode" id="ep"></ul>
+</div>
+    <div class="youtube-theme">
+
+        <video autostart="false" data-shaka-player id="youtube-theme" style="width:800px; min-width: 100%;"></video>
+    </div>
+    </center>
+    <section class="tv-series" id="episodes" >
+        <div class="episode-container">
+</section>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://github.com/videojs/mux.js/releases/latest/download/mux.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.2.3/shaka-player.compiled.js" integrity="sha512-EsdGnNx0tMSMKSeGD4l1a14s41ZYrh6CQvJWjdHV0Rn8DKsxa5CzNQpCO1siIKabYy1Pgk1raqJR2wHHR/Q/cQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/js/shaka-player-ui.js"></script>
+<script>
+
+// Use shaka.ui.Element as a base class
+const video = document.getElementById('youtube-theme');
+const ui = video['ui'];
+video.RWButton = class extends shaka.ui.Element {
+  constructor(parent, controls) {
+    super(parent, controls);
+
+    // The actual button that will be displayed
+    this.button_ = document.createElement('button');
+    this.button_.className = "material-icons-round"
+    this.button_.textContent = 'fast_rewind';
+    this.parent.appendChild(this.button_);
+
+    // Listen for clicks on the button to start the next playback
+    this.eventManager.listen(this.button_, 'click', () => {
+      const nextManifest = /* Your logic to pick the next video to be played */
+        video.currentTime = video.currentTime - 5;
+    });
+  }
+};
+
+
+// Factory that will create a button at run time.
+video.RWButton.Factory = class {
+  create(rootElement, controls) {
+    return new video.RWButton(rootElement, controls);
+  }
+};
+
+// Register our factory with the controls, so controls can create button instances.
+shaka.ui.Controls.registerElement(
+  'fast_rewind',
+  new video.RWButton.Factory());
+video.FFButton = class extends shaka.ui.Element {
+  constructor(parent, controls) {
+    super(parent, controls);
+
+    // The actual button that will be displayed
+    this.button_ = document.createElement('button');
+    this.button_.className = "material-icons-round"
+    this.button_.textContent = 'fast_forward';
+    this.parent.appendChild(this.button_);
+
+    // Listen for clicks on the button to start the next playback
+    this.eventManager.listen(this.button_, 'click', () => {
+      const nextManifest = /* Your logic to pick the next video to be played */
+        video.currentTime = video.currentTime + 5;
+    });
+  }
+};
+
+
+// Factory that will create a button at run time.
+video.FFButton.Factory = class {
+  create(rootElement, controls) {
+    return new video.FFButton(rootElement, controls);
+  }
+};
+
+// Register our factory with the controls, so controls can create button instances.
+shaka.ui.Controls.registerElement(
+  'fast_forward',
+  new video.FFButton.Factory());
+
+const youtube_theme_manifestUri = '<%- streamSource.url %>';
+
+async function init() {
+  const video = document.getElementById('youtube-theme');
+    const ui = video['ui'];
+let config;
+if (window.innerWidth <= 512) {
+    config = {
+      'seekBarColors': {
+        base: 'rgba(255,255,255,1)',
+        buffered: 'rgba(255,255,255,.8)',
+        played: 'rgb(255, 0, 200)',
+      },
+      'overflowMenuButtons': ['quality', 'playback_rate', 'statistics', 'picture_in_picture', 'airplay', 'cast',],
+      'customContextMenu' : true,
+      'contextMenuElements' : ['statistics'],
+      'playbackRates': [0.1, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 4],
+      'controlPanelElements': ['play_pause', 'mute', 'volume', 'time_and_duration', 'spacer', 'overflow_menu', 'fullscreen'],
+    }
+} else {
+    config = {
+      'seekBarColors': {
+        base: 'rgba(255,255,255,1)',
+        buffered: 'rgba(255,255,255,.8)',
+        played: 'rgb(255, 0, 200)',
+      },
+      'overflowMenuButtons': ['quality', 'playback_rate', 'statistics', 'picture_in_picture', 'airplay', 'cast',],
+      'customContextMenu' : true,
+      'contextMenuElements' : ['statistics'],
+      'playbackRates': [0.1, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 4],
+      'controlPanelElements': ['play_pause', 'mute', 'volume', 'time_and_duration', 'spacer', 'overflow_menu', 'fullscreen'],
+    }
+}
+
+   ui.configure(config);
+
+    const controls = ui.getControls();
+    const player = controls.getPlayer();
+
+    try {
+      await player.load(youtube_theme_manifestUri);
+    } catch (error) {
+    }
+
+    // TODO find a way to do this without jquery. -___- or find a way to replace them CSS. maybe usering :after  
+    $('.shaka-overflow-menu-button').html('settings');
+    $('.shaka-back-to-overflow-button .material-icons-round').html('arrow_back_ios_new');
+
+    let vidSubCont = document.createElement('div')
+    let shakraVideoCont = document.getElementsByClassName('shaka-controls-container')[0]
+    vidSubCont.className = "video-subcontainer"
+    shakraVideoCont.appendChild(vidSubCont)
+
+
+let vidSubContt = document.getElementsByClassName('video-subcontainer')
+    let nextText = document.createElement('span')
+    nextText.className = "subcontainer-span"
+    nextText.id = "subcontainer-span"
+    nextText.textContent = "Next Ep"
+    vidSubContt[0].appendChild(nextText)
+
+let nextEp = document.createElement('i')
+    nextEp.className = "fa-regular fa-arrow-right"
+    document.getElementById('subcontainer-span').appendChild(nextEp)
+
+}
+document.addEventListener('shaka-ui-loaded', init);
+</script>
+<script>
+let episodeSearch = document.getElementById('episode-search')
+episodeSearch.addEventListener('change', () => {
+    console.log(episodeSearch.value)
+    for (var i = 0; i < showInfo.episodes.length; ++i) {
+    function isBigEnough(value) {
+        return value >= 10;
+    }
+
+    const filterParams = Object.values(showInfo.episodes[i])
+    let filterNumber = filterParams
+    const filtered = filterNumber.filter(isBigEnough)
+    }
+})
+let consumetURL = "https://api.consumet.org"
+let queryID;
+let aniSkipStartTime; // needed so that they can be used outside of the function scope.
+let aniSkipEndTime;
+let animeData;
+let showInfo;
+let showTitle;
+async function getShowInfo() {
+    let showInformation = await fetch(`${consumetURL}/anime/gogoanime/info/<%- epData[0] %>`)
+    showInfo = await showInformation.json();
+    document.title = showInfo.title + " HaiKei"
+    console.log(showInfo)
+    showInfo.episodes.forEach((ep => {
+        let episode = document.getElementById('ep')
+        let li = document.createElement('li')
+        li.className = "epi-me"
+        li.id = "epi-me"
+        li.onclick = function(){ window.location.href = "/watch/" + ep.id } ;
+        episode.appendChild(li)
+
+        let link = document.createElement('a')
+        link.href = "/watch/" + ep.id
+        li.appendChild(link)
+
+        let div = document.createElement('div')
+        div.title = ep.number
+        div.className = "name"
+
+        li.appendChild(div)
+
+        let span = document.createElement('span')
+        span.textContent = ep.number
+        span.className = "span_epNum"
+
+        li.appendChild(span)
+
+    }))
+    findCurr();
+    loadSkipBtn();
+} 
+
+getShowInfo();
+let metadata;
+async function loadMalID() {
+    let metaRequest = await fetch(`https://api.consumet.org/meta/anilist/${showInfo.id}`)
+    metadata = await metaRequest.json();
+    queryID = metadata.results[0].malId
+    console.log(queryID) // load the queryId into a variable that we can later mutate.
+}
+async function loadSkipBtn() {
+    await loadMalID()
+    let aniskipRequest = await fetch(`https://api.aniskip.com/v1/skip-times/${queryID}/1?types[]=op`)
+    let aniskipData = await aniskipRequest.json();
+    if (aniskipData.found == false) {
+        console.log("failed to find aniskip data!")
+    }
+    if (aniskipData.found == true) {
+        console.log("loading aniskip data!")
+        aniSkipStartTime = aniskipData.results[0].interval.start_time
+        aniSkipEndTime = aniskipData.results[0].interval.end_time
+        console.log(aniSkipStartTime)
+        console.log(aniSkipEndTime)
+        console.log(aniskipData)
+    }
+}
+const byId = document.getElementById.bind(document),
+	byClass = document.getElementsByClassName.bind(document),
+	byTag = document.getElementsByTagName.bind(document),
+	byName = document.getElementsByName.bind(document),
+	createElement = document.createElement.bind(document)
+
+</script>
+<script>
+function reverseEpListing() {
+    var episode = document.getElementById("ep");
+    var i = episode.childNodes.length;
+    while (i--)
+    episode.appendChild(episode.childNodes[i]);
+}
+
+// Find value in array, give it special class to indicate which episode is currently selected
+
+function findCurr() {
+    let episodeNum = '<%- epData[1] %>'
+    console.log(episodeNum);
+
+    var ul = document.getElementById("ep");
+    var items = ul.getElementsByTagName("li");
+    for (var i = 0; i < items.length; ++i) {
+        let check = items[i].textContent
+        if(check.replace(/\s/g,'') == episodeNum) {
+            items[i].style.backgroundColor = "rgb(177 39 103)"
+            break;
+        }
+    }
+
+}
+</script>
+</body>
+</html>

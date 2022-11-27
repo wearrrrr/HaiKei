@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results for <%= query %></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/m.min.css">
+</head>
+<body>
+<div id="xwrapper">
+    <div id="xheader">
+        <div class="container">
+            <div id="xheader_browser">
+                <div class="header-btn"><i class="fas fa-bars mr-2"></i>Menu</div>
+            </div>
+                <div id="xheader_menu">
+                
+                    <ul class="nav header_menu-list">
+                        <img width="200px" height="auto" class="logo" src="/img/logo.png" alt="">
+                        <li class="nav-item"><a href="/" title="Home">Home</a></li>
+                        <li class="nav-item"><a href="/trending" title="Popular Anime">Popular Anime</a></li>
+                        <li class="nav-item"><a href="/genres" title="Anime By Genre">Genres</a></li>
+                        <li class="nav-item input-nav-item"><input id="searchanime" class="submit" type="search" placeholder="Search..."></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div id="xmain-wrapper">
+        <div id="mw-top">
+            <div class="container">
+            <div class="mwt-content">
+            <div class="mwh-logo">
+                    <div class="clearfix"></div>
+                </div>
+            <div class="xhashtag">
+            <span class="title">Top search:</span>
+            <a href="/search?query=One%20Piece" class="item">One Piece</a>
+            <a href="/search?query=Naruto%3A%20Shippuden" class="item">Naruto: Shippuden</a>
+            <a href="/search?query=Mugen Train" class="item">Demon Slayer Movie: Mugen Train</a>
+            <a href="/search?query=Boruto%3A%20Naruto%20Next%20Generations" class="item">Boruto: Naruto Next Generations</a>
+            <a href="/search?query=Naruto" class="item">Naruto</a>
+            <a href="/search?query=Sorcery+Fight" class="item">Jujutsu Kaisen (TV)</a>
+            <a href="/search?query=Boku+No+Hero+Academia+5th+Season" class="item">My Hero Academia 5th Season</a>
+            <a href="/search?query=Demon%20Slayer%3A%20Kimetsu%20no%20Yaiba" class="item">Demon Slayer: Kimetsu no Yaiba</a>
+            <a href="/search?query=Attack%20on%20Titan" class="item">Attack on Titan</a>
+            <a href="/search?query=Black%20Clover" class="item">Black Clover</a>
+            </div>
+            <div class="clearfix"></div>
+            </div>
+            </div>
+            </div>
+            </div>
+    </div>
+</div>
+    <h1 style="margin-top: 50px; margin-left: 20px; margin-bottom: 20px;" class="header">Search Results for: "<%= query %>"  </h1>
+    <div class="grid-wrapper">
+        <% searchData.results.forEach((searchData) => { %>
+                <li class="splide__slide">
+                <a class="searchLink" href="/watch/<%-searchData.id%>-episode-1"></a>
+                    <img style="width: 164px; height: 231px; align-self: center;" src="<%- searchData.image %>" alt="<%- searchData.title %>">
+                    <p style="margin-top: 30px;" class="splide__animeTitle"><%- searchData.title  %></p>
+                </li>	
+        <% }) %>
+            </ul>
+<script src="/js/main.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+    $("#xheader_browser").click(function (e) {
+        $("#xheader_menu, #xheader_browser").toggleClass("active");
+    });
+});
+</script>
+</body>
+</html>

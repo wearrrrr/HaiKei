@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trending - HaiKei</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/m.min.css">
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.21/dist/js/splide.min.js"></script>
+
+<div id="xwrapper">
+    <div id="xheader">
+        <div class="container">
+            <div id="xheader_browser">
+                <div class="header-btn"><i class="fas fa-bars mr-2"></i>Menu</div>
+            </div>
+                <div id="xheader_menu">
+                
+                    <ul class="nav header_menu-list">
+                        <img width="200px" height="auto" class="logo" src="/img/logo.png" alt="">
+                        <li class="nav-item"><a href="/" title="Home">Home</a></li>
+                        <li class="nav-item"><a href="/trending" title="Popular Anime">Popular Anime</a></li>
+                        <li class="nav-item"><a href="/genres" title="Anime By Genre">Genres</a></li>
+                        <li class="nav-item input-nav-item"><input id="searchanime" class="submit" type="search" placeholder="Search..."></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div id="xmain-wrapper">
+        <div id="mw-top">
+            <div class="container">
+            <div class="mwt-content">
+            <div class="mwh-logo">
+                    <div class="clearfix"></div>
+                </div>
+            <div class="xhashtag">
+            <span class="title">Top search:</span>
+            <a href="/search?query=One%20Piece" class="item">One Piece</a>
+            <a href="/search?query=Naruto%3A%20Shippuden" class="item">Naruto: Shippuden</a>
+            <a href="/search?query=Mugen Train" class="item">Demon Slayer Movie: Mugen Train</a>
+            <a href="/search?query=Boruto%3A%20Naruto%20Next%20Generations" class="item">Boruto: Naruto Next Generations</a>
+            <a href="/search?query=Naruto" class="item">Naruto</a>
+            <a href="/search?query=Sorcery+Fight" class="item">Jujutsu Kaisen (TV)</a>
+            <a href="/search?query=Boku+No+Hero+Academia+5th+Season" class="item">My Hero Academia 5th Season</a>
+            <a href="/search?query=Demon%20Slayer%3A%20Kimetsu%20no%20Yaiba" class="item">Demon Slayer: Kimetsu no Yaiba</a>
+            <a href="/search?query=Attack%20on%20Titan" class="item">Attack on Titan</a>
+            <a href="/search?query=Black%20Clover" class="item">Black Clover</a>
+            </div>
+            <div class="clearfix"></div>
+            </div>
+            </div>
+            </div>
+            </div>
+    </div>
+</div>
+
+<div class="new-releases">
+    <h1 style="margin-top: 20px;" class="new_releases header">Trending Shows</h1>
+<div class="grid-wrapper">
+            <% trending.results.forEach(card => { %>
+                <li class="splide__slide" onclick="window.location.href = `${window.location.origin}/watch/<%- card.id %>-episode-1`">
+                    <img src="<%- card.image %>" style="width: 164px; height: 231px; align-self: center"> 
+                    <p class="splide__animeTitle"><%- card.title %></p>
+                    <p class="splide__episodeNum"><%= card.genres[0 + 1] %></p>
+                </li>
+            <% }) %>
+            <% trending2.results.forEach(card => { %>
+                <li class="splide__slide" onclick="window.location.href = `${window.location.origin}/watch/<%- card.id %>-episode-1`">
+                    <img src="<%- card.image %>" style="width: 164px; height: 231px; align-self: center"> 
+                    <p class="splide__animeTitle"><%- card.title %></p>
+                    <p class="splide__episodeNum"><%= card.genres[0 + 1] %></p>
+                </li>
+            <% }) %>
+		</ul>
+  </div>
+</div>
+</div>
+<script src="./js/main.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+    $("#xheader_browser").click(function (e) {
+        $("#xheader_menu, #xheader_browser").toggleClass("active");
+    });
+});
+</script>
+<!-- <script src="./js/trending.js"></script> -->
+</body>
+</html>

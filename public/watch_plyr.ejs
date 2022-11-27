@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>‎</title>
+    <link rel="stylesheet" href="/css/watch.css">
+    <link rel="stylesheet" href="/css/styles.css">
+<style>
+    .plyr--video {
+        max-width: 80%;
+        margin-top: 200px;
+    }
+    center {
+        margin-top: 200px;
+    }
+</style>
+</head>
+<body>
+<header class="main-header">
+    <div class="container">
+        <h1 class="mh-logo">
+            <a href="/"><img src="/img/logo.webp" width="170" height="95" alt="GenericAnimeWeb"></a>
+        </h1>
+        <nav class="main-nav">
+            <ul class="main-nav-list">
+                <li><label><input type="text" id="search-box" placeholder="Search"></label></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/trending">Trending</a></li>
+                <li><a href="/genres">Genres</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+    <center>
+        <link rel="stylesheet" href="https://cdn.plyr.io/3.5.6/plyr.css">
+
+        <video id="player" controls preload="metadata">
+
+        </video>
+
+        <script src='https://cdn.jsdelivr.net/hls.js/latest/hls.js'></script> 
+    </center>
+     <section class="tv-series" id="episodes" >
+        <div class="episode-container">
+    <div class="reverse-episode-listings" id="reverse-episode-listings">Reverse Episode Order</div>
+          <h2 class="h2 section-title">Episodes</h2>
+        </div>
+    <ul class="episode" id="ep"></ul>
+</section>
+<%
+    streamSource = data.sources.find(x => x.quality === 'default')
+    if (streamSource == undefined) {
+        console.log("Default resolution not found! Falling back to 480p")
+        streamSource = data.sources.find(x => x.quality === '480p')
+    }
+ %>
+<script>
+    function dynamicallyLoadScript(url) {
+    var script = document.createElement("script");
+    script.src = url;
+
+    document.body.appendChild(script); 
+}
+let userAgent = window.navigator.userAgent
+if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
+   document.getElementById('player').style.marginTop = "350px"
+   document.getElementById('player').style.maxWidth = "80%"
+   document.getElementById("player").classList.add("iOS")
+} else {
+    console.log("e")
+    var script = document.createElement("script");
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/plyr/3.6.4/plyr.min.js';
+
+    document.body.appendChild(script); 
+}
+</script>
+<script>
+let consumetURL = "https://api.consumet.org"
+let queryID;
+let aniSkipStartTime; // needed so that they can be used outside of the function scope.
+let aniSkipEndTime;
+let animeData;
+let showInfo;
+let showTitle;
+async function getShowInfo() {
+    let showInformation = await fetch(`${consumetURL}/anime/gogoanime/info/<%- epData[0] %>`)
+    showInfo = await showInformation.json();
+    document.title = showInfo.title + " HaiKei"
+    console.log(showInfo)
+    showInfo.episodes.forEach((ep => {
+    let episode = document.getElementById('ep')
+    let li = document.createElement('li')
+    li.className = "epi-me"
+    li.id = "epi-me"
+    li.onclick = function(){ window.location.href = "/watch/" + ep.id } ;
+    episode.appendChild(li)
+
+    let link = document.createElement('a')
+    link.href = "/watch/" + ep.id
+    li.appendChild(link)
+
+    let div = document.createElement('div')
+    div.title = ep.number
+    div.className = "name"
+
+    li.appendChild(div)
+
+    let span = document.createElement('span')
+    span.textContent = ep.number
+    span.className = "span_epNum"
+
+    li.appendChild(span)
+
+    }))
+    findCurr();
+    loadSkipBtn();
+} 
+
+getShowInfo();
+let metadata;
+async function loadMalID() {
+    let metaRequest = await fetch(`https://api.consumet.org/meta/anilist/${showInfo.id}`)
+    metadata = await metaRequest.json();
+    queryID = metadata.results[0].malId
+    console.log(queryID) // load the queryId into a variable that we can later mutate.
+}
+async function loadSkipBtn() {
+    await loadMalID()
+    let aniskipRequest = await fetch(`https://api.aniskip.com/v1/skip-times/${queryID}/1?types[]=op`)
+    let aniskipData = await aniskipRequest.json();
+    if (aniskipData.found == false) {
+        console.log("failed to find aniskip data!")
+    }
+    if (aniskipData.found == true) {
+        console.log("loading aniskip data!")
+        aniSkipStartTime = aniskipData.results[0].interval.start_time
+        aniSkipEndTime = aniskipData.results[0].interval.end_time
+        console.log(aniSkipStartTime)
+        console.log(aniSkipEndTime)
+        console.log(aniskipData)
+    }
+}
+const byId = document.getElementById.bind(document),
+	byClass = document.getElementsByClassName.bind(document),
+	byTag = document.getElementsByTagName.bind(document),
+	byName = document.getElementsByName.bind(document),
+	createElement = document.createElement.bind(document);
+
+    // HLS loading function
+    const plyrConfig = {
+        settings: ['quality', 'speed'],
+    }
+    var video = document.querySelector('#player');
+    if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource('<%- streamSource.url %>');
+        hls.attachMedia(video);
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = "<%- streamSource.url %>"
+    }
+// register detailed HLS errors if debug is enabled in Plyr.
+if (plyrConfig.debug == true) {
+    hls.on(Hls.Events.ERROR, function (event, data) { console.log(data)
+    console.log(event)});
+} else {
+    hls.on(Hls.Events.ERROR, function (event, data) { console.log("Video Stream Buffering...") });
+}
+
+      
+ 
+hls.on(Hls.Events.MANIFEST_PARSED, () => {
+ player = loadPlayer();
+});
+ function updateQuality(newQuality) {
+  hls.levels.forEach((level, levelIndex) => {
+      if (level.height === newQuality) {
+        console.log("Found quality match with " + newQuality);
+      hls.currentLevel = levelIndex;
+      }
+    });
+  }
+  
+
+
+
+function loadPlayer() {
+
+
+  // If HLS is supported, we add video quality settings
+
+let defaultOptions = {
+
+    invertTime: false,
+
+};
+
+ const availableQualities = hls.levels.map((l) => l.height)
+
+      // Add new qualities to option
+      defaultOptions.quality = {
+        default: availableQualities[1],
+        options: availableQualities,
+        // this ensures Plyr to use Hls to update quality level
+        forced: true,        
+        onChange: (e) => updateQuality(e),
+      }
+
+      // Initialize here
+     
+    
+const player = new Plyr('#player', defaultOptions); player.on('enterfullscreen', event => {  screen.orientation.lock('landscape');});player.on('exitfullscreen', event => { screen.orientation.lock('portrait');});
+
+// create an aniskip button, that eventually will handle the function call.
+const skipButton = createElement('button');
+skipButton.id = "plyr__aniskip";
+
+byClass("plyr__controls")[0].appendChild(skipButton);
+let loaded = false;
+const skipText = createElement('span')
+skipText.textContent = "Skip Intro"
+byId(skipButton.id).appendChild(skipText)
+
+/*
+<button type="button" class=" plyr__control--overlaid" data-plyr="" aria-label="" style="
+    left: 85%;
+    top: 80%;
+    border-radius: 0;
+    width: 120px;
+    height: 40px;
+    background-color: #000000de;
+"><span class="" style="
+    position: absolute;
+    left: 20%;
+    top: 15%;
+">Skip Intro</span></button>
+ */
+
+let introCheck = player.on('timeupdate', (event) => {
+    if (player.currentTime >= aniSkipStartTime && player.currentTime <= aniSkipEndTime) {
+        if (loaded == false) {
+            loadAniSkipButton();
+        }
+
+    }
+    if (loaded == true) {
+        if (player.currentTime >= aniSkipEndTime) {
+            destroyAniSkipButton()
+            loaded = false;
+        }
+    }
+})
+let aniSkipBtn = document.getElementById("plyr__aniskip")
+function loadAniSkipButton() {
+    aniSkipBtn.style.opacity = "1"
+    document.getElementById("plyr__aniskip").classList.add("plyr__controls__item")
+    document.getElementById("plyr__aniskip").classList.add("plyr__control")
+    loaded = true
+}
+function destroyAniSkipButton() {
+    aniSkipBtn.style.opacity = "0"
+    document.getElementById("plyr__aniskip").classList.remove("plyr__controls__item")
+    document.getElementById("plyr__aniskip").classList.remove("plyr__control")
+    loaded = false;
+}
+
+aniSkipBtn.addEventListener('click', (event) => {
+    player.currentTime = aniSkipEndTime
+})
+
+player.eventListeners.forEach(function (eventListener) {
+	if (eventListener.type === 'dblclick') {
+		eventListener.element.removeEventListener(eventListener.type, eventListener.callback, eventListener.options);
+	}
+});
+
+
+// Create overlay that will show the skipped time
+const skip_ol = createElement("div");
+skip_ol.id = "plyr__time_skip"
+byClass("plyr")[0].appendChild(skip_ol)
+
+
+// A class to manage multi click count and remember last clicked side (may cause issue otherwise)
+
+class multiclick_counter {
+	constructor() {
+		this.timers = []; // collection of timers. Important 
+		this.count = 0; // click count
+		this.reseted = 0; // before resetting what was the count
+		this.last_side = null; // L C R 3sides
+	}
+
+	clicked() {
+		this.count += 1
+		var xcount = this.count; // will be checked if click count increased in the time
+		this.timers.push(setTimeout(this.reset.bind(this, xcount), 500)); // wait till 500ms for next click
+
+		return this.count
+	}
+
+	reset_count(n) {
+		// Reset count if clicked on the different side
+		this.reseted = this.count
+		this.count = n
+		for (var i = 0; i < this.timers.length; i++) {
+			clearTimeout(this.timers[i]);
+		}
+		this.timer = []
+
+	}
+
+	reset(xcount) {
+		if (this.count > xcount) { return } // return if clicked after timer started
+		// Reset otherwise
+		this.count = 0;
+		this.last_side = null;
+		this.reseted = 0;
+		skip_ol.style.opacity = "0";
+		this.timer = []
+	}
+
+}
+
+var counter = new multiclick_counter();
+
+
+const poster = byClass("plyr__poster")[0]
+// We will target the poster since this is the only thing sits between video and controls
+
+poster.onclick = function (e) {
+	const count = counter.clicked()
+	if (count < 2) { return } // if not double click
+
+	const rect = e.target.getBoundingClientRect();
+	const x = e.clientX - rect.left; //x position within the element.
+	const y = e.clientY - rect.top;  //y position within the element.
+	console.log("Left? : " + x + " ; Top? : " + y + ".");
+	// The relative position of click on video
+
+	const width = e.target.offsetWidth;
+	const perc = x * 100 / width;
+
+	var panic = true; // panic if the side needs to be checked
+	var last_click = counter.last_side
+
+	if (last_click == null) {
+		panic = false
+	}
+	
+        if (perc < 40) {
+	  if(player.currentTime==0){
+	    return // won't seek beyond 0
+	  }
+		counter.last_side = "L"
+		if (panic && last_click != "L") {
+			counter.reset_count(1)
+			return
+		}
+
+		skip_ol.style.opacity = "0.9";
+		player.rewind()
+		skip_ol.innerText = "⫷⪡" + "\n" + ((count - 1) * 10) + "s";
+
+	}
+	else if (perc > 60) {
+	if(player.currentTime==player.duration){
+    return // won't seek beyond duration 
+  }
+		counter.last_side = "R"
+		if (panic && last_click != "R") {
+			counter.reset_count(1)
+			return
+		}
+
+		skip_ol.style.opacity = "0.9";
+		last_click = "R"
+		player.forward()
+		skip_ol.innerText = "⪢⫸ " + "\n" + ((count - 1) * 10) + "s";
+
+	}
+	else {
+		player.togglePlay()
+		counter.last_click = "C"
+	}
+
+}
+return player;
+}
+</script>
+<script>
+function reverseEpListing() {
+    var episode = document.getElementById("ep");
+    var i = episode.childNodes.length;
+    while (i--)
+    episode.appendChild(episode.childNodes[i]);
+}
+document.getElementById('reverse-episode-listings').addEventListener('click', () => {
+    reverseEpListing();
+})
+
+// Find value in array, give it special class to indicate which episode is currently selected
+
+function findCurr() {
+    let episodeNum = '<%- epData[1] %>'
+    console.log(episodeNum);
+
+    var ul = document.getElementById("ep");
+    var items = ul.getElementsByTagName("li");
+    for (var i = 0; i < items.length; ++i) {
+        let check = items[i].textContent
+        if(check.replace(/\s/g,'') == episodeNum) {
+            items[i].style.backgroundColor = "rgb(177 39 103)"
+            break;
+        }
+    }
+
+}
+
+
+</script>
+<script src="/js/main.js"></script>
+</body>
+</html>

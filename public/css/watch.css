@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+body {
+    overflow-x: hidden;
+}
+
+
+
+@media (max-width: 961px) {
+    iframe {
+        margin-top: 350px;
+    }
+}
+
+.episode {
+    display: flex;
+    row-gap: 10px;
+    list-style: none;
+    flex-wrap: wrap;
+    height: 65vh;
+    flex-shrink: 0;
+    width: 374px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    justify-content: center;
+    text-align: center;
+}
+
+.epi-me {
+    width: 100px;
+    padding: 0px;
+    height: 32px;
+    border: 5px solid rgb(204, 204, 204);
+    background-color: #F73D93;
+    color: white;
+    border-radius: 10px;
+    margin-right: 5px;
+    transition: 250ms ease-in-out;
+}
+.epi-me:hover {
+    background-color: #c2236d;
+}
+.epi-me > a > div > span {
+    color: white;
+    font-family: "Inter";
+}
+
+.epi-me > a {
+    text-decoration: none;
+}
+.episode-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+@media (max-width: 341px) {
+    .episode-container {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+.reverse-episode-listings {
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 5px solid rgb(204, 204, 204);
+    background-color: rgb(71, 71, 71);
+    color: white;
+    font-family: "Inter";
+    transition: 250ms ease-in-out;
+    cursor: pointer;
+    margin-left: 30px;
+}
+.reverse-episode-listings:hover {
+    background-color: rgb(95, 95, 95);
+}
+.section-title {
+    font-family: "Inter";
+    color: white;
+    margin-top: 150px;
+    transition: 250ms ease-in-out;
+    margin-left: 50px;
+}
+
+@media (max-width: 888px) {
+    .section-title {
+        margin-top: 300px;
+    }
+}
+@media (max-width: 458px) {
+    .section-title {
+        margin-top: 350px;
+    }
+}
+.span_epNum {
+    font-family: "Inter", sans-serif;
+}
+
+#plyr__aniskip {
+  left: 88%;
+  top: -70%;
+  border: 0;
+  color: #fff;
+  position: absolute;
+  border-radius: 0;
+  width: 120px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.8705882353);
+  opacity: 0;
+}
+
+@media (max-width: 1051px) {
+  #plyr__aniskip {
+    left: 86%;
+  }
+}
+@media (max-width: 959px) {
+  #plyr__aniskip {
+    left: 88%;
+  }
+}
+@media (max-width: 831px) {
+  #plyr__aniskip {
+    left: 86%;
+  }
+}
+@media (max-width: 695px) {
+  #plyr__aniskip {
+    left: 83%;
+  }
+}
+@media (max-width: 591px) {
+  #plyr__aniskip {
+    left: 79%;
+  }
+}
+@media (max-width: 475px) {
+  #plyr__aniskip {
+    left: 74%;
+  }
+}
+@media (max-width: 391px) {
+  #plyr__aniskip {
+    left: 68%;
+    top: -50;
+  }
+}
+#plyr__aniskip > span {
+  position: absolute;
+  left: 20%;
+  top: 15%;
+}
+
+.shaka-video-container {
+  transition: 250ms ease-in-out;
+  max-width: 80% !important;
+  margin-top: 200px;
+}
+@media (max-width: 400px) {
+    .shaka-video-container {
+        max-width: 100% !important;
+    }
+}
+#plyr__time_skip {
+  background: rgba(17, 17, 17, 0.8);
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  left: 50%;
+  min-width: 80px;
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+  max-width: 100px;
+  max-height: 90px;
+  opacity: 0;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  transform: translate(-50%, -50%);
+  padding-top: 20px;
+  position: absolute;
+  top: 50%;
+  transition: 500ms ease-in;
+  z-index: 3;
+  pointer-events: none;
+  box-shadow: 0px 0px 45px #000000;
+}
+
+@media (max-width: 1185px) {
+    #wrap {
+        flex-direction: column;
+    }
+}
+
+.episode-filter {
+  position: relative;
+  margin-left: 50px;
+}
+
+.episode-filter:before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  background: url("../assets/search.svg") center / contain no-repeat;
+}
+
+.video-subcontainer {
+    width: 100%;
+    top: 360px;
+    height: 60px;
+    background-color: black;
+    position: absolute;
+    display: flex;
+    align-items: center;
+}
+.video-subcontainer > span > i {
+    color: white;
+    width: 32px;
+    height: 32px;
+    margin-top: 20px;
+}
+.subcontainer-span {
+    color: white;
+    margin-left: 5px;
+}

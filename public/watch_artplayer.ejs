@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= showInfo.title %> - GenericAnimeWeb</title>
+    <link rel="stylesheet" href="/css/watch.css">
+    <link rel="stylesheet" href="/css/styles.css">
+<style>
+    center {
+        margin-top: 200px;
+    }
+</style>
+</head>
+<body>
+<header class="main-header">
+    <div class="container">
+        <h1 class="mh-logo">
+            <a href="/"><img src="/img/logo.webp" width="170" height="95" alt="GenericAnimeWeb"></a>
+        </h1>
+        <nav class="main-nav">
+            <ul class="main-nav-list">
+                <li><label><input type="text" id="search-box" placeholder="Search"></label></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/trending">Trending</a></li>
+                <li><a href="/genres">Genres</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+    <center>
+        <!-- <iframe id="ifr" allow="fullscreen" scrolling="no" src="<%#- apiUrl %>watch/<%#- epData[0]%>/<%#- epData[1] %>" style="width: 1024px; height: 100vh; max-width: 100%; max-height: 100%; border:none;" ></iframe> -->
+        <!-- <link rel="stylesheet" href="https://cdn.plyr.io/3.5.6/plyr.css">
+
+        <video id="player" controls preload="metadata">
+
+        </video> -->
+
+        <script src='https://cdn.jsdelivr.net/hls.js/latest/hls.js'></script> 
+        <!-- <script src="https://unpkg.com/plyr@3.7.2/dist/plyr.min.js"></script> -->
+    <div style="height: 700px; margin-left: 15px;" class="artplayer-app">
+
+    </div>
+    </center>
+        <script src="https://unpkg.com/artplayer/dist/artplayer.js"></script>
+<script>
+localStorage.removeItem("artplayer_settings") // frick cache, all my homies hate cache
+const art = new window.Artplayer({
+    container: '.artplayer-app',
+    url: '<%- streamSource.url %>',
+    isLive: false,
+    muted: false,
+    autoplay: false,
+    pip: true,
+    autoSize: true,
+    autoMini: true,
+    screenshot: true,
+    setting: true,
+    loop: true,
+    flip: true,
+    playbackRate: true,
+    aspectRatio: true,
+    fullscreen: true,
+    fullscreenWeb: true,
+    miniProgressBar: true,
+    mutex: true,
+    backdrop: true,
+    playsInline: true,
+    autoPlayback: true,
+    autoOrientation: true,
+    airplay: true,
+    customType: {
+        m3u8: function (video, url) {
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(video);
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = url;
+            } else {
+                art.notice.show = 'Does not support playback of m3u8';
+            }
+        },
+    },
+});
+localStorage.removeItem("artplayer_settings")
+</script>
+     <section class="tv-series" id="episodes" >
+        <div class="episode-container">
+            <div class="reverse-episode-listings" id="reverse-episode-listings">Reverse Episode Order</div>
+          <h2 class="h2 section-title">Episodes</h2>
+          <ul class="episode" id="episode">
+            <script>
+                  
+            </script>
+            <% let showReverse = showInfo.episodes.reverse() %>
+        <% showReverse.forEach((ep) => { %>
+			<li class="epi-me">
+				<a href="/watch/<%- ep.id %>">
+				<div title="<%- ep.number %>" class="name">
+				<span><%- ep.number %></span>
+				</div>
+				</a>
+			</li>	
+  <% }) %>
+  </ul>
+        </div>
+<ul>
+</ul>
+</section>
+<%
+    streamSource = info.sources.find(x => x.quality === 'default')
+    if (streamSource == undefined) {
+        console.log("Default resolution not found! Falling back to 480p")
+        streamSource = info.sources.find(x => x.quality === '480p')
+    }
+ %>
+<script>
+
+</script>
+<!-- <script>
+const byId = document.getElementById.bind(document),
+	byClass = document.getElementsByClassName.bind(document),
+	byTag = document.getElementsByTagName.bind(document),
+	byName = document.getElementsByName.bind(document),
+	createElement = document.createElement.bind(document);
+
+    // HLS loading function
+    const plyrConfig = {
+        settings: ['quality', 'speed'],
+    }
+    var video = document.querySelector('#player');
+    if (Hls.isSupported()) { var hls = new Hls(); 
+        hls.loadSource('<%#- streamSource.url %>');
+        hls.attachMedia(video); 
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            video.play(); 
+        }); 
+    } 
+// register detailed HLS errors if debug is enabled in Plyr.
+if (plyrConfig.debug == true) {
+    hls.on(Hls.Events.ERROR, function (event, data) { console.log(data)
+    console.log(event)});
+} else {
+    hls.on(Hls.Events.ERROR, function (event, data) { console.log("Video Stream Buffering...") });
+}
+
+  
+
+
+
+function loadPlayer() {
+
+
+  // If HLS is supported, we add video quality settings
+
+let defaultOptions = {
+
+
+
+};
+
+ const availableQualities = hls.levels.map((l) => l.height)
+
+      // Add new qualities to option
+      defaultOptions.quality = {
+        default: availableQualities[1],
+        options: availableQualities,
+        // this ensures Plyr to use Hls to update quality level
+        forced: true,        
+        onChange: (e) => updateQuality(e),
+      }
+
+      // Initialize here
+     
+    
+ const player = new Plyr('#player', defaultOptions); player.on('enterfullscreen', event => {  screen.orientation.lock('landscape');});player.on('exitfullscreen', event => { screen.orientation.lock('portrait');});
+    let plyrLoad = document.querySelector(".plyr--video").style.opacity = "1"
+    let videoLoad = document.querySelector('video').style.opacity = "1"
+  // Start HLS load on play event
+ // Remove all dblclick stuffs
+player.eventListeners.forEach(function (eventListener) {
+	if (eventListener.type === 'dblclick') {
+		eventListener.element.removeEventListener(eventListener.type, eventListener.callback, eventListener.options);
+	}
+});
+
+
+// Create overlay that will show the skipped time
+const skip_ol = createElement("div");
+skip_ol.id = "plyr__time_skip"
+byClass("plyr")[0].appendChild(skip_ol)
+
+// A class to manage multi click count and remember last clicked side (may cause issue otherwise)
+
+class multiclick_counter {
+	constructor() {
+		this.timers = []; // collection of timers. Important 
+		this.count = 0; // click count
+		this.reseted = 0; // before resetting what was the count
+		this.last_side = null; // L C R 3sides
+	}
+
+	clicked() {
+		this.count += 1
+		var xcount = this.count; // will be checked if click count increased in the time
+		this.timers.push(setTimeout(this.reset.bind(this, xcount), 500)); // wait till 500ms for next click
+
+		return this.count
+	}
+
+	reset_count(n) {
+		// Reset count if clicked on the different side
+		this.reseted = this.count
+		this.count = n
+		for (var i = 0; i < this.timers.length; i++) {
+			clearTimeout(this.timers[i]);
+		}
+		this.timer = []
+
+	}
+
+	reset(xcount) {
+		if (this.count > xcount) { return } // return if clicked after timer started
+		// Reset otherwise
+		this.count = 0;
+		this.last_side = null;
+		this.reseted = 0;
+		skip_ol.style.opacity = "0";
+		this.timer = []
+	}
+
+}
+
+var counter = new multiclick_counter();
+
+
+const poster = byClass("plyr__poster")[0]
+// We will target the poster since this is the only thing sits between video and controls
+
+poster.onclick = function (e) {
+	const count = counter.clicked()
+	if (count < 2) { return } // if not double click
+
+	const rect = e.target.getBoundingClientRect();
+	const x = e.clientX - rect.left; //x position within the element.
+	const y = e.clientY - rect.top;  //y position within the element.
+	console.log("Left? : " + x + " ; Top? : " + y + ".");
+	// The relative position of click on video
+
+	const width = e.target.offsetWidth;
+	const perc = x * 100 / width;
+
+	var panic = true; // panic if the side needs to be checked
+	var last_click = counter.last_side
+
+	if (last_click == null) {
+		panic = false
+	}
+	
+        if (perc < 40) {
+	  if(player.currentTime==0){
+	    return // won't seek beyond 0
+	  }
+		counter.last_side = "L"
+		if (panic && last_click != "L") {
+			counter.reset_count(1)
+			return
+		}
+
+		skip_ol.style.opacity = "0.9";
+		player.rewind()
+		skip_ol.innerText = "⫷⪡" + "\n" + ((count - 1) * 10) + "s";
+
+	}
+	else if (perc > 60) {
+	if(player.currentTime==player.duration){
+    return // won't seek beyond duration 
+  }
+		counter.last_side = "R"
+		if (panic && last_click != "R") {
+			counter.reset_count(1)
+			return
+		}
+
+		skip_ol.style.opacity = "0.9";
+		last_click = "R"
+		player.forward()
+		skip_ol.innerText = "⪢⫸ " + "\n" + ((count - 1) * 10) + "s";
+
+	}
+	else {
+		player.togglePlay()
+		counter.last_click = "C"
+	}
+
+}
+return player;
+}
+</script> -->
+<script>
+function reverseEpListing() {
+    var episode = document.getElementById("episode");
+    var i = episode.childNodes.length;
+    while (i--)
+    episode.appendChild(episode.childNodes[i]);
+}
+document.getElementById('reverse-episode-listings').addEventListener('click', () => {
+    reverseEpListing();
+})
+
+// Find value in array, give it special class to indicate which episode is currently selected
+
+function findCurr() {
+    let currentURL = window.location;
+    let episodeNum = currentURL.href.substr(-1);
+    console.log(episodeNum);
+
+    var ul = document.getElementById("episode");
+    var items = ul.getElementsByTagName("li");
+    for (var i = 0; i < items.length; ++i) {
+        let check = items[i].textContent
+        if(check.replace(/\s/g,'') == episodeNum) {
+            items[i].style.backgroundColor = "rgb(177 39 103)"
+            break;
+        }
+    }
+
+}
+findCurr();
+
+</script>
+<script src="/js/main.js"></script>
+</body>
+</html>

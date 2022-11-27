@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genres - HeiKei</title>
+    <link rel="stylesheet" href="/css/genres.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/m.min.css">
+    <link rel="stylesheet" href="/css/watchpage.css">
+</head>
+<body>
+<div id="xwrapper">
+    <div id="xheader">
+        <div class="container">
+            <div id="xheader_browser">
+                <div class="header-btn"><i class="fas fa-bars mr-2"></i>Menu</div>
+            </div>
+                <div id="xheader_menu">
+                
+                    <ul class="nav header_menu-list">
+                        <img width="200px" height="auto" class="logo" src="/img/logo.png" alt="">
+                        <li class="nav-item"><a href="/" title="Home">Home</a></li>
+                        <li class="nav-item"><a href="/trending" title="Popular Anime">Popular Anime</a></li>
+                        <li class="nav-item"><a href="/genres" title="Anime By Genre">Genres</a></li>
+                        <li class="nav-item input-nav-item"><input id="searchanime" class="submit" type="search" placeholder="Search..."></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div id="xmain-wrapper">
+        <div id="mw-top">
+            <div class="container">
+            <div class="mwt-content">
+            <div class="mwh-logo">
+                    <div class="clearfix"></div>
+                </div>
+            <div class="xhashtag">
+            <span class="title">Top search:</span>
+            <a href="/search?query=One%20Piece" class="item">One Piece</a>
+            <a href="/search?query=Naruto%3A%20Shippuden" class="item">Naruto: Shippuden</a>
+            <a href="/search?query=Mugen Train" class="item">Demon Slayer Movie: Mugen Train</a>
+            <a href="/search?query=Boruto%3A%20Naruto%20Next%20Generations" class="item">Boruto: Naruto Next Generations</a>
+            <a href="/search?query=Naruto" class="item">Naruto</a>
+            <a href="/search?query=Sorcery+Fight" class="item">Jujutsu Kaisen (TV)</a>
+            <a href="/search?query=Boku+No+Hero+Academia+5th+Season" class="item">My Hero Academia 5th Season</a>
+            <a href="/search?query=Demon%20Slayer%3A%20Kimetsu%20no%20Yaiba" class="item">Demon Slayer: Kimetsu no Yaiba</a>
+            <a href="/search?query=Attack%20on%20Titan" class="item">Attack on Titan</a>
+            <a href="/search?query=Black%20Clover" class="item">Black Clover</a>
+            </div>
+            <div class="clearfix"></div>
+            </div>
+            </div>
+            </div>
+            </div>
+    </div>
+</div>
+<div class="genres">
+    <li id="action" onclick="toggle(genre = 'action');" class="genre-item">
+        <div title="Action" class="name">
+        <span>Action</span>
+        </div>
+    </li>
+    <li id="adventure" onclick="toggle(genre = 'adventure');" class="genre-item">
+        <div title="Adventure" class="name">
+        <span>Adventure</span>
+        </div>
+    </li>
+    <li id="comedy" onclick="toggle(genre = 'comedy');" class="genre-item">
+        <div title="Comedy" class="name">
+        <span>Comedy</span>
+        </div>
+    </li>
+    <li id="drama" onclick="toggle(genre = 'drama');" class="genre-item">
+        <div title="Drama" class="name">
+        <span>Drama</span>
+        </div>
+    </li>
+    <li id="ecchi" onclick="toggle(genre = 'ecchi');" class="genre-item">
+        <div title="Ecchi" class="name">
+        <span>Ecchi</span>
+        </div>
+    </li>
+    <li id="fantasy" onclick="toggle(genre = 'fantasy');" class="genre-item">
+        <div title="Fantasy" class="name">
+        <span>Fantasy</span>
+        </div>
+    </li>
+    <li id="horror" onclick="toggle(genre = 'horror');" class="genre-item">
+        <div title="Horror" class="name">
+        <span>Horror</span>
+        </div>
+    </li>
+    <li id="magical-girl" onclick="toggle(genre = 'magical-girl');" class="genre-item">
+        <div title="Magical Girl" class="name">
+        <span>Magical Girl</span>
+        </div>
+    </li>
+    <li id="mecha" onclick="toggle(genre = 'mecha');" class="genre-item">
+        <div title="Mecha" class="name">
+        <span>Mecha</span>
+        </div>
+    </li>
+    <li id="music" onclick="toggle(genre = 'music');" class="genre-item">
+        <div title="Music" class="name">
+        <span>Music</span>
+        </div>
+    </li>
+    <li id="mystery" onclick="toggle(genre = 'mystery');" class="genre-item">
+        <div title="Mystery" class="name">
+        <span>Mystery</span>
+        </div>
+    </li>
+    <li id="psychological" onclick="toggle(genre = 'psychological');" class="genre-item">
+        <div title="Psychological" class="name">
+        <span>Psychological</span>
+        </div>
+    </li>
+    <li id="romance" onclick="toggle(genre = 'romance');" class="genre-item">
+        <div title="Romance" class="name">
+        <span>Romance</span>
+        </div>
+    </li>
+    <li id="sci-fi" onclick="toggle(genre = 'sci-fi');" class="genre-item">
+        <div title="Sci-Fi" class="name">
+        <span>Sci-Fi</span>
+        </div>
+    </li>
+    <li id="slice-of-life" onclick="toggle(genre = 'slice-of-life');" class="genre-item">
+        <div title="Slice of Life" class="name">
+        <span>Slice of Life</span>
+        </div>
+    </li>
+    <li id="sports" onclick="toggle(genre = 'sports');" class="genre-item">
+        <div title="Sports" class="name">
+        <span>Sports</span>
+        </div>
+    </li>
+    <li id="supernatural" onclick="toggle(genre = 'supernatural');" class="genre-item">
+        <div title="Supernatural" class="name">
+        <span>Supernatural</span>
+        </div>
+    </li>
+    <li id="thriller" onclick="toggle(genre = 'thriller');" class="genre-item">
+        <div title="Thriller" class="name">
+        <span>Thriller</span>
+        </div>
+    </li>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div id="footer" data-settings='{"auto_play":1,"auto_next":1,"auto_load_comments":0,"enable_dub":0,"anime_name":"jp","play_original_audio":0}'>
+<div id="footer-about">
+    <div class="container">
+        <div class="footer-top">
+            <a href="/" class="footer-logo">
+                <img src="/img/logo.png" alt="HaiKei">
+                <div class="clearfix"></div>
+            </a>
+            <div class="footer-joingroup">
+                <div class="zoro-group">
+                    <div class="zrg-list">
+            </div> 
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+        <div class="footer-az">
+            <div class="block mb-3">
+                
+            <div class="clearfix"></div>
+        </div>
+            
+                <div class="about-text">HaiKei does not store any files on our server, we only share link to the media which is hosted on 3rd party services.</div>
+                    <p class="copyright">Copyright © 2022 HaiKei. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+        <div id="mask-overlay"></div>
+</div>
+<script src="./js/genres.js"></script>
+<script src="./js/main.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+    $("#xheader_browser").click(function (e) {
+        $("#xheader_menu, #xheader_browser").toggleClass("active");
+    });
+});
+</script>
+</body>
+</html>

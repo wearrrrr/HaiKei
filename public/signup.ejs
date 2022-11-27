@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>HaiKei | Signup</title>
+		<link rel="stylesheet" href="/css/base.css">
+		<link rel="stylesheet" href="/css/index.css">
+		<link rel="stylesheet" href="/css/login.css">
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css">
+	</head>
+	<body>
+		<section class="prompt">
+			<h3>HaiKei</h3>
+			<h1>Sign up</h1>
+			<form action="/signup" method="post">
+				<section>
+					<label for="username">Username</label>
+					<input id="username" name="username" type="text" autocomplete="username" required>
+				</section>
+				<section>
+					<label for="new-password">Password</label>
+					<input id="new-password" name="password" type="password" autocomplete="new-password" required><i id="togglePassword" class="fa-solid fa-eye-slash"></i>
+                    <br>
+                    <div class="strength-wrapper">
+                        <div id="pw_strength" class="progress-bar progress-bar--info">
+                            <div class="progress-bar__bar"></div>
+                        </div>
+                    </div>
+                    <label for="pw_strength">Password Strength</label>
+
+				</section>
+				<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+				<button id="complete_signup" type="submit" disabled>Sign up</button>
+			</form>
+			<hr>
+			<p class="help">Already have an account? <a href="/login">Sign in</a></p>
+		</section>
+        <script src="/js/password.js"></script>
+	</body>
+</html>

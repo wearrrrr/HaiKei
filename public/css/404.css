@@ -1,0 +1,42 @@
+.text-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.link-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.main-text {
+    font-family: 'Inter', sans-serif;
+    color: white;
+    text-align: center;
+}
+.sub-text {
+    font-family: 'Inter', sans-serif;
+    color: white;
+    text-align: center;
+}
+.github-link {
+    color: white;
+    text-decoration: underline !important;
+}
+.github-link:hover {
+    color: rgb(172, 172, 172);
+}
+.return-home-link {
+    color: white;
+    font-family: 'Inter', sans-serif;
+    margin-top: 25px;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: #51D3FF;
+    border: 3px solid white;
+    transition: 250ms ease-in-out;
+}
+.return-home-link:hover {
+    background-color: #7fddfc;
+}

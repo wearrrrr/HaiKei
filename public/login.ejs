@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>HaiKei | Login</title>
+		<link rel="stylesheet" href="/css/base.css">
+		<link rel="stylesheet" href="/css/index.css">
+		<link rel="stylesheet" href="/css/login.css">
+	</head>
+	<body>
+		<section class="prompt">
+			<h3>HaiKei</h3>
+			<h1>Sign in</h1>
+			<% if (message) { %>
+			<section class="messages">
+				<p><%= message %></p>
+			</section>
+			<% } %>
+			<form action="/login/password" method="post">
+				<section>
+					<label for="username">Username</label>
+					<input id="username" name="username" type="text" autocomplete="username" required autofocus>
+				</section>
+				<section>
+					<label for="current-password">Password</label>
+					<input id="current-password" name="password" type="password" autocomplete="current-password" required>
+				</section>
+				<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+				<button class="enabled" type="submit">Sign in</button>
+			</form>
+			<hr>
+			<p class="help">Don't have an account? <a href="/signup">Sign up</a></p>
+		</section>
+	</body>
+</html>
