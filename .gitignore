@@ -5,6 +5,5 @@ db
 # Node.js
 node_modules/
 npm-debug.log*
-consumet-api
 # Mac OS X
 .DS_Store
