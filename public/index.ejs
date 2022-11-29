@@ -319,9 +319,17 @@
             </div>
     </div>
 </div>
+
+<div id="continue-watching" class="new-releases">
+    <h1 class="new_releases header">Continue Watching..</h1>
+    <div id="continue-watching-grid" class="grid-wrapper-continue-watching">
+
+    </div>
+</div>
+
 <div class="new-releases">
 <h1 class="new_releases header">New Releases</h1>
-<div class="grid-wrapper">
+<div id="recent-releases" class="grid-wrapper-new-release">
                 <% recentReleases.results.forEach(card => { %>
                     <li class="splide__slide">
                     <a class="searchLink" href="/watch/<%- card.episodeId %>"></a>
@@ -415,7 +423,11 @@ console.log(msg, styles);
     if (vidSource === undefined || vidSource === null || vidSource.length === 0) {
        localStorage.setItem('videoSource', "gogoanime")
     }
-
+    
+    let continueWatching = localStorage.getItem('continueWatching')
+    if (continueWatching === undefined || continueWatching === null || continueWatching.length === 0) {
+       localStorage.setItem('continueWatching', "")
+    }
 </script>
 </script>
 <% if (loginState == true) { %>
@@ -434,6 +446,36 @@ console.log(msg, styles);
     } else {
         document.getElementById('gogoanime').selected = "selected"  
     }
+    let fetchData;
+    fetch('http://localhost:8081/http://localhost:8080/anime/gogoanime/info/' + continueWatching)
+    .then((response) => response.json())
+    .then((data) => fetchData = data)
+    .then(() => console.log(fetchData))
+    .then(() => {
+        let continueWatchingDiv = document.createElement('li')
+        continueWatchingDiv.className = "splide__slide"
+        let continueWatchingLink = document.createElement('a')
+        continueWatchingLink.className = "continueWatchingLink"
+        continueWatchingLink.href = '/watch/' + fetchData.id + '-episode-' + localStorage.getItem('continueWatchingEp')
+        continueWatchingDiv.appendChild(continueWatchingLink)
+        let continueWatchingImg = document.createElement('img')
+        continueWatchingImg.src = fetchData.image
+        continueWatchingImg.width = "164"
+        continueWatchingImg.height = "231"
+        continueWatchingDiv.appendChild(continueWatchingImg)
+        let continueWatchingText = document.createElement('p')
+        continueWatchingText.textContent = fetchData.title
+        continueWatchingText.className = "splide__animeTitle"
+        continueWatchingDiv.appendChild(continueWatchingText)
+        let continueWatchingEpisode = document.createElement('p')
+        continueWatchingEpisode.className = "splide__episodeNum"
+        continueWatchingEpisode.textContent = "Episode: " + localStorage.getItem('continueWatchingEp')
+        continueWatchingDiv.appendChild(continueWatchingEpisode)
+        let continueGridWrapper = document.getElementById('continue-watching-grid')
+        continueGridWrapper.appendChild(continueWatchingDiv)
+    })
+
+
 </script>
 <% } %>
 <script src="/js/main.js"></script>

@@ -29,11 +29,16 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, .3)
 }
-.grid-wrapper {
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 15px;
+.grid-wrapper-new-release {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 15px;
+}
+
+.grid-wrapper-continue-watching {
+    display: flex;
+    justify-content: center;  
 }
 
 .new-releases {
@@ -41,23 +46,29 @@ body {
     margin: 0 auto;
 }
 
+.continueWatchingLink {
+    position: absolute;
+    height: 385px;
+    width: 280px;
+}
+
 @media (max-width: 1280px) {
-  .grid-wrapper {
+  .grid-wrapper-new-release {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
 @media (max-width: 850px) {
-  .grid-wrapper {
+  .grid-wrapper-new-release {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 @media (max-width: 650px) {
-  .grid-wrapper {
+  .grid-wrapper-new-release {
     grid-template-columns: 1fr 1fr;
   }
 }
 @media (max-width: 450px) {
-  .grid-wrapper {
+  .grid-wrapper-new-release {
     grid-template-columns: 1fr;
   }
 }
@@ -145,12 +156,16 @@ button,
   width: 100% !important;
 }
 #xwrapper {
-  width: 100%;
-  position: relative;
+    width: 100%;
+    padding-top: 50px;
+    position: relative;
+    background: url(/img/36629.jpg);
+    background-size: cover;
+    height: 350px;
+    background-position: top;
 }
 #xheader {
   padding: 0;
-  margin-top: 50px;
   position: relative;
 }
 #xheader #xlogo {
@@ -326,12 +341,15 @@ button,
 
 input.submit {
   width: 260px;
-  border: 1px solid #555;
+  border: 1px solid #fff;
   display: block;
   padding: 9px 4px 9px 40px;
   border-radius: 20px;
   color: white;
   background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 13px center;
+}
+input.submit::placeholder {
+    color: rgb(184, 184, 184);
 }
 @media (max-width: 1290px) {
     input.submit {
@@ -592,9 +610,6 @@ input.submit {
   margin: 1px 6px 1px 0 !important;
 }
 @media screen and (max-width: 1199px) {
-  #xheader {
-    margin-top: 10px;
-  }
   #mw-top .mwt-content .mwt-icon {
     width: 40%;
   }
@@ -642,7 +657,7 @@ input.submit {
   }
 
   .xhashtag {
-      margin-top: 260px;
+    display: none;
   }
   
   .logo {

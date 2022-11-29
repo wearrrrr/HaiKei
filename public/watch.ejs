@@ -1109,12 +1109,12 @@ document.addEventListener('shaka-ui-loaded', init);
 <script>
 let msg = "%c Hi 👋! Welcome to HaiKei!"; 
 let styles= [ 
-    'font-size: 18px', 
-    'font-family: monospace', 
-    'background: white', 
-    'color: black', 
-    'padding: 8px 19px',  
-].join(';') 
+    'font-size: 18px;', 
+    'font-family: monospace;', 
+    'background: white;', 
+    'color: black;', 
+    'padding: 8px 19px;',  
+]
 console.log(msg, styles);
 
 function reverseEpListing() {
@@ -1123,6 +1123,9 @@ function reverseEpListing() {
     while (i--)
     episode.appendChild(episode.childNodes[i]);
 }
+
+localStorage.setItem("continueWatching", "<%- epData[0] %>")
+localStorage.setItem("continueWatchingEp", "<%- epData[1] %>")
 
 </script>
 </div>
