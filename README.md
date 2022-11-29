@@ -7,10 +7,6 @@ HaiKei is an anime streaming website that uses the [consumet](https://github.com
 # What is this good for? 
 HaiKei is a streaming website that focuses on minimial loading times and an interface that is optimized for any device
 
-# Why is it so ugly?
-
-Because I made the interface in half an hour on coffee and spite
-
 # Why don't I just use 9anime or another alternative?
 
 idk what are you, a cop?
