@@ -6,8 +6,9 @@ const config = require('../../../config.js')
 const consumetURL = config.app.api_url3
 
 app.get("/:id", async(req, res) => {
-  let loginState;
-  let username;
+const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
+let loginState;
+let username;
 try {
     let genreData = req.params.id.split("/genre/")
     genreString = genreData.toString()
@@ -24,8 +25,18 @@ try {
     }
     let genreInfo = await axios(`${consumetURL}meta/anilist/advanced-search?genres=["${genreData}"]&sort=["POPULARITY_DESC"]`)
     let genreListing = await genreInfo.data;
+    if (req.user == undefined) {
+        loginState = false;
+    } else {
+        loginState = true;
+        username = req.user.username
+    }
+    if (loginState == true) {
+        return res.render('genre.ejs', {genre: genreData, listings: genreListing, username: username, loginState: loginState, url: fullUrl});
+    } else {
+        return res.render('genre.ejs', {genre: genreData, listings: genreListing, loginState: loginState, url: fullUrl});
+    }
 
-    return res.render('genre.ejs', {genre: genreData, listings: genreListing});
     } catch(e) {
         console.log(e);
         return res.status(404).render('error.ejs', {loginState: loginState, username: username})

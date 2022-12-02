@@ -755,6 +755,7 @@ getQuality();
                                 <div class="alert alert-danger mb-5" id="login-error" style="display: none;"></div>
                                 <form class="preform" id="login-forms" action="/login/password" method="post">
                                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <input type="hidden" name="returnURL" value="<%= url %>">
                                     <div class="form-group">
                                         <label class="prelabel" for="username">Username</label>
                                         <input type="text" class="form-control" id="username" placeholder="name@email.com"
@@ -835,6 +836,7 @@ getQuality();
                                 <form class="preform" method="post" action="/signup" id="register-forms">
                                     <div class="form-group">
                                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                    <input type="hidden" name="returnURL" value="<%= url %>">
                                         <label class="prelabel" for="re-email">Email Address</label>
                                         <input type="text" class="form-control" id="re-email" 
                                             placeholder="example@example.com" name="email" required="">

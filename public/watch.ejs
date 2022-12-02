@@ -293,7 +293,11 @@ getQuality();
 
 <div class="header_right-user">
     <% if (loginState == true) { %>
-        <a data-toggle="modal" data-target="#modalUserInfo" class="btn-user btn btn-sm btn-primary btn-login"><%- username %></a>    
+        <a data-toggle="modal" data-target="#modalUserInfo" class="btn-user btn btn-sm btn-primary btn-login"><%- username %></a>
+        <script>
+            localStorage.setItem("continueWatching", "<%- epData[0] %>")
+            localStorage.setItem("continueWatchingEp", "<%- epData[1] %>")
+        </script>    
     <% } else { %>
         <a data-toggle="modal" data-target="#modallogin" class="btn-user btn btn-sm btn-primary btn-login">Login</a>
     <% } %>
@@ -735,6 +739,7 @@ getQuality();
                             <form method="POST" action="/logout">
                                 <button type="submit" class="btn btn-block btn-logout">Logout</button>
                                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <input type="hidden" name="returnURL" value="<%= url %>">
                             </form>
                               
                             </div>
@@ -847,6 +852,7 @@ getQuality();
                                         <input type="password" class="form-control" id="password" placeholder="Password"
                                             name="password" required>
                                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                        <input type="hidden" name="returnURL" value="<%= url %>">
                                     </div>
                                     <div class="form-check custom-control custom-checkbox">
                                         <div class="float-left">
@@ -1123,9 +1129,6 @@ function reverseEpListing() {
     while (i--)
     episode.appendChild(episode.childNodes[i]);
 }
-
-localStorage.setItem("continueWatching", "<%- epData[0] %>")
-localStorage.setItem("continueWatchingEp", "<%- epData[1] %>")
 
 </script>
 </div>

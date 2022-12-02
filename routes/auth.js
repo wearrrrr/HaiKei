@@ -105,7 +105,7 @@ router.post("/login/password", passport.authenticate('local',
         } else {
           req.session.cookie.expires = false; // Cookie expires at end of session
         }
-      res.redirect('/');
+        res.redirect(req.body.returnURL || '/');
 });
 
 /* POST /logout
@@ -114,7 +114,7 @@ router.post("/login/password", passport.authenticate('local',
  */
 router.post('/logout', function(req, res, next) {
   req.logout();
-  res.redirect('/');
+  res.redirect(req.body.returnURL || '/');
 });
 
 /* GET /signup

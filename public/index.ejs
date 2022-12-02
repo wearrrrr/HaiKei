@@ -46,6 +46,7 @@
                             <form method="POST" action="/logout">
                                 <button type="submit" class="btn btn-block btn-logout">Logout</button>
                                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <input type="hidden" name="returnURL" value="<%= url %>">
                             </form>
                             </div>
                         </div>
@@ -318,14 +319,16 @@
             </div>
             </div>
     </div>
-</div>
-
-<div id="continue-watching" class="new-releases">
-    <h1 class="new_releases header">Continue Watching..</h1>
-    <div id="continue-watching-grid" class="grid-wrapper-continue-watching">
-
+</div> 
+<% if (loginState == true) { %>
+    <div id="continue-watching" class="new-releases">
+        <h1 class="new_releases header">Continue Watching..</h1>
+        <div id="continue-watching-grid" class="grid-wrapper-continue-watching">
+            
+        </div>
     </div>
-</div>
+<% } %>
+
 
 <div class="new-releases">
 <h1 class="new_releases header">New Releases</h1>
@@ -452,6 +455,7 @@ console.log(msg, styles);
     .then((data) => fetchData = data)
     .then(() => console.log(fetchData))
     .then(() => {
+
         let continueWatchingDiv = document.createElement('li')
         continueWatchingDiv.className = "splide__slide"
         let continueWatchingLink = document.createElement('a')
@@ -474,8 +478,6 @@ console.log(msg, styles);
         let continueGridWrapper = document.getElementById('continue-watching-grid')
         continueGridWrapper.appendChild(continueWatchingDiv)
     })
-
-
 </script>
 <% } %>
 <script src="/js/main.js"></script>
