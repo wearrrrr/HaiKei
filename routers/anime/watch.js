@@ -531,46 +531,60 @@ switch (epData[0]) {
         break;
 }
 const watch = req.params.id
-let results;
+const recommended = req.params.id + "/recommended"
+const trending = "trending"
+const download = req.params.id + "/download"
+const info = req.params.id + "/info"
+let watchResult;
 let showInfo;
 let recommendedData;
 let trendingData;
 let downloadUrl
-let isCached = false;
 let loginState;
 let username;
 const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
   try {
-    const cacheResults = await redisClient.get(watch);
-    if (cacheResults) {
-      isCached = true;
-      results = JSON.parse(cacheResults);
-    
-    const showInformation = await axios.get(`${consumetURL}anime/gogoanime/info/${epData[0]}`)
-    showInfo = await showInformation.data
-    const recommendedInfo = await axios.get(`${consumetURL}meta/anilist/advanced-search?genres=["${showInfo.genres[0]}"]&sort=["SCORE_DESC"]`)
-    recommendedData = await recommendedInfo.data
-    const trending = await axios.get(`${consumetURL}anime/gogoanime/top-airing`)
-    trendingData = await trending.data
-    const downloadReq = await axios.get(`${consumetURL}anime/gogoanime/download/${epData[0]}-episode-${epData[1]}`)
-    downloadUrl = await downloadReq.data
-
+    const watchResults = await redisClient.get(watch);
+    const recommendedResults = await redisClient.get(recommended);
+    const trendingResults = await redisClient.get(trending);
+    const downloadReqResults = await redisClient.get(download);
+    const showInfoResults = await redisClient.get(info);
+    if (watchResults) {
+        watchResult = JSON.parse(watchResults);
+        recommendedData = JSON.parse(recommendedResults)
+        trendingData = JSON.parse(trendingResults)
+        downloadUrl = JSON.parse(downloadReqResults)
+        showInfo = JSON.parse(showInfoResults)
     } else {
     const showInformation = await axios.get(`${consumetURL}anime/gogoanime/info/${epData[0]}`)
     showInfo = await showInformation.data
     const recommendedInfo = await axios.get(`${consumetURL}meta/anilist/advanced-search?genres=["${showInfo.genres[0]}"]&sort=["SCORE_DESC"]`)
     recommendedData = await recommendedInfo.data
-    const trending = await axios.get(`${consumetURL}anime/gogoanime/top-airing`)
-    trendingData = await trending.data
-
+    const trendingReq = await axios.get(`${consumetURL}anime/gogoanime/top-airing`)
+    trendingData = await trendingReq.data
     const downloadReq = await axios.get(`${consumetURL}anime/gogoanime/download/${epData[0]}-episode-${epData[1]}`)
     downloadUrl = await downloadReq.data
-      results = await fetchApiData(watch);
-      if (results.length === 0) {
-        throw "API returned an empty array";
+      watchResult = await fetchApiData(watch);
+      if (watchResult.length === 0) {
+        throw "API returned an empty array!";
       }
-      await redisClient.set(watch, JSON.stringify(results), {
+      await redisClient.set(watch, JSON.stringify(watchResult), {
         EX: 10800,
+        NX: true,
+      });
+      await redisClient.set(recommended, JSON.stringify(recommendedData), {
+        EX: 10800,
+        NX: true,
+      });
+      await redisClient.set(trending, JSON.stringify(trendingData), {
+        EX: 172800,
+        NX: true,
+      });
+      await redisClient.set(download, JSON.stringify(downloadUrl), {
+        NX: true,
+      });
+      await redisClient.set(info, JSON.stringify(showInfo), {
+        EX: 172800,
         NX: true,
       });
     }
@@ -581,9 +595,9 @@ const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
         username = req.user.username
     }
     if (loginState == true) {
-       return res.render('watch.ejs', {data: results, epData: epData, downloadUrl: downloadUrl, showInfo: showInfo, trending: trendingData, recommended: recommendedData, username: username, loginState: loginState, url: fullUrl}); 
+       return res.render('watch.ejs', {data: watchResult, epData: epData, downloadUrl: downloadUrl, showInfo: showInfo, trending: trendingData, recommended: recommendedData, username: username, loginState: loginState, url: fullUrl}); 
     }
-    return res.render('watch.ejs', {data: results, epData: epData, downloadUrl: downloadUrl, showInfo: showInfo, trending: trendingData, recommended: recommendedData, loginState: loginState, url: fullUrl});
+    return res.render('watch.ejs', {data: watchResult, epData: epData, downloadUrl: downloadUrl, showInfo: showInfo, trending: trendingData, recommended: recommendedData, loginState: loginState, url: fullUrl});
   } catch (error) {
     console.error(error);
     return res.status(404).render('error.ejs', {loginState: loginState, username: username, url: fullUrl})

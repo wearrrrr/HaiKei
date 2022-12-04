@@ -40,14 +40,16 @@ async function getQuality() {
     try {
         streamSource = data.sources.find(x => x.quality === 'default')
     } catch {
-        if (streamSource === undefined) {
-            console.log("Default resolution not found! Falling back to 720p!")
-            streamSource = data.sources.find(x => x.quality === '720p')
-        }
-    } finally {
-        if (streamSource === undefined) {
-            console.log("720p resolution not found! Falling back to backup!")
-            streamSource = data.sources.find(x => x.quality === 'backup')
+        try {
+            if (streamSource == undefined) {
+                console.log("Default resolution not found! Falling back to backup!")
+                streamSource = data.sources.find(x => x.quality === '720p')
+            }
+        } catch {
+            if (streamSource == undefined) {
+                console.log("Default resolution not found! Falling back to backup!")
+                streamSource = data.sources.find(x => x.quality === 'backup')
+            }
         }
     }
 }
@@ -671,8 +673,10 @@ getQuality();
 <li> <a href="../genres?sort_genre=Vampire" title="Vampire">Vampire</a> </li>
 <li> <a href="../genres?sort_genre=Yaoi" title="Yaoi">Yaoi</a> </li>
 <li> <a href="../genres?sort_genre=Yuri" title="Yuri">Yuri</a> </li>  
-
-							  </ul>                         
+							  </ul>
+                                <div class="anime-info">
+                                    <a href="<%- epData[0] %>"></a>
+                                </div>                         
                                 <div class="clearfix"></div>
                                 <button class="btn btn-sm btn-block btn-showmore mt-2"></button>
                             </div>
@@ -681,8 +685,7 @@ getQuality();
                     <div class="clearfix"></div>
                 </div>
             </div>
-            <div id="footer"
-                data-settings='{"auto_play":1,"auto_next":1,"auto_load_comments":0,"enable_dub":0,"anime_name":"jp","play_original_audio":0}'>
+            <div id="footer" data-settings='{"auto_play":1,"auto_next":1,"auto_load_comments":0,"enable_dub":0,"anime_name":"jp","play_original_audio":0}'>
                 <div id="footer-about">
                     <div class="container">
                         <div class="footer-top">
@@ -690,8 +693,6 @@ getQuality();
                                 <img src="/img/logo.png" alt="HaiKei">
                                 <div class="clearfix"></div>
                             </a>
-                            
-
                         <div class="footer-joingroup">
                             <div class="zoro-group">
                                 <div class="zrg-list">
@@ -707,8 +708,7 @@ getQuality();
                             
                         <div class="clearfix"></div>
                     </div>
-                    
-                                                <div class="about-text">HaiKei does not store any files on our server, we
+                    <div class="about-text">HaiKei does not store any files on our server, we
                                 only share link to the media which is hosted on 3rd party services.</div>
                             <p class="copyright">Copyright © 2022 HaiKei. All Rights
                                 Reserved</p>
