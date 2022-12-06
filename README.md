@@ -9,6 +9,8 @@ HaiKei is a streaming website that focuses on minimial loading times and an inte
 
 # Why don't I just use 9anime or another alternative?
 
+"That's because please. Please don't" - tim apple
+
 idk what are you, a cop?
 
 The interface will get better, because currently this is extremely open beta, have fun and if you want to make a contribution don't hesistate to open a pr.
