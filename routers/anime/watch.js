@@ -258,31 +258,32 @@ async function getWatchDataZoro(req, res) {
     const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
     epData = req.params.id.split('-episode-');  
 try {
-    let searchReq = await axios.get(`${consumetURL}anime/zoro/${epData[0]}`)
-    searchRes = await searchReq.data
+    const [searchReq, showInformation, downloadReq, trending] = await Promise.all([
+        axios.get(`${consumetURL}anime/zoro/${epData[0]}`),
+        axios.get(`${consumetURL}anime/gogoanime/info/${epData[0]}`),
+        axios.get(`${consumetURL}anime/gogoanime/download/${epData[0]}-episode-${epData[1]}`),
+        axios.get(`${consumetURL}anime/gogoanime/top-airing`)
+    ]);
 
-    const showInformation = await axios.get(`${consumetURL}anime/gogoanime/info/${epData[0]}`)
-    showInfo = await showInformation.data
-    let infoReq
-    if (epData[0] == "one-piece") {
-        infoReq = await axios.get(`${consumetURL}anime/zoro/info?id=${searchRes.results[1].id}`)   
-    } else {
-        infoReq = await axios.get(`${consumetURL}anime/zoro/info?id=${searchRes.results[0].id}`)
-    }
-    infoRes = await infoReq.data
+
+    searchRes = searchReq.data
+    showInfo = showInformation.data
+    const [infoReq , recommendedInfo] = await Promise.all([
+        axios.get(`${consumetURL}anime/zoro/info?id=${searchRes.results[(epData[0] == "one-piece" ? 1 : 0)].id}`), 
+        axios.get(`${consumetURL}meta/anilist/advanced-search?genres=["${showInfo.genres[0]}"]&sort=["SCORE_DESC"]`)
+    ]);
+    recommendedData =  recommendedInfo.data 
+    infoRes = infoReq.data
     infoRes.episodes.forEach((ep) => {
         if (ep.number == epData[1]) {
             episodeSelected = ep
         }
     })
     let watchReq = await axios.get(`${consumetURL}anime/zoro/watch?episodeId=${episodeSelected.id}`)
-    let watchRes = await watchReq.data
-    const recommendedInfo = await axios.get(`${consumetURL}meta/anilist/advanced-search?genres=["${showInfo.genres[0]}"]&sort=["SCORE_DESC"]`)
-    recommendedData = await recommendedInfo.data
-    const trending = await axios.get(`${consumetURL}anime/gogoanime/top-airing`)
-    trendingData = await trending.data
-    const downloadReq = await axios.get(`${consumetURL}anime/gogoanime/download/${epData[0]}-episode-${epData[1]}`)
-    downloadUrl = await downloadReq.data
+    let watchRes = watchReq.data
+    
+    trendingData =  trending.data
+    downloadUrl =  downloadReq.data
     if (req.user == undefined) {
         loginState = false;
     } else {
