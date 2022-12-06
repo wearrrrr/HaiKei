@@ -326,7 +326,7 @@
 <div class="new-releases">
 <div class="splide">
     <h1 id="genre_list_header" class="new_releases header"></h1>
-        <div class="grid-wrapper">
+        <div class="grid-wrapper-new-release">
             <% listings.results.forEach((ep) => { %>
                 <li class="splide__slide">
                 <a class="searchLink" href="/watch/<%= ep.title.romaji.replace(/ /g, '-').replace('.', '').replace('/', '').replace('?', '').replace(/:/g, '').replace(/!/g, '').replace('∞', '').replace(/☆/g, '-').replace(/;/g, '').replace(/~/g, '').replace(/ä/g, 'a')%>-episode-1"></a>
