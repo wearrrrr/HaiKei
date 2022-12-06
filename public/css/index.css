@@ -32,7 +32,7 @@ body {
 .grid-wrapper-new-release {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 15px;
 }
 
@@ -54,7 +54,7 @@ body {
 
 @media (max-width: 1280px) {
   .grid-wrapper-new-release {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   }
 }
 @media (max-width: 850px) {
@@ -78,7 +78,6 @@ body {
   justify-content: center;
   align-items: center;
   border: 2px solid #51D3FF;
-  padding: 10px;
   border-radius: 15px;
   cursor: pointer;
 }
