@@ -1,0 +1,6 @@
+node_modules/
+yarn-error.log
+.env
+src/scripts
+.vscode
+consumet-api
