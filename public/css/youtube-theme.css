@@ -73,7 +73,7 @@ video {
   padding: 0 10px;
 }
 .youtube-theme .shaka-range-container {
-  margin: 4px 10px 4px 10px;
+  margin: 4px 10px;
   top: 0;
 }
 .youtube-theme .shaka-small-play-button {
@@ -181,7 +181,7 @@ video {
   min-width: 200px;
 }
 .youtube-theme .shaka-settings-menu {
-  padding: 0 0 8px 0;
+  padding: 0 0 8px;
 }
 .youtube-theme .shaka-settings-menu button {
   font-size: 12px;
