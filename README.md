@@ -1,5 +1,5 @@
 # HaiKei
-HaiKei is an anime streaming website that uses the [consumet](https://github.com/consumet/api.consumet.org) API, and runs ontop of express and ejs, with [redis](https://redis.io/) for caching the /watch/ page
+HaiKei is an anime streaming website that uses the [consumet](https://github.com/consumet/api.consumet.org) API, and runs ontop of express and ejs, with [redis](https://redis.io/) for caching.
 
 ## Preview is live!
 [haikei.xyz](https://haikei.xyz)
