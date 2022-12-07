@@ -1,4 +1,3 @@
-
 [submodule "consumet-api"]
 	path = consumet-api
-	url = https://github.com/wearrrrr/api.consumet.org
+	url = https://github.com/wearrrrr/consumet-api
