@@ -18,6 +18,7 @@ let redisClient;
 app.get('/', async (req, res) => {
     let loginState;
     let username;
+    let user;
     const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
     let recentReleasesData;
     let recentReleases2Data;
@@ -52,9 +53,10 @@ try {
     } else {
         loginState = true;
         username = req.user.username
+        user = req.user
     }
     if (loginState == true) {
-        return res.render('index.ejs', {recentReleases: recentReleasesData, recentReleases2: recentReleases2Data, username: username, loginState: loginState, url: fullUrl});
+        return res.render('index.ejs', {recentReleases: recentReleasesData, recentReleases2: recentReleases2Data, username: username, user: user, loginState: loginState, url: fullUrl});
     } else {
         return res.render('index.ejs', {recentReleases: recentReleasesData, recentReleases2: recentReleases2Data, loginState: loginState, url: fullUrl});
     }

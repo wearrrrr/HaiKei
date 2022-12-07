@@ -48,7 +48,7 @@ passport.use(new LocalStrategy(function verify(username, password, cb) {
  */
 passport.serializeUser(function(user, cb) {
   process.nextTick(function() {
-    cb(null, { id: user.id, username: user.username });
+    cb(null, { id: user.id, username: user.username, email: user.email });
   });
 });
 
@@ -97,9 +97,8 @@ router.get('/login', function(req, res, next) {
 //   failureFlash: true
 // }));
 
-router.post("/login/password", passport.authenticate('local',
-    { failureRedirect: '/login',
-      failureFlash: true }), function(req, res) {
+router.post("/login/password", passport.authenticate('local',{ failureRedirect: '/login', failureFlash: true }),
+function(req, res) {
         if (req.body.remember) {
           req.session.cookie.maxAge = 7 * 24 * 60 * 60 * 1000; // remember cookie expires after 7 days if "remember me" is checked on login
         } else {
@@ -143,8 +142,9 @@ router.post('/signup', function(req, res, next) {
     var salt = crypto.randomBytes(16);
     crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', function(err, hashedPassword) {
         if (err) { return next(err); }
-        db.run('INSERT INTO users (email, username, hashed_password, salt) VALUES (?, ?, ?, ?)', [
+        db.run('INSERT INTO users (email, email_verified, username, hashed_password, salt) VALUES (?, ?, ?, ?, ?)', [
         req.body.email,
+        "false",
         req.body.username,
         hashedPassword,
         salt
