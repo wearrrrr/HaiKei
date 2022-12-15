@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/css/m.min.css?v=0.0000001">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/controls.min.css" integrity="sha512-6CAOpe+kF1fCTzRcZlS1iak5PY3M5lT+Ato5R3GJ0GXtoRTY6UOyGUNNG1va+mws+XDs1w3a6+iXQtw6n/Ef+w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/controls.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="/css/youtube-theme.css">
     <script type="text/javascript">
@@ -54,6 +54,8 @@ async function getQuality() {
     }
 }
 getQuality();
+
+
     let hdCheck = data.sources.find(x => x.quality === '720p')
     let hdChecker;
     hdChecker = "PASS"
@@ -215,7 +217,9 @@ getQuality();
 <li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Vampire" title="Vampire">Vampire</a> </li>
 <li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Yaoi" title="Yaoi">Yaoi</a> </li>
 <li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Yuri" title="Yuri">Yuri</a> </li>
-<li class="nav-item nav-more"><a class="nav-link"><i class="fas fa-plus mr-2"></i>More</a></li>
+                        <li class="nav-item nav-more">
+	<a class="nav-link"><i class="fas fa-plus mr-2"></i>More</a>
+	</li>
 					</ul>
 					</div>
 					</li>
@@ -369,7 +373,7 @@ getQuality();
 
                                         <div class="player-controls">
                                             <div class="pc-item pc-download">
-                                                <a class="btn btn-sm pc-download" rel="noreferrer noopener" target="_blank" href="#"><i class="fas fa-download mr-2"></i>Download</a>
+                                                <a class="btn btn-sm pc-download" rel="noreferrer noopener" target="_blank" href="<%- downloadUrl[0].downloadUrl %>"><i class="fas fa-download mr-2"></i>Download</a>
                                             </div>
                                             <div class="pc-item pc-toggle pc-light">
                                                 <div id="turn-off-light" class="toggle-basic">
@@ -686,9 +690,7 @@ getQuality();
                     <div class="container">
                         <div class="footer-top">
                             <a href="/" class="footer-logo">
-                            <a href="/">
-                                <img width="200px" height="auto" class="logo" src="/img/logo.png" alt="">
-                            </a>
+                                <img src="/img/logo.png" alt="HaiKei">
                                 <div class="clearfix"></div>
                             </a>
                         <div class="footer-joingroup">
@@ -961,6 +963,7 @@ getQuality();
                 </div>
             </div>
         </div>
+                
 
                 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
                 </script>
@@ -972,8 +975,12 @@ getQuality();
                 <script type="text/javascript" src="/js/af/search_list.js"></script>
                 <script src="/js/af/random.js"></script>
                 <script src="https://github.com/videojs/mux.js/releases/latest/download/mux.js"></script> 
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/shaka-player.compiled.js" integrity="sha512-8KmjOgwsade+xjFnx6fcJSa0YIZqcXPWmwJhUJWUqqdsAIUVS72kpZ88wH/x7OuFhI33bb66w5kyZ4DCSZb9mg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/shaka-player.ui.min.js" integrity="sha512-aki3u7xt9Xb2Tb2W9kx6wgyOqhudxfrRTUMggjIU03lQZZf3UPEMa1dRXBFHqIQt87q++3CNyNTSvRNOhG/rYA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/shaka-player.compiled.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                <!-- <script src="/js/shaka-player-ui.js"></script> -->
+                <script src="/js/shaka-player-ui.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                <script>
+
+                </script>
 <script>
 // Use shaka.ui.Element as a base class
 const video = document.getElementById('youtube-theme');
@@ -1055,6 +1062,7 @@ let config;
 
     try {
       await player.load(youtube_theme_manifestUri);
+    player.addThumbnailsTrack('https://prev.zorores.com/_a_preview/92/9217fedb3b2898e5134ee5412f4153e0/thumbnails/sprite.vtt')
     } catch (error) {
     }
 
