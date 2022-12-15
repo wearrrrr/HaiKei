@@ -58,8 +58,8 @@ button.enabled:hover {
 
 h1 {
     color: black;
-	margin: 0 0 20px 0;
-	padding: 0 0 5px 0;
+	margin: 0 0 20px;
+	padding: 0 0 5px;
 	font-size: 24px;
 	font-weight: 500;
 }
@@ -73,13 +73,13 @@ h3 {
 }
 
 form section {
-	margin: 0 0 20px 0;
+	margin: 0 0 20px;
 	position: relative; /* for password toggle positioning */
 }
 
 label {
 	display: block;
-	margin: 0 0 3px 0;
+	margin: 0 0 3px;
 	font-size: 14px;
 	font-weight: 500;
     color: black;
