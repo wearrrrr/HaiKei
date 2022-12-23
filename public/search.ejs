@@ -63,7 +63,7 @@
 </div>
     <h1 style="margin-top: 50px; margin-left: 20px; margin-bottom: 20px;" class="header">Search Results for: "<%= query %>"  </h1>
     <div class="grid-wrapper-new-release">
-        <% searchData.results.forEach((searchData) => { %>
+        <% searchData.forEach((searchData) => { %>
                 <li class="splide__slide">
                 <a class="searchLink" href="/watch/<%-searchData.id%>-episode-1"></a>
                     <img style="width: 164px; height: 231px; align-self: center;" src="<%- searchData.image %>" alt="<%- searchData.title %>">

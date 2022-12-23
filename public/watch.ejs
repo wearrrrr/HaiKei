@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/css/m.min.css?v=0.0000001">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/controls.min.css" integrity="sha512-6CAOpe+kF1fCTzRcZlS1iak5PY3M5lT+Ato5R3GJ0GXtoRTY6UOyGUNNG1va+mws+XDs1w3a6+iXQtw6n/Ef+w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/controls.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="/css/youtube-theme.css">
     <script type="text/javascript">
@@ -54,6 +54,8 @@ async function getQuality() {
     }
 }
 getQuality();
+
+
     let hdCheck = data.sources.find(x => x.quality === '720p')
     let hdChecker;
     hdChecker = "PASS"
@@ -91,6 +93,15 @@ getQuality();
             console.log(aniSkipStartTime)
             console.log(aniSkipEndTime)
             console.log(aniskipData)
+            let skipBtn = document.createElement('button')
+            let shakaContainer = document.getElementsByClassName('shaka-video-container')[0]
+            skipBtn.classList.add('skip-intro')
+            shakaContainer.appendChild(skipBtn)
+            skipBtn.textContent = "Skip Intro"
+            document.getElementsByClassName('skip-intro')[0].addEventListener('click', (e) => {
+            console.log("Skipped Intro!")
+            video.currentTime = aniSkipEndTime - 1;
+    })
         }
     }
     loadSkipBtn();
@@ -215,7 +226,9 @@ getQuality();
 <li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Vampire" title="Vampire">Vampire</a> </li>
 <li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Yaoi" title="Yaoi">Yaoi</a> </li>
 <li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Yuri" title="Yuri">Yuri</a> </li>
-<li class="nav-item nav-more"><a class="nav-link"><i class="fas fa-plus mr-2"></i>More</a></li>
+                        <li class="nav-item nav-more">
+	<a class="nav-link"><i class="fas fa-plus mr-2"></i>More</a>
+	</li>
 					</ul>
 					</div>
 					</li>
@@ -368,9 +381,14 @@ getQuality();
                                         </div>
 
                                         <div class="player-controls">
-                                            <div class="pc-item pc-download">
-                                                <a class="btn btn-sm pc-download" rel="noreferrer noopener" target="_blank" href="#"><i class="fas fa-download mr-2"></i>Download</a>
-                                            </div>
+                                        <div class="pc-item pc-download">
+                                        <% if (downloadUrl == undefined) { %>
+
+                                        <% } else { %>
+                                            <a class="btn btn-sm pc-download" href="<%- downloadUrl[0].downloadUrl %>"><i class="fas fa-download mr-2"></i>Download</a>
+                                        <% } %>
+                                            
+                                        </div>
                                             <div class="pc-item pc-toggle pc-light">
                                                 <div id="turn-off-light" class="toggle-basic">
                                                     <span class="tb-name"><i
@@ -549,21 +567,21 @@ getQuality();
                                                 <img class="film-poster-img lazyload"
                                                     data-src="<%- rec.image %>"
                                                     src="<%- rec.image %>"
-                                                    alt="Hakushaku to Yousei">
-                                                <a class="film-poster-ahref" href="/watch/<%-rec.title.romaji.replace(/ /g, '-').replace('/', '').replace('?', '').replace(/:/g, '').replace(/!/g, '').replace('∞', '').replace(/☆/g, '-').replace(/;/g, '').replace(/~/g, '').replace(/ä/g, 'a')%>-episode-<%- rec.totalEpisodes %>"
+                                                    alt="<%- rec.title %>">
+                                                <a class="film-poster-ahref" href="/watch/<%-rec.id %>/episode-1"
                                                     title="Hakushaku to Yousei"><i class="fas fa-play"></i></a>
                                             </div>
                                             <div class="film-detail">
                                                 <h3 class="film-name">
-                                                    <a class="dynamic-name" href="/watch/<%-rec.title.romaji.replace(/ /g, '-').replace('/', '').replace('?', '').replace(/:/g, '').replace(/!/g, '').replace('∞', '').replace(/☆/g, '-').replace(/;/g, '').replace(/~/g, '').replace(/ä/g, 'a')%>-episode-<%- rec.totalEpisodes %>"
-                                                        title="<%-rec.title.romaji %>" data-jname="<%- rec.title.romaji %>" style="opacity: 1;"><%- rec.title.romaji %></a>
+                                                    <a class="dynamic-name" href="/watch/<%- rec.id %>"
+                                                        title="<%- rec.title %>" data-jname="<%- rec.title %>" style="opacity: 1;"><%- rec.title %></a>
                                                 </h3>
                                                 <div class="fd-infor">
                                                     <span class="fdi-item"><%- rec.type %></span>
                                                     <span class="dot"></span>
                                                     <span class="fdi-item"><%- rec.status %></span>
                                                     <span class="dot"></span>
-                                                    <span class="fdi-item"><%- rec.releaseDate %></span>
+                                                    <span class="fdi-item"><%- rec.released %></span>
                                                 </div>
                                             </div>
                                             <div class="clearfix"></div>
@@ -686,9 +704,7 @@ getQuality();
                     <div class="container">
                         <div class="footer-top">
                             <a href="/" class="footer-logo">
-                            <a href="/">
-                                <img width="200px" height="auto" class="logo" src="/img/logo.png" alt="">
-                            </a>
+                                <img src="/img/logo.png" alt="HaiKei">
                                 <div class="clearfix"></div>
                             </a>
                         <div class="footer-joingroup">
@@ -713,6 +729,7 @@ getQuality();
                         </div>
                     </div>
                 </div>
+            </div>
                 <div id="mask-overlay"></div>
 <% if (loginState == true) { %>
         <div class="modal fade premodal premodal-login" id="modalUserInfo" tabindex="-1" role="dialog"
@@ -824,8 +841,7 @@ getQuality();
         </div>
 <% } %>
 
-        <div class="modal fade premodal premodal-login" id="modallogin" tabindex="-1" role="dialog"
-            aria-labelledby="modallogintitle" aria-hidden="true">
+        <div class="modal fade premodal premodal-login" id="modallogin" tabindex="-1" role="dialog" aria-labelledby="modallogintitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="tab-content">
@@ -962,8 +978,9 @@ getQuality();
             </div>
         </div>
 
-                <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
-                </script>
+                
+
+                <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
                 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
                 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
                 <script type="text/javascript" src="/js/af/app.min.js"></script>
@@ -972,8 +989,8 @@ getQuality();
                 <script type="text/javascript" src="/js/af/search_list.js"></script>
                 <script src="/js/af/random.js"></script>
                 <script src="https://github.com/videojs/mux.js/releases/latest/download/mux.js"></script> 
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/shaka-player.compiled.js" integrity="sha512-8KmjOgwsade+xjFnx6fcJSa0YIZqcXPWmwJhUJWUqqdsAIUVS72kpZ88wH/x7OuFhI33bb66w5kyZ4DCSZb9mg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/shaka-player.ui.min.js" integrity="sha512-aki3u7xt9Xb2Tb2W9kx6wgyOqhudxfrRTUMggjIU03lQZZf3UPEMa1dRXBFHqIQt87q++3CNyNTSvRNOhG/rYA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/shaka-player.compiled.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                <script src="/js/shaka-player-ui.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 // Use shaka.ui.Element as a base class
 const video = document.getElementById('youtube-theme');
@@ -1072,6 +1089,7 @@ document.addEventListener('shaka-ui-loaded', init);
         if (video.currentTime >= aniSkipStartTime && video.currentTime <= aniSkipEndTime) {
             if (loaded == false) {
                 loadAniSkipButton();
+                loaded = true;
             }
 
         }
@@ -1090,10 +1108,6 @@ document.addEventListener('shaka-ui-loaded', init);
         document.getElementsByClassName('skip-intro')[0].classList.remove('displayed')
         loaded = false;
     }
-    document.getElementsByClassName('skip-intro')[0].addEventListener('click', (e) => {
-        console.log("Skipped Intro!")
-        video.currentTime = aniSkipEndTime - 1;
-    })
 </script>
 <script>
     let isHD = '<%- hdChecker %>'; 

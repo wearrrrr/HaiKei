@@ -141,7 +141,7 @@ router.post('/signup', function(req, res, next) {
   if (req.body.password === req.body.confirm_password) {
     var salt = crypto.randomBytes(16);
     crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', function(err, hashedPassword) {
-        if (err) { return next(err); }
+        if (err) { return next(res.render('error.ejs', {loginState: 'false', errCode: "ERR 500: Try again later!"})); }
         db.run('INSERT INTO users (email, email_verified, username, hashed_password, salt) VALUES (?, ?, ?, ?, ?)', [
         req.body.email,
         "false",
@@ -149,7 +149,7 @@ router.post('/signup', function(req, res, next) {
         hashedPassword,
         salt
         ], function(err) {
-        if (err) { return next(err); }
+        if (err) { return next(res.render('error.ejs', {loginState: 'false', errCode: "User already exists!"})); }
         var user = {
             email: req.body.email,
             id: this.lastID,

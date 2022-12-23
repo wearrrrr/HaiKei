@@ -251,9 +251,15 @@ button,
   font-size: 12px;
   opacity: 0.4;
 }
-#xfooter-about .copyright {
+#xfooter-about .footer-link {
   margin-bottom: 0 !important;
   font-size: 13px;
+}
+.footer-link {
+    color: #51D3FF;
+}
+.footer-link:hover {
+    color: #30a9d1;
 }
 #mw-top .mw-sitename {
   font-size: 28px;

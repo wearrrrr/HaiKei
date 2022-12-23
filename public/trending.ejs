@@ -67,14 +67,14 @@
 <div class="new-releases">
     <h1 style="margin-top: 20px;" class="new_releases header">Trending Shows</h1>
 <div class="grid-wrapper-new-release">
-            <% trending.results.forEach(card => { %>
+            <% trending.forEach(card => { %>
                 <li class="splide__slide" onclick="window.location.href = `${window.location.origin}/watch/<%- card.id %>-episode-1`">
                     <img src="<%- card.image %>" style="width: 164px; height: 231px; align-self: center"> 
                     <p class="splide__animeTitle"><%- card.title %></p>
                     <p class="splide__episodeNum"><%= card.genres[0 + 1] %></p>
                 </li>
             <% }) %>
-            <% trending2.results.forEach(card => { %>
+            <% trending2.forEach(card => { %>
                 <li class="splide__slide" onclick="window.location.href = `${window.location.origin}/watch/<%- card.id %>-episode-1`">
                     <img src="<%- card.image %>" style="width: 164px; height: 231px; align-self: center"> 
                     <p class="splide__animeTitle"><%- card.title %></p>

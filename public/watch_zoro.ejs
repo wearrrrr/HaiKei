@@ -366,11 +366,6 @@ getQuality();
 
                                     <div class="player-controls">
                                         <div class="pc-item pc-download">
-                                        <% if (downloadUrl == undefined) { %>
-
-                                        <% } else { %>
-                                            <a class="btn btn-sm pc-download" href="<%- downloadUrl[0].downloadUrl %>"><i class="fas fa-download mr-2"></i>Download</a>
-                                        <% } %>
                                             
                                         </div>
                                         <div class="pc-item pc-toggle pc-light">
@@ -877,6 +872,7 @@ getQuality();
                 </div>
             </div>
         </div>
+        </div></div></div></div>
                 
 
                 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
@@ -890,11 +886,7 @@ getQuality();
                 <script src="/js/af/random.js"></script>
                 <script src="https://github.com/videojs/mux.js/releases/latest/download/mux.js"></script> 
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/shaka-player.compiled.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-                <!-- <script src="/js/shaka-player-ui.js"></script> -->
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/shaka-player.ui.min.js" integrity="sha512-aki3u7xt9Xb2Tb2W9kx6wgyOqhudxfrRTUMggjIU03lQZZf3UPEMa1dRXBFHqIQt87q++3CNyNTSvRNOhG/rYA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-                <script>
-
-                </script>
 <script>
 // Use shaka.ui.Element as a base class
 const video = document.getElementById('youtube-theme');

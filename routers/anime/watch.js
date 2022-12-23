@@ -258,19 +258,19 @@ async function getWatchDataZoro(req, res) {
     const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
     epData = req.params.id.split('-episode-');  
 try {
-    const [searchReq, showInformation, downloadReq, trending] = await Promise.all([
-        axios.get(`${consumetURL}anime/zoro/${epData[0]}`),
-        axios.get(`${consumetURL}anime/gogoanime/info/${epData[0]}`),
-        axios.get(`${consumetURL}anime/gogoanime/download/${epData[0]}-episode-${epData[1]}`),
-        axios.get(`${consumetURL}anime/gogoanime/top-airing`)
+    const [searchReq, showInformation, trending] = await Promise.all([
+        await axios.get(`${consumetURL}anime/zoro/${epData[0]}`),
+        await axios.get(`${consumetURL}anime/gogoanime/info/${epData[0]}`),
+        // axios.get(`${consumetURL}anime/gogoanime/download/${epData[0]}-episode-${epData[1]}`),
+        await axios.get(`${consumetURL}anime/gogoanime/top-airing`)
     ]);
 
 
     searchRes = searchReq.data
     showInfo = showInformation.data
     const [infoReq , recommendedInfo] = await Promise.all([
-        axios.get(`${consumetURL}anime/zoro/info?id=${searchRes.results[(epData[0] == "one-piece" ? 1 : 0)].id}`), 
-        axios.get(`${consumetURL}meta/anilist/advanced-search?genres=["${showInfo.genres[0]}"]&sort=["SCORE_DESC"]`)
+        await axios.get(`${consumetURL}anime/zoro/info?id=${searchRes.results[(epData[0] == "one-piece" ? 1 : 0)].id}`), 
+        await axios.get(`${consumetURL}meta/anilist/advanced-search?genres=["${showInfo.genres[0]}"]&sort=["SCORE_DESC"]`)
     ]);
     recommendedData =  recommendedInfo.data 
     infoRes = infoReq.data
@@ -282,8 +282,7 @@ try {
     let watchReq = await axios.get(`${consumetURL}anime/zoro/watch?episodeId=${episodeSelected.id}`)
     let watchRes = watchReq.data
     
-    trendingData =  trending.data
-    downloadUrl =  downloadReq.data
+    trendingData = trending.data
     if (req.user == undefined) {
         loginState = false;
     } else {
@@ -297,7 +296,7 @@ try {
     }
 
 } catch(e) {
-    res.render('error.ejs', {loginState: loginState, username: username})
+    res.render('error.ejs', {loginState: loginState, username: username, errCode: "Failed to get episode data!"})
     console.log(e)
 }
 
@@ -534,7 +533,7 @@ switch (epData[0]) {
 const watch = req.params.id
 const recommended = req.params.id + "/recommended"
 const trending = "trending"
-const download = req.params.id + "/download"
+// const download = req.params.id + "/download"
 const info = req.params.id + "/info"
 let watchResult;
 let showInfo;
@@ -548,23 +547,24 @@ const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
     const watchResults = await redisClient.get(watch);
     const recommendedResults = await redisClient.get(recommended);
     const trendingResults = await redisClient.get(trending);
-    const downloadReqResults = await redisClient.get(download);
+    // const downloadReqResults = await redisClient.get(download);
     const showInfoResults = await redisClient.get(info);
     if (watchResults) {
         watchResult = JSON.parse(watchResults);
         recommendedData = JSON.parse(recommendedResults)
         trendingData = JSON.parse(trendingResults)
-        downloadUrl = JSON.parse(downloadReqResults)
+        // downloadUrl = JSON.parse(downloadReqResults)
         showInfo = JSON.parse(showInfoResults)
     } else {
     const showInformation = await axios.get(`${consumetURL}anime/gogoanime/info/${epData[0]}`)
     showInfo = await showInformation.data
-    const recommendedInfo = await axios.get(`${consumetURL}meta/anilist/advanced-search?genres=["${showInfo.genres[0]}"]&sort=["SCORE_DESC"]`)
+    const recommendedInfo = await axios.get(`${consumetURL}anime/gogoanime/genre/${showInfo.genres[0]}`)
     recommendedData = await recommendedInfo.data
+    console.log(recommendedData)
     const trendingReq = await axios.get(`${consumetURL}anime/gogoanime/top-airing`)
     trendingData = await trendingReq.data
-    const downloadReq = await axios.get(`${consumetURL}anime/gogoanime/download/${epData[0]}-episode-${epData[1]}`)
-    downloadUrl = await downloadReq.data
+    // const downloadReq = await axios.get(`${consumetURL}anime/gogoanime/download/${epData[0]}-episode-${epData[1]}`)
+    // downloadUrl = await downloadReq.data
       watchResult = await fetchApiData(watch);
       if (watchResult.length === 0) {
         throw "API returned an empty array!";
@@ -581,9 +581,9 @@ const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
         EX: 172800,
         NX: true,
       });
-      await redisClient.set(download, JSON.stringify(downloadUrl), {
-        NX: true,
-      });
+    //   await redisClient.set(download, JSON.stringify(downloadUrl), {
+    //     NX: true,
+    //   });
       await redisClient.set(info, JSON.stringify(showInfo), {
         EX: 172800,
         NX: true,
@@ -601,7 +601,7 @@ const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
     return res.render('watch.ejs', {data: watchResult, epData: epData, downloadUrl: downloadUrl, showInfo: showInfo, trending: trendingData, recommended: recommendedData, loginState: loginState, url: fullUrl});
   } catch (error) {
     console.error(error);
-    return res.status(404).render('error.ejs', {loginState: loginState, username: username, url: fullUrl})
+    return res.status(404).render('error.ejs', {loginState: loginState, username: username, url: fullUrl, errCode: "Failed to get episode data!"})
   }
 }
 
