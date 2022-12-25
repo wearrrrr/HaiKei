@@ -1,16 +1,14 @@
 require('dotenv').config();
 
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var flash = require('connect-flash');
-var csrf = require('csurf');
-var passport = require('passport');
-
-var SQLiteStore = require('connect-sqlite3')(session);
-
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const flash = require('connect-flash');
+const csrf = require('csurf');
+const passport = require('passport');
+const SQLiteStore = require('connect-sqlite3')(session);
 const app = express();
 const port = process.env.PORT || 3000;
 

@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
     <title>Watch <%- showInfo.title %> Episode <%- epData[1] %> on HaiKei</title>
+    <meta name="clckd" content="54ce2917172b5d332b4ca43e99fc3425"/>
+    <meta name="description" content="Watch <%- showInfo.title %> Episode <%- epData[1] %> for free on HaiKei, no ads forever!">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="keywords" content="HaiKei, anime, free anime, anime stream, anime hd, english sub, kissanime, gogoanime, animeultima, 9anime, 123animes, animefreak, vidstreaming, gogo-stream, no ads, no-ads, free streaming">
+    <meta name="keywords" content="HaiKei, anime, free anime, anime stream, anime hd, english sub, kissanime, gogoanime, 9anime, 123anime, animefreak, vidstreaming, gogo-stream, no ads, no-ads, free streaming">
     <meta name="charset" content="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -69,6 +71,15 @@ getQuality();
         }
  %>
 <body data-page="movie_watch">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PY3MLQPLY1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-PY3MLQPLY1');
+    </script>
 <script>
     let queryID;
     let aniSkipStartTime;
@@ -557,7 +568,7 @@ getQuality();
                             <div class="tab-content">
                                 <div class="block_area-content block_area-list film_list film_list-grid film_list-wfeature">
                                     <div class="film_list-wrap">
-                                    <% recommended.results.forEach((rec) => { %>
+                                    <% recommended.forEach((rec) => { %>
                                         <div class="flw-item ">
                                             <div class="film-poster">
                                                 <div class="tick rtl">
@@ -568,12 +579,12 @@ getQuality();
                                                     data-src="<%- rec.image %>"
                                                     src="<%- rec.image %>"
                                                     alt="<%- rec.title %>">
-                                                <a class="film-poster-ahref" href="/watch/<%-rec.id %>/episode-1"
+                                                <a class="film-poster-ahref" href="/watch/<%-rec.id %>-episode-1"
                                                     title="Hakushaku to Yousei"><i class="fas fa-play"></i></a>
                                             </div>
                                             <div class="film-detail">
                                                 <h3 class="film-name">
-                                                    <a class="dynamic-name" href="/watch/<%- rec.id %>"
+                                                    <a class="dynamic-name" href="/watch/<%- rec.id %>-episode-1"
                                                         title="<%- rec.title %>" data-jname="<%- rec.title %>" style="opacity: 1;"><%- rec.title %></a>
                                                 </h3>
                                                 <div class="fd-infor">

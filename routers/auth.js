@@ -3,6 +3,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var crypto = require('crypto');
 var db = require('../db');
+const limit = require('express-limit').limit;
 
 
 /* Configure password authentication strategy.
@@ -97,7 +98,7 @@ router.get('/login', function(req, res, next) {
 //   failureFlash: true
 // }));
 
-router.post("/login/password", passport.authenticate('local',{ failureRedirect: '/login', failureFlash: true }),
+router.post("/login/password", limit({max: 10, period: 60 * 1000, message: "Request Limit Exceeded!" }), passport.authenticate('local',{ failureRedirect: '/login', failureFlash: true }),
 function(req, res) {
         if (req.body.remember) {
           req.session.cookie.maxAge = 7 * 24 * 60 * 60 * 1000; // remember cookie expires after 7 days if "remember me" is checked on login
@@ -111,7 +112,7 @@ function(req, res) {
  *
  * This route logs the user out.
  */
-router.post('/logout', function(req, res, next) {
+router.post('/logout', limit({max: 20, period: 60 * 1000, message: "Request Limit Exceeded!" }), function(req, res, next) {
   req.logout();
   res.redirect(req.body.returnURL || '/');
 });
@@ -137,7 +138,11 @@ router.get('/signup', function(req, res, next) {
  * then a new user record is inserted into the database.  If the record is
  * successfully created, the user is logged in.
  */
-router.post('/signup', function(req, res, next) {
+
+// limit function rate limits to 10 requests per 60 seconds per IP.
+
+router.post('/signup', limit({max: 10, period: 60 * 1000, message: "Request Limit Exceeded!" }), function(req, res, next) {
+
   if (req.body.password === req.body.confirm_password) {
     var salt = crypto.randomBytes(16);
     crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', function(err, hashedPassword) {

@@ -239,10 +239,10 @@ async function fetchApiData(watch) {
             break;
     }
   const apiResponse = await axios.get(
-    `${consumetURL}anime/gogoanime/watch/${epData[0]}-episode-${epData[1]}`
+    `${consumetURL}anime/gogoanime/watch/${epData[0]}-episode-${epData[1]}?server=vidstreaming`
   );
   const info = await axios.get(`${consumetURL}anime/gogoanime/info/${epData[0]}`)
-  console.log("Request sent to the API");
+//   console.log("Request sent to the API");
   return apiResponse.data;
 }
 let epData;
@@ -559,8 +559,7 @@ const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
     const showInformation = await axios.get(`${consumetURL}anime/gogoanime/info/${epData[0]}`)
     showInfo = await showInformation.data
     const recommendedInfo = await axios.get(`${consumetURL}anime/gogoanime/genre/${showInfo.genres[0]}`)
-    recommendedData = await recommendedInfo.data
-    console.log(recommendedData)
+    recommendedData = await recommendedInfo.data.results
     const trendingReq = await axios.get(`${consumetURL}anime/gogoanime/top-airing`)
     trendingData = await trendingReq.data
     // const downloadReq = await axios.get(`${consumetURL}anime/gogoanime/download/${epData[0]}-episode-${epData[1]}`)
@@ -600,7 +599,7 @@ const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
     }
     return res.render('watch.ejs', {data: watchResult, epData: epData, downloadUrl: downloadUrl, showInfo: showInfo, trending: trendingData, recommended: recommendedData, loginState: loginState, url: fullUrl});
   } catch (error) {
-    console.error(error);
+    console.error(fullUrl + error);
     return res.status(404).render('error.ejs', {loginState: loginState, username: username, url: fullUrl, errCode: "Failed to get episode data!"})
   }
 }
