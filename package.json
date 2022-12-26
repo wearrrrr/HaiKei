@@ -38,7 +38,7 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pluralize": "^8.0.0",
-    "redis": "^4.4.0",
+    "redis": "^4.5.1",
     "response-time": "^2.3.2"
   }
 }
