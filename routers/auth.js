@@ -105,7 +105,8 @@ function(req, res) {
         } else {
           req.session.cookie.expires = false; // Cookie expires at end of session
         }
-        res.redirect(req.body.returnURL || '/');
+        const redirect = req.body.returnURL ? req.body.returnURL : '';
+        res.redirect(process.env.WEBSITE_URL + redirect || '/');
 });
 
 /* POST /logout
@@ -113,8 +114,11 @@ function(req, res) {
  * This route logs the user out.
  */
 router.post('/logout', limit({max: 20, period: 60 * 1000, message: "Request Limit Exceeded!" }), function(req, res, next) {
-  req.logout();
-  res.redirect(req.body.returnURL || '/');
+  req.logout(function (err) {
+    if (err) { return next(err); }
+  });
+  const redirect = req.body.returnURL ? req.body.returnURL : '';
+  res.redirect(process.env.WEBSITE_URL + redirect || '/');
 });
 
 /* GET /signup

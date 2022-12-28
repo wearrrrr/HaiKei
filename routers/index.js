@@ -23,7 +23,7 @@ app.get('/', async (req, res) => {
     let loginState;
     let username;
     let user;
-    const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
+    const fullUrl = `${req.originalUrl}`;
     let recentReleasesData;
     let recentReleases2Data;
 try {

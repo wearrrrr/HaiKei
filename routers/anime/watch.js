@@ -297,7 +297,6 @@ try {
 
 } catch(e) {
     res.render('error.ejs', {loginState: loginState, username: username, errCode: "Failed to get episode data!"})
-    console.log(e)
 }
 
 }
@@ -542,7 +541,7 @@ let trendingData;
 let downloadUrl
 let loginState;
 let username;
-const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
+const fullUrl = `${req.originalUrl}`;
   try {
     const watchResults = await redisClient.get(watch);
     const recommendedResults = await redisClient.get(recommended);
