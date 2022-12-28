@@ -558,7 +558,7 @@ const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
     } else {
     const showInformation = await axios.get(`${consumetURL}anime/gogoanime/info/${epData[0]}`)
     showInfo = await showInformation.data
-    const recommendedInfo = await axios.get(`${consumetURL}anime/gogoanime/genre/${showInfo.genres[0]}`)
+    const recommendedInfo = await axios.get(`${consumetURL}anime/gogoanime/genre/${showInfo.genres[0]}?page=3`)
     recommendedData = await recommendedInfo.data.results
     const trendingReq = await axios.get(`${consumetURL}anime/gogoanime/top-airing`)
     trendingData = await trendingReq.data
