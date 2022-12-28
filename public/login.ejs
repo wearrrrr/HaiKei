@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="/css/base.css">
 		<link rel="stylesheet" href="/css/index.css">
 		<link rel="stylesheet" href="/css/login.css">
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css">
 	</head>
 	<body>
 		<section class="prompt">
@@ -23,14 +24,15 @@
 					<input id="username" name="username" type="text" autocomplete="username" required autofocus>
 				</section>
 				<section>
-					<label for="current-password">Password</label>
-					<input id="current-password" name="password" type="password" autocomplete="current-password" required>
-				</section>
+					<label for="new-password">Password</label>
+					<input id="new-password" name="password" type="password" autocomplete="new-password" required><i id="togglePassword" class="fa-solid fa-eye-slash"></i>
+                </section>
 				<input type="hidden" name="_csrf" value="<%= csrfToken %>">
-				<button class="enabled" type="submit">Sign in</button>
+				<button id="complete_login" type="submit">Sign in</button>
 			</form>
 			<hr>
 			<p class="help">Don't have an account? <a href="/signup">Sign up</a></p>
 		</section>
-	</body>
+	    <script src="/js/login.js"></script>
+    </body>
 </html>

@@ -8,12 +8,20 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const csrf = require('csurf');
 const passport = require('passport');
+const helmet = require("helmet");
 const SQLiteStore = require('connect-sqlite3')(session);
+const limit = require('express-limit').limit;
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.locals.pluralize = require('pluralize');
 
+app.use(helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
+    originAgentCluster: false,
+    frameguard: false,
+}))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -27,7 +35,7 @@ app.use(session({
 }));
 app.use(flash());
 app.use(csrf());
-app.use(passport.authenticate('session'));
+app.use(limit({max: 50, period: 30 * 1000, message: "Request Limit Exceeded!" }), passport.authenticate('session'));
 app.use(function(req, res, next) {
   res.locals.csrfToken = req.csrfToken();
   next();

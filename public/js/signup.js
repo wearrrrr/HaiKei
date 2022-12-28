@@ -3,11 +3,10 @@ var code = document.getElementById("new-password");
 var strengthbar = document.getElementById("pw_strength");
 document.getElementById('complete_signup').classList.add("disabled")
 code.addEventListener("keyup", function() {
-  checkpassword(code.value);
+  checkPassword(code.value);
 });
 
-
-function checkpassword(password) {
+function checkPassword(password) {
   var strength = 0;
   if (password.match(/[a-z]+/)) {
     strength++;

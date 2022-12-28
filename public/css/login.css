@@ -2,7 +2,7 @@
 	max-width: 400px;
 	margin: 50px auto;
 	padding: 25px;
-	background: #fff;
+	background: #141414;
 	border: 1px solid #e6e6e6;
 	border-radius: 8px;
 }
@@ -44,20 +44,12 @@ a.button {
 	color: white;
 }
 
-a.google {
-	background: #4787ed;
-}
-
-a.facebook {
-	background: #4267b2;
-}
-
 button.enabled:hover {
 	background-color: #c83f45;
 }
 
 h1 {
-    color: black;
+    color: rgb(255, 255, 255);
 	margin: 0 0 20px;
 	padding: 0 0 5px;
 	font-size: 24px;
@@ -82,7 +74,7 @@ label {
 	margin: 0 0 3px;
 	font-size: 14px;
 	font-weight: 500;
-    color: black;
+    color: rgb(255, 255, 255);
 }
 
 input {
@@ -110,13 +102,13 @@ p.instructions {
 }
 
 p.help {
-    color: black;
+    color: rgb(255, 255, 255);
 	text-align: center;
 	font-weight: 400;
 }
 
 .help > a {
-    color: rgb(31, 31, 31);
+    color: rgb(175 175 175);
 }
 
 /* background image by Cole Bemis <https://feathericons.com> */
