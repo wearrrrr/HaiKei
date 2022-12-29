@@ -257,9 +257,8 @@ getQuality();
             <div id="search">
                 <div class="search-content">
                     <form action="/search" autocomplete="off">
-                        <input onkeyup="showResult()" type="text" class="form-control search-input" name="query" id="livesearch" placeholder="Search anime...">
-                        <button style="right:0;outline:0;" type="submit" class="search-icon"><i
-                                class="fas fa-search"></i></button>
+                        <input type="text" class="form-control search-input" name="query" id="livesearch" placeholder="Search anime...">
+                        <button style="right:0;outline:0;" type="submit" class="search-icon"><i class="fas fa-search"></i></button>
                     </form>
                     <div class="nav search-result-pop" id="search-suggest" style="display: block;">
 
@@ -1003,6 +1002,7 @@ getQuality();
                 <script src="https://github.com/videojs/mux.js/releases/latest/download/mux.js"></script> 
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/shaka-player.compiled.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                 <script src="/js/shaka-player-ui.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                <script src="/js/jquery_debounce.js"></script>
 <script>
 // Use shaka.ui.Element as a base class
 const video = document.getElementById('youtube-theme');

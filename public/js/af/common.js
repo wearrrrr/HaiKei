@@ -168,12 +168,25 @@ $(document).ready(function () {
   $("#search-suggest").mouseout(function () {
     hidden_results = true;
   });
-  var timeout = null;
+  function checkEsc(e) {
+    if (e.keyCode == 27) {
+        if (hidden_results == true) {
+            $("#search-suggest").slideUp("fast");
+            document.removeEventListener('keydown', checkEsc)
+        }
+    }
+  }
   $(".search-input").blur(function () {
-    if (hidden_results) {
+    if (hidden_results == true) {
       $("#search-suggest").slideUp("fast");
     }
   });
+  $(".search-input").focus(function () {
+    document.addEventListener('keydown', checkEsc)
+    if ($(".search-input").value !== null) {
+        $("#search-suggest").slideDown("fast");
+    }
+  })
   $(document).on("click", ".wl-item", function () {
     if (checkLogin()) {
       var type = $(this).data("type");
