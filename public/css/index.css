@@ -917,3 +917,10 @@ input.submit::placeholder {
 .videoSourceSelector:focus-visible {
     outline: none;
 }
+
+.ad-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

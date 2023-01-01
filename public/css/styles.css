@@ -385,11 +385,4 @@ img {
 .iOS {
   max-width: 95%;
   margin-top: 200px;
-}
-
-.ad-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }/*# sourceMappingURL=styles.css.map */
