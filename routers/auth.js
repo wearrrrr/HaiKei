@@ -164,7 +164,7 @@ router.post('/signup', body("email").isEmail(), limit({max: 10, period: 60 * 100
             req.body.username,
             hashedPassword,
             salt,
-            '{"shows":[]}'
+            '{"results":[]}'
             ], function(err) {
             if (err) { return next(res.status(400).render('error.ejs', {loginState: 'false', errCode: "User already exists!"})); }
             var user = {
