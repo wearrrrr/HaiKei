@@ -36,7 +36,14 @@ if (os.platform == "win32") {
 if (os.platform == 'darwin' || os.platform == 'linux') {
     console.log("platform is " + os.platform)
     console.log(success("Starting Consumet..."))
-    let consumetServer = cp.exec('consumet_start.sh')
+    let consumetServer = cp.spawn('./consumet_start.sh')
+    consumetServer.stdout.on('data', function (data) {
+    console.log(data.toString());
+    });
+
+    consumetServer.stderr.on('data', function (data) {
+    console.log(data.toString());
+    });
 }
 
 

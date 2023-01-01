@@ -1,2 +1,1 @@
-cd ./consumet-api
-npm start
+cd ./consumet-api && npm start
