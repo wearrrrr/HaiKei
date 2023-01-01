@@ -1146,7 +1146,7 @@ document.addEventListener('shaka-ui-loaded', init);
 <script>
 document.getElementById('add-to-watchlist').addEventListener('click', addToWatchlist)
 function addToWatchlist() {
-    $.post("http://localhost:3000/api/watchlist/add", { data: watchlistObject, _csrf: "<%- csrfToken %>" })
+    $.post("https://haikei.xyz/api/watchlist/add", { data: watchlistObject, _csrf: "<%- csrfToken %>" })
 }
 </script>
 <% } %>
