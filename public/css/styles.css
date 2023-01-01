@@ -11,7 +11,7 @@ body {
   background-color: var(--background-color);
   opacity: 0;
   -webkit-animation: opacity 150ms forwards;
-          animation: opacity 150ms forwards;
+  animation: opacity 150ms forwards;
 }
 
 @-webkit-keyframes opacity {
@@ -22,7 +22,6 @@ body {
     opacity: 1;
   }
 }
-
 @keyframes opacity {
   0% {
     opacity: 0;
@@ -386,4 +385,11 @@ img {
 .iOS {
   max-width: 95%;
   margin-top: 200px;
+}
+
+.ad-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }/*# sourceMappingURL=styles.css.map */
