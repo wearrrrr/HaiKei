@@ -1,4 +1,3 @@
-# HaiKei 
 ![logo](https://user-images.githubusercontent.com/99224452/210157888-0c2eded2-6e59-40a5-8f12-71c4a4dfd837.png)<br>
 HaiKei is an anime streaming website that uses the [consumet](https://github.com/consumet/api.consumet.org) API, and runs ontop of express and ejs, with [redis](https://redis.io/) for caching.
 
