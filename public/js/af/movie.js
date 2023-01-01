@@ -29,6 +29,8 @@ function loadDisqus() {
     }
 }
 
+
+
 function countViewMovie() {
     setTimeout(function() {
         $.post('/' + movieId, function(res) {});

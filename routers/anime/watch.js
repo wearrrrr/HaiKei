@@ -598,7 +598,7 @@ const fullUrl = `${req.originalUrl}`;
     }
     return res.render('watch.ejs', {data: watchResult, epData: epData, downloadUrl: downloadUrl, showInfo: showInfo, trending: trendingData, recommended: recommendedData, loginState: loginState, url: fullUrl});
   } catch (error) {
-    console.error(fullUrl + error);
+    console.error(error);
     return res.status(404).render('error.ejs', {loginState: loginState, username: username, url: fullUrl, errCode: "Failed to get episode data!"})
   }
 }

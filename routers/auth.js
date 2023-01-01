@@ -4,6 +4,7 @@ var LocalStrategy = require('passport-local');
 var crypto = require('crypto');
 var db = require('../db');
 const limit = require('express-limit').limit;
+const { body, validationResult } = require('express-validator');
 
 
 /* Configure password authentication strategy.
@@ -122,70 +123,77 @@ router.post('/logout', limit({max: 20, period: 60 * 1000, message: "Request Limi
 });
 
 /* GET /signup
- *
  * This route prompts the user to sign up.
- *
- * The 'signup' view renders an HTML form, into which the user enters their
- * desired username and password.  When the user submits the form, a request
- * will be sent to the `POST /signup` route.
  */
 router.get('/signup', function(req, res, next) {
   res.render('signup');
 });
 
 /* POST /signup
- *
  * This route creates a new user account.
- *
- * A desired username and password are submitted to this route via an HTML form,
- * which was rendered by the `GET /signup` route.  The password is hashed and
- * then a new user record is inserted into the database.  If the record is
- * successfully created, the user is logged in.
  */
 
-// limit function rate limits to 10 requests per 60 seconds per IP.
-
-router.post('/signup', limit({max: 10, period: 60 * 1000, message: "Request Limit Exceeded!" }), function(req, res, next) {
-
-  if (req.body.password === req.body.confirm_password) {
-    var salt = crypto.randomBytes(16);
-    crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', function(err, hashedPassword) {
-        if (err) { return next(res.render('error.ejs', {loginState: 'false', errCode: "ERR 500: Try again later!"})); }
-        db.run('INSERT INTO users (email, email_verified, username, hashed_password, salt) VALUES (?, ?, ?, ?, ?)', [
-        req.body.email,
-        "false",
-        req.body.username,
-        hashedPassword,
-        salt
-        ], function(err) {
-        if (err) { return next(res.render('error.ejs', {loginState: 'false', errCode: "User already exists!"})); }
-        var user = {
-            email: req.body.email,
-            id: this.lastID,
-            username: req.body.username
-        };
-        req.login(user, function(err) {
-            if (err) { return next(err); }
-            res.redirect('/');
-        });
-        });
-    });
-  } else {
-    let loginState;
-    let username;
-    if (req.user == undefined) {
-        loginState = false;
-    } else {
-        loginState = true;
-        username = req.user.username
-    }
-    res.status(400);
+router.post('/signup', body("email").isEmail(), limit({max: 10, period: 60 * 1000, message: "Request Limit Exceeded!" }), function(req, res, next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        let loginState;
+        let username;
+        if (req.user == undefined) {
+            loginState = false;
+        } else {
+            loginState = true;
+            username = req.user.username
+        }
+    let errorList = errors.array()
+    let errparam = errorList[0].param
+    let errparamFormatting = errparam[0].toUpperCase() + errparam.substring(1)
     if (loginState == true) {
-        return res.render("error.ejs", {statusCode: 400, loginState: loginState})
+        return res.status(400).render("error.ejs", {errCode: errparamFormatting + " Validation failed!" , loginState: loginState, username: username})
     } else {
-        return res.render("error.ejs", {statusCode: 400, loginState: loginState})  
+        return res.status(400).render("error.ejs", {errCode: errparamFormatting + " Validation failed!", loginState: loginState})
     }
-  }
+        
+    }
+    if (req.body.password === req.body.confirm_password) {
+        var salt = crypto.randomBytes(16);
+        crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', function(err, hashedPassword) {
+            if (err) { return next(res.status(400).render('error.ejs', {loginState: 'false', errCode: "Error 500: Try again later!"})); }
+            db.run('INSERT INTO users (email, email_verified, username, hashed_password, salt, watchlist) VALUES (?, ?, ?, ?, ?, ?)', [
+            req.body.email,
+            "false",
+            req.body.username,
+            hashedPassword,
+            salt,
+            '{"shows":[]}'
+            ], function(err) {
+            if (err) { return next(res.status(400).render('error.ejs', {loginState: 'false', errCode: "User already exists!"})); }
+            var user = {
+                email: req.body.email,
+                id: this.lastID,
+                username: req.body.username
+            };
+            req.login(user, function(err) {
+                if (err) { return next(err); }
+                res.redirect('/');
+            });
+            });
+        });
+    } else {
+        let loginState;
+        let username;
+        if (req.user == undefined) {
+            loginState = false;
+        } else {
+            loginState = true;
+            username = req.user.username
+        }
+        res.status(400);
+    if (loginState == true) {
+        return res.status(400).render("error.ejs", {statusCode: 400, loginState: loginState, errCode: "Account Creation Failure - User Supplied incorrect details"})
+    } else {
+        return res.status(400).render("error.ejs", {statusCode: 400, loginState: loginState, errCode: "Account Creation Failure - User Supplied incorrect details"})  
+    }
+}
 });
 
 module.exports = router;

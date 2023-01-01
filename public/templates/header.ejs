@@ -1,0 +1,27 @@
+<div id="xheader">
+    <div class="container">
+        <div id="xheader_browser">
+            <div class="header-btn"><i class="fas fa-bars mr-2"></i>Menu</div>
+        </div>
+            <div id="xheader_menu">
+
+                <ul class="nav header_menu-list">
+                    <a href="/">
+                        <img width="200px" height="auto" class="logo" src="/img/logo.png" alt="HaiKei logo">
+                    </a>
+                    <li class="nav-item"><a href="/" title="Home">Home</a></li>
+                    <li class="nav-item"><a href="/trending" title="Popular Anime">Popular Anime</a></li>
+                    <li class="nav-item"><a href="/genres" title="Anime By Genre">Genres</a></li>
+                    <% if (loginState == true) { %>
+                    <li class="nav-item"><a href="/watchlist" title="Watchlist">Watchlist</a></li>
+                        <li class="nav-item"><a data-toggle="modal" data-target="#modalUserInfo"><i class="fa-solid fa-user"></i> <%- username %></a></li>
+                    <% } else { %>
+                        <li class="nav-item" ><a data-toggle="modal" data-target="#modallogin">Login</a></li>
+                    <% } %>
+                    <li class="nav-item input-nav-item"><input id="searchanime" class="submit" type="search" placeholder="Search..."></li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

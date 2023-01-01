@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
 const csrf = require('csurf');
+const { body, validationResult } = require('express-validator');
 const passport = require('passport');
 const helmet = require("helmet");
 const SQLiteStore = require('connect-sqlite3')(session);
@@ -60,10 +61,14 @@ app.listen(port);
 //   res.render('error', {loginState: "false"});
 // });
 
-
+app.get('/test', (req, res) => {
+    res.render('test.ejs')
+})
 
 app.use('/', require('./routers/index.js'));
+app.use('/api', require('./routers/api.js'))
 app.use('/', require('./routers/auth.js'))
+app.use('/watchlist', require('./routers/watchlist.js'))
 app.use('/search', require('./routers/search.js'));
 app.use('/trending', require('./routers/trending.js'));
 app.use('/releases', require('./routers/releases.js'));

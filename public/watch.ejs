@@ -37,6 +37,22 @@
         'disqus': 'haikei.disqus.com',
     };
     </script>
+    <%# I am going to genuinely skin someone if I ever have to do this again %>
+    <% let watchlistObj = {}; %>
+    <% watchlistObj["id"] = showInfo.id %>
+    <% watchlistObj["title"] = showInfo.title %>
+    <% watchlistObj["genres"] = showInfo.genres %>
+    <% watchlistObj["image"] = showInfo.image %>
+    <% watchlistObj["totalEpisodes"] = showInfo.totalEpisodes %>
+    <% watchlistObj["releaseDate"] = showInfo.releaseDate %>
+    <% watchlistObj["subOrDub"] = showInfo.subOrDub %>
+    <% watchlistObj["status"] = showInfo.status %>
+    <% let stringifiedWatchlistObj = JSON.stringify(watchlistObj) %>
+    
+    <%# now I just have to pass it down to the browser *ensue clown music* %>
+    <script>
+        let watchlistObject = '<%- stringifiedWatchlistObj %>'
+    </script>
 </head>
 <%
 async function getQuality() {
@@ -412,13 +428,13 @@ getQuality();
                                                 <% let hrefToUse %>
                                                 <% let nextEp = parseInt(epData[1]) + 1 %>
                                                 <% let prevEp = parseInt(epData[1]) - 1 %>
-                                                <% if (parseInt(epData[1]) == showInfo.totalEpisodes) {
-                                                    nextOrPrev = "Prev";
-                                                    hrefToUse = prevEp;
-                                                } else {
-                                                    nextOrPrev = "Next";
-                                                    hrefToUse = nextEp;
-                                                } %>
+                                                <% if (parseInt(epData[1]) == showInfo.totalEpisodes) { %>
+                                                <%    nextOrPrev = "Prev";
+                                                    hrefToUse = prevEp; %>
+                                                <% } else { %>
+                                                <%    nextOrPrev = "Next";
+                                                    hrefToUse = nextEp; %>
+                                                <% } %>
                                                 <a href="<%- epData[0] %>-episode-<%- hrefToUse %>">
                                                 <button class="btn btn-secondary" type="button" style="float:right;height: 32px; margin-top: 3px;font-size: 14px;font-weight: normal;display: block;">
                                                 <% if (nextOrPrev == "Prev") { %>
@@ -430,11 +446,16 @@ getQuality();
                                                     <% } %>
                                                     </button>
                                                 </a>
-                                                <div class="pc-item pc-fav" id="watch-list-content"></div>
+                                        <% if (loginState == true) { %>
+                                        <div class="pc-item pc-toggle">
+                                            <div id="add-to-watchlist" class="toggle-basic">
+                                                <span class="tb-name"><i class="fa-solid fa-plus mr-1"></i>Add to Watchlist</span>
                                             </div>
-                                            <div class="clearfix"></div>
                                         </div>
-
+                                        <% } %>
+                                        </div>
+                                    <div class="clearfix"></div>
+                                </div>
                                     </div>                     
                                     <div id="episodes-content">
                                         <div class="seasons-block seasons-block-max">
@@ -1121,6 +1142,14 @@ document.addEventListener('shaka-ui-loaded', init);
         loaded = false;
     }
 </script>
+<% if (loginState == true) { %>
+<script>
+document.getElementById('add-to-watchlist').addEventListener('click', addToWatchlist)
+function addToWatchlist() {
+    $.post("http://localhost:3000/api/watchlist/add", { data: watchlistObject, _csrf: "<%- csrfToken %>" })
+}
+</script>
+<% } %>
 <script>
     let isHD = '<%- hdChecker %>'; 
     let streamQuality = '<%- hdCheck.quality %>'

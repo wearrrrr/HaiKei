@@ -1,0 +1,11 @@
+.watchlist-empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.splide__slide {
+    position: relative;
+    top: 250px;
+}

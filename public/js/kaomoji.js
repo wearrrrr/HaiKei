@@ -46,5 +46,3 @@ class kaomoji {
     }
 
 }
-
-document.getElementById('error-face').textContent = new kaomoji().sadness()

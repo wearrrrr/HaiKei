@@ -15,16 +15,10 @@ db.serialize(function() {
     email_verified TEXT, \
     hashed_password BLOB, \
     salt BLOB, \
+    watchlist TEXT, \
     currentlyWatchingTitle TEXT, \
     currentlyWatchingTime TEXT, \
     currentlyWatchingThumbnail TEXT \
-  )");
-  
-  db.run("CREATE TABLE IF NOT EXISTS watchlists ( \
-    id INTEGER PRIMARY KEY, \
-    owner_id INTEGER NOT NULL, \
-    title TEXT NOT NULL, \
-    content TEXT \
   )");
 });
 
