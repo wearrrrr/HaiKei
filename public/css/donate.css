@@ -1,0 +1,46 @@
+body {
+    font-family: "Noto Sans", sans-serif;
+}
+.donate-header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.donation-reasons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.donate-links-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.donation-reasons-container > ul > li {
+    color: var(--dark-accent);
+    font-size: 24px;
+}
+h1 {
+    color: var(--dark-accent);
+    font-size: 48px;
+}
+h2 {
+    color: var(--dark-accent);
+    font-size: 36px;
+}
+h3 {
+    color: var(--light-accent);
+    font-size: 24px;
+    text-decoration: underline;
+}
+h3 > a {
+    color: var(--light-accent);
+}
+.donate-header-container > svg {
+    width: 10%;
+    fill: var(--light-accent);
+}

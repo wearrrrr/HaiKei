@@ -1,0 +1,40 @@
+    <div class="navbar">
+        <div class="hamburger-icon"><span onclick="sidebarOpen()" href="javascript:void(0)"><i class="bars fa-solid fa-bars"></i></span></div>
+        <a href="/"><img width="168" height="62" class="navbar-brand" src="/img/logo.png" alt="HaiKei Logo"></a>
+        <div class="searchbar">
+            <div class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <input type="text" placeholder="Search...">
+        </div>
+        <div class="navbar-links">
+            <div class="navbar-link random disabled"><a aria-label="random_WIP" class="disabled" href="#"><i class="fa-solid fa-shuffle"></i> Random</a></div>
+            <div class="navbar-link"><a href="/donate"><i class="fa-solid fa-sack-dollar"></i> Donate</a></div>
+            <% if(loginState == true) { %>
+                <div class="navbar-link"><a href="/watchlist"><i class="fa-solid fa-bookmark"></i> Watchlist</a></div>
+            <% } else { %>
+                <div class="navbar-link"><a href="/contribute"><i class="fa-solid fa-code-branch"></i> Contribute</a></div>
+            <% } %>
+            <div class="jp-eng-container">
+            <div class="jp-eng-switcher">
+                <span id="eng" onclick="engNames()" class="eng">EN</span>
+                <span id="jp" onclick="romajiNames()" class="jp">JP</span>
+            </div>
+            <span class="anime-name">Anime Name</span>
+            </div>
+
+        </div>
+        <div class="user">
+            <div class="sign-in">
+            <% if (loginState == true) { %>
+                <div class="user-btn" data-izimodal-open="#userInfo" data-izimodal-transitionin="fadeInUp"><i class="fa-solid fa-user"></i> <%- username %></div>
+            <% } else { %>
+                <div class="user-btn" data-izimodal-open="#login" data-izimodal-transitionin="fadeInUp"><i class="fa-solid fa-arrow-right"></i> Login</div>
+            <% } %>
+            </div>                
+        </div>
+    </div>
+    <div class="mobile-searchbar-container">
+        <div class="mobile-searchbar">
+            <div class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <input type="text" placeholder="Search...">
+        </div>
+    </div>

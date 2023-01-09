@@ -61,12 +61,10 @@ async function getQuality() {
     } catch {
         try {
             if (streamSource == undefined) {
-                console.log("Default resolution not found! Falling back to backup!")
                 streamSource = data.sources.find(x => x.quality === '720p')
             }
         } catch {
             if (streamSource == undefined) {
-                console.log("Default resolution not found! Falling back to backup!")
                 streamSource = data.sources.find(x => x.quality === 'backup')
             }
         }
@@ -105,29 +103,23 @@ getQuality();
         let metaRequest = await fetch(`https://api.consumet.org/meta/anilist/<%- showInfo.title %>`)
         let metadata = await metaRequest.json();
         queryID = metadata.results[0].malId   
-        console.log(queryID)
     }
     async function loadSkipBtn() {
         await loadMalID()
         let aniskipRequest = await fetch(`https://api.aniskip.com/v1/skip-times/${queryID}/1?types[]=op`)
         let aniskipData = await aniskipRequest.json();
         if (aniskipData.found == false) {
-            console.log("failed to find aniskip data!")
+            console.log("No skip data found")
         }
         if (aniskipData.found == true) {
-            console.log("loading aniskip data!")
             aniSkipStartTime = aniskipData.results[0].interval.start_time
             aniSkipEndTime = aniskipData.results[0].interval.end_time
-            console.log(aniSkipStartTime)
-            console.log(aniSkipEndTime)
-            console.log(aniskipData)
             let skipBtn = document.createElement('button')
             let shakaContainer = document.getElementsByClassName('shaka-video-container')[0]
             skipBtn.classList.add('skip-intro')
             shakaContainer.appendChild(skipBtn)
             skipBtn.textContent = "Skip Intro"
             document.getElementsByClassName('skip-intro')[0].addEventListener('click', (e) => {
-            console.log("Skipped Intro!")
             video.currentTime = aniSkipEndTime - 1;
     })
         }
@@ -141,13 +133,17 @@ getQuality();
         <div class="sb-setting">
             <div class="header-setting">
                 <div class="hs-toggles">
-                        <a href="/trending" class="hst-item" data-toggle="tooltip" data-original-title="Popular Anime List">
-                            <div class="hst-icon"><i class="fas fa-star"></i></div>
-                            <div class="name"><span>Popular</span></div>
-                        </a>
+                    <a href="/trending" class="hst-item" data-toggle="tooltip" data-original-title="Popular Anime List">
+                        <div class="hst-icon"><i class="fas fa-star"></i></div>
+                        <div class="name"><span>Popular</span></div>
+                    </a>
                     <a onclick="randomAnime()" rel="nofollow" class="hst-item" data-toggle="tooltip" data-original-title="Select Random Anime">
                         <div class="hst-icon"><i class="fas fa-random"></i></div>
                         <div class="name"><span>Random</span></div>
+                    </a>
+                    <a href="/watchlist" rel="nofollow" class="hst-item" data-toggle="tooltip" data-original-title="Go to Watchlist">
+                        <div class="hst-icon"><i class="fas fa-random"></i></div>
+                        <div class="name"><span>Watchlist</span></div>
                     </a>
                     <div class="clearfix"></div>
                 </div>
@@ -298,7 +294,11 @@ getQuality();
                             <div class="hst-icon"><i id="random-btn" class="fas fa-random"></i></div>
                             <div class="name"><span>Random</span></div>
                         </a>
-			<div class="clearfix"></div>
+                        <a href="/watchlist" rel="nofollow" class="hst-item" data-toggle="tooltip" data-original-title="Go to Watchlist">
+                            <div class="hst-icon"><i class="fas fa-random"></i></div>
+                            <div class="name"><span>Watchlist</span></div>
+                        </a>
+			            <div class="clearfix"></div>
                     </div>
                 </div>
                 <div id="pick_menu">
@@ -601,7 +601,7 @@ getQuality();
                                                     src="<%- rec.image %>"
                                                     alt="<%- rec.title %>">
                                                 <a class="film-poster-ahref" href="/watch/<%-rec.id %>-episode-1"
-                                                    title="Hakushaku to Yousei"><i class="fas fa-play"></i></a>
+                                                    title="<% rec.title %>"><i class="fas fa-play"></i></a>
                                             </div>
                                             <div class="film-detail">
                                                 <h3 class="film-name">

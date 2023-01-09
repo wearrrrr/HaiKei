@@ -5,9 +5,8 @@ const redis = require("redis");
 const config = require('../config')
 const consumetURL = config.app.api_url3
 
-const { ANIME } = require('@consumet/extensions')
-
-const gogoanime = new ANIME.Gogoanime();
+const { META } = require('@consumet/extensions')
+const anilist = new META.Anilist();
 
 let redisClient;
 
@@ -24,30 +23,28 @@ app.get('/', async (req, res) => {
     let username;
     let user;
     const fullUrl = `${req.originalUrl}`;
+    let trendingAnimeData;
     let recentReleasesData;
-    let recentReleases2Data;
 try {
-    const cacheResults = await redisClient.get("recent-episodes");
-    const cacheResults2 = await redisClient.get("recent-episodes?page=2")
+    const cacheResults = await redisClient.get("trending-anime");
+    const recentReleasesCache = await redisClient.get('recent-releases')
     if (cacheResults) {
-        isCached = true;
-        recentReleasesData = JSON.parse(cacheResults);
+        trendingAnimeData = JSON.parse(cacheResults);
     } else {
-        let recentReleases = await gogoanime.fetchRecentEpisodes('1');
-        recentReleasesData = await recentReleases.results
-        await redisClient.set('recent-episodes', JSON.stringify(recentReleasesData), {
-            EX: 7200,
+        let trendingAnime = await anilist.fetchTrendingAnime();
+        trendingAnimeData = await trendingAnime.results
+        await redisClient.set('trending-anime', JSON.stringify(trendingAnimeData), {
+            EX: 3600,
             NX: true,
         });
     } 
-    if (cacheResults2) {
-        isCached = true;
-        recentReleases2Data = JSON.parse(cacheResults2);  
+    if (recentReleasesCache) {
+        recentReleasesData = JSON.parse(recentReleasesCache);
     } else {
-        let recentReleases2 = await gogoanime.fetchRecentEpisodes('2');
-        recentReleases2Data = await recentReleases2.results
-        await redisClient.set('recent-episodes?page=2', JSON.stringify(recentReleases2Data), {
-            EX: 7200,
+        let recentReleases = await anilist.fetchRecentEpisodes();
+        recentReleasesData = await recentReleases.results
+        await redisClient.set('recent-releases', JSON.stringify(recentReleasesData), {
+            EX: 1800,
             NX: true,
         });
     }
@@ -60,19 +57,34 @@ try {
         user = req.user
     }
     if (loginState == true) {
-        return res.render('index.ejs', {recentReleases: recentReleasesData, recentReleases2: recentReleases2Data, username: username, user: user, loginState: loginState, url: fullUrl});
+        return res.render('index.ejs', {trendingAnime: trendingAnimeData, recentReleases: recentReleasesData, username: username, user: user, loginState: loginState, url: fullUrl});
     } else {
-        return res.render('index.ejs', {recentReleases: recentReleasesData, recentReleases2: recentReleases2Data, loginState: loginState, url: fullUrl});
+        return res.render('index.ejs', {trendingAnime: trendingAnimeData, recentReleases: recentReleasesData, loginState: loginState, url: fullUrl});
     }
 
     } catch(e) {
         console.log(e);
-        return res.status(404).render('error.ejs', {loginState: loginState})
+        return res.status(404).render('error.ejs', {loginState: loginState, errCode: "Failed to fetch trending anime!"})
     }
  })
 
  app.get('/anime/:id', async (req, res) => {
     res.redirect('/watch/' + req.params.id + '-episode-1')
+ })
+
+ app.get('/donate', async (req, res) => {
+    if (req.user == undefined) {
+        loginState = false;
+    } else {
+        loginState = true;
+        username = req.user.username
+        user = req.user
+    }
+    if (loginState == true) {
+        return res.render('donate.ejs', {loginState: loginState, username: username})
+    } else {
+        return res.render('donate.ejs', {loginState: loginState})
+    }
  })
 
  app.get('/error', async (req, res) => {

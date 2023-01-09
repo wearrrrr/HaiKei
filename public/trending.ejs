@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/m.min.css">
     <link rel="stylesheet" href="/css/watchpage.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9870376562547077" crossorigin="anonymous"></script>
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.21/dist/js/splide.min.js"></script>
@@ -46,6 +47,10 @@
 
 <div class="new-releases">
     <h1 style="margin-top: 20px;" class="new_releases header">Trending Shows</h1>
+<div align="center">
+<ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-d9+i-1g-4q+e1" data-ad-client="ca-pub-9870376562547077" data-ad-slot="9808535270"></ins>
+</div>
+<br>
 <div class="grid-wrapper-new-release">
             <% trending.forEach(card => { %>
                 <li class="splide__slide" onclick="window.location.href = `${window.location.origin}/watch/<%- card.id %>-episode-1`">
@@ -65,6 +70,39 @@
   </div>
 </div>
 </div>
+<br>
+<div align="center">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9870376562547077" data-ad-slot="3343329158" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <br>
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9870376562547077" data-ad-slot="8345843007" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <br>
+    <ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed" data-ad-client="ca-pub-9870376562547077" data-ad-slot="7895320825"></ins>
+</div>
+<script>
+if (localStorage.getItem("_firstload") == undefined) {
+    localStorage.setItem("_noads", false)
+    localStorage.setItem("_firstload", false)
+}
+// ensure that ads only show on the main domains
+if (window.location.hostname == "haikei.xyz" || window.location.hostname == "www.haikei.xyz") {
+    if (localStorage.getItem("_noads") == 'false') {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    } else {
+        let ads = document.getElementsByClassName("adsbygoogle")
+        for(let i = 0; i < ads.length; i++) {
+            ads[i].style.display = "none"
+        }
+    }
+} else {
+    let ads = document.getElementsByClassName("adsbygoogle")
+    for(let i = 0; i < ads.length; i++) {
+        ads[i].style.display = "none"
+    }
+}
+</script>
 <%- include('templates/footer') %>
 <%- include('templates/login_modals') %>
 <script src="./js/main.js"></script>

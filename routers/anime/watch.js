@@ -5,6 +5,10 @@ const config = require('../../config');
 const app = ex.Router();
 const consumetURL = config.app.api_url3
 
+const { ANIME } = require('@consumet/extensions')
+
+const zoro = new ANIME.Zoro();
+
 let redisClient;
 
 (async () => {
@@ -14,7 +18,7 @@ let redisClient;
 
   await redisClient.connect();
 })();
-async function fetchApiData(watch) {
+async function fetchApiData(watch, serverToUse) {
     switch (epData[0]) {
         case "Gintama.-Shirogane-no-Tamashii-hen---Kouhan-sen":
             epData[0] = "gintama-shirogane-no-tamashii-hen-2"
@@ -238,11 +242,13 @@ async function fetchApiData(watch) {
         default:
             break;
     }
-  const apiResponse = await axios.get(
-    `${consumetURL}anime/gogoanime/watch/${epData[0]}-episode-${epData[1]}?server=vidstreaming`
-  );
-  const info = await axios.get(`${consumetURL}anime/gogoanime/info/${epData[0]}`)
-//   console.log("Request sent to the API");
+    let apiResponse
+    if (serverToUse == "vidstreaming") {
+        apiResponse = await axios.get(`${consumetURL}anime/gogoanime/watch/${epData[0]}-episode-${epData[1]}?server=vidstreaming`);
+    } else {
+        apiResponse = await axios.get(`${consumetURL}anime/gogoanime/watch/${epData[0]}-episode-${epData[1]}`);
+    }
+  
   return apiResponse.data;
 }
 let epData;
@@ -254,6 +260,44 @@ let loginState;
 let username;
 let recommendedData;
 let trendingData;
+async function getWatchDataZoroNew(req, res) {
+// i am going to burn this code to the ground
+// do not replicate this code please for the love of god
+try {
+let malsyncRequest = await axios.get(`https://api.malsync.moe/mal/anime/${req.params.id}`)
+let malsyncData = await malsyncRequest.data
+let zoroData = await malsyncData.Sites.Zoro
+const keys = Object.keys(zoroData);
+const array = keys.map(key => ({ key: key, value: zoroData[key] }));
+let showData;
+// console.log(array[0].value.identifier)
+zoro.fetchAnimeInfo(array[0].value.url.slice(16)).then(data => {
+    // episode 1
+    showData = data 
+    zoro.fetchEpisodeSources(data.episodes[0].id).then(async data => {
+    const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
+    epData = req.params.id.split('-episode-'); 
+    const trendingReq = await axios.get(`${consumetURL}anime/gogoanime/top-airing`)
+    trendingData = await trendingReq.data
+    recommendedInfo = await axios.get(`${consumetURL}anime/gogoanime/genre/action?page=3`)
+    recommendedData = await recommendedInfo.data.results
+        if (req.user == undefined) {
+                loginState = false;
+        } else {
+                loginState = true;
+                username = req.user.username
+        }
+        if (loginState == true) {
+            res.render('watch_zoro.ejs', {data: data, epData: array[0].value.identifier, recommended: recommendedData, showInfo: showData, loginState: loginState, username: username, url: fullUrl, trending: trendingData});
+        } else {
+            res.render('watch_zoro.ejs', {data: data, epData: array[0].value.identifier, recommended: recommendedData, showInfo: showData, loginState: loginState, url: fullUrl, trending: trendingData});
+        }
+    })
+})
+} catch(err) {
+    res.send(err)
+}
+}
 async function getWatchDataZoro(req, res) {
     const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
     epData = req.params.id.split('-episode-');  
@@ -261,7 +305,6 @@ try {
     const [searchReq, showInformation, trending] = await Promise.all([
         await axios.get(`${consumetURL}anime/zoro/${epData[0]}`),
         await axios.get(`${consumetURL}anime/gogoanime/info/${epData[0]}`),
-        // axios.get(`${consumetURL}anime/gogoanime/download/${epData[0]}-episode-${epData[1]}`),
         await axios.get(`${consumetURL}anime/gogoanime/top-airing`)
     ]);
 
@@ -557,16 +600,21 @@ const fullUrl = `${req.originalUrl}`;
     } else {
     const showInformation = await axios.get(`${consumetURL}anime/gogoanime/info/${epData[0]}`)
     showInfo = await showInformation.data
-    const recommendedInfo = await axios.get(`${consumetURL}anime/gogoanime/genre/${showInfo.genres[0]}?page=3`)
+    let recommendedInfo;
+    if (showInfo.genres[0] === "Childcare") {
+        recommendedInfo = await axios.get(`${consumetURL}anime/gogoanime/genre/${showInfo.genres[0]}`)
+    } else {
+        recommendedInfo = await axios.get(`${consumetURL}anime/gogoanime/genre/${showInfo.genres[0]}?page=3`)
+    }
     recommendedData = await recommendedInfo.data.results
     const trendingReq = await axios.get(`${consumetURL}anime/gogoanime/top-airing`)
     trendingData = await trendingReq.data
-    // const downloadReq = await axios.get(`${consumetURL}anime/gogoanime/download/${epData[0]}-episode-${epData[1]}`)
-    // downloadUrl = await downloadReq.data
-      watchResult = await fetchApiData(watch);
-      if (watchResult.length === 0) {
-        throw "API returned an empty array!";
-      }
+    try {
+        watchResult = await fetchApiData(watch, "vidstreaming");
+    } catch(err) {
+        watchResult = await fetchApiData(watch, "gogocdn");
+    }
+      
       await redisClient.set(watch, JSON.stringify(watchResult), {
         EX: 10800,
         NX: true,
@@ -576,14 +624,11 @@ const fullUrl = `${req.originalUrl}`;
         NX: true,
       });
       await redisClient.set(trending, JSON.stringify(trendingData), {
-        EX: 172800,
+        EX: 10800,
         NX: true,
       });
-    //   await redisClient.set(download, JSON.stringify(downloadUrl), {
-    //     NX: true,
-    //   });
       await redisClient.set(info, JSON.stringify(showInfo), {
-        EX: 172800,
+        EX: 32400,
         NX: true,
       });
     }
@@ -594,16 +639,35 @@ const fullUrl = `${req.originalUrl}`;
         username = req.user.username
     }
     if (loginState == true) {
-       return res.render('watch.ejs', {data: watchResult, epData: epData, downloadUrl: downloadUrl, showInfo: showInfo, trending: trendingData, recommended: recommendedData, username: username, loginState: loginState, url: fullUrl}); 
+        return res.render('watch.ejs', {data: watchResult, epData: epData, downloadUrl: downloadUrl, showInfo: showInfo, trending: trendingData, recommended: recommendedData, username: username, loginState: loginState, url: fullUrl}); 
     }
-    return res.render('watch.ejs', {data: watchResult, epData: epData, downloadUrl: downloadUrl, showInfo: showInfo, trending: trendingData, recommended: recommendedData, loginState: loginState, url: fullUrl});
+        return res.render('watch.ejs', {data: watchResult, epData: epData, downloadUrl: downloadUrl, showInfo: showInfo, trending: trendingData, recommended: recommendedData, loginState: loginState, url: fullUrl});
   } catch (error) {
-    console.error(error);
     return res.status(404).render('error.ejs', {loginState: loginState, username: username, url: fullUrl, errCode: "Failed to get episode data!"})
   }
 }
+// I hate everything about this function, but it works so I'm not touching it
+async function getWatchDataAnilist(req, res) {
+    try {
+        let malsyncRequest = await axios.get(`https://api.malsync.moe/mal/anime/${req.params.id}`)
+        let malsyncData = await malsyncRequest.data
+        let gogoanimeData = await malsyncData.Sites.Gogoanime
+        if (gogoanimeData == undefined) {
+            res.redirect(`/watch/${req.params.id}/zoro`)
+        } else {
+            let obj = Object.getOwnPropertyNames(gogoanimeData)
+            let dataName = obj[0]
+            res.redirect(`/watch/${dataName}-episode-1`)
+        }
+    } catch(err) {
+        res.send(err)
+    }
+}
+
 
 app.get("/:id", getWatchDataGogo);
-app.get("/:id/zoro", getWatchDataZoro)
+app.get('/:id/old_zoro', getWatchDataZoro)
+app.get("/:id/zoro", getWatchDataZoroNew)
+app.get("/anilist/:id", getWatchDataAnilist)
 
 module.exports = app;

@@ -3,47 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <meta name="clckd" content="54ce2917172b5d332b4ca43e99fc3425"/>
+    <meta name="description" content="Free Anime on haikei.xyz, Anime should be free.">
+    <meta property="og:title" content="Home - HaiKei.xyz" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://haikei.xyz" />
+    <meta property="og:description" content="Watch anime for completely free online at haikei.xyz! No ads forever!" />
+    <meta property="og:image" content="/img/logo.png" />
     <title>Home - HaiKei</title>
-    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="/css/m.min.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/watchpage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9870376562547077" crossorigin="anonymous"></script>
 </head>
-<body>
-        <header class="main-header">
-            <div class="container">
-                <h1 class="mh-logo">
-                    <a href="/"><img src="./img/logo.webp" width="170" height="95" alt="GenericAnimeWeb"></a>
-                </h1>
-                <nav class="main-nav">
-                    <ul class="main-nav-list">
-                        <li><label class="search"><input type="text" id="search-box" placeholder="Search"></label></li>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/trending">Trending</a></li>
-                        <li><a href="/genres">Genres</a></li>
-                    </ul>
-                </nav>
+<body data-page="page_index">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PY3MLQPLY1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-PY3MLQPLY1');
+</script>
+<div id="mask-overlay"></div>
+<div id="xwrapper">
+<%- include('templates/header') %>
+<div id="xmain-wrapper">
+    <div id="mw-top">
+        <div class="container">
+        <div class="mwt-content">
+        <div class="mwh-logo">
+            <div class="clearfix"></div>
+        </div>
+            <div class="xhashtag">
+            <span class="title">Top search:</span>
+            <a href="/search?query=One%20Piece" class="item">One Piece</a>
+            <a href="/search?query=Naruto%3A%20Shippuden" class="item">Naruto: Shippuden</a>
+            <a href="/search?query=Mugen Train" class="item">Demon Slayer Movie: Mugen Train</a>
+            <a href="/search?query=Boruto%3A%20Naruto%20Next%20Generations" class="item">Boruto: Naruto Next Generations</a>
+            <a href="/search?query=Naruto" class="item">Naruto</a>
+            <a href="/search?query=Sorcery+Fight" class="item">Jujutsu Kaisen (TV)</a>
+            <a href="/search?query=Boku+No+Hero+Academia+5th+Season" class="item">My Hero Academia 5th Season</a>
+            <a href="/search?query=Demon%20Slayer%3A%20Kimetsu%20no%20Yaiba" class="item">Demon Slayer: Kimetsu no Yaiba</a>
+            <a href="/search?query=Attack%20on%20Titan" class="item">Attack on Titan</a>
+            <a href="/search?query=Black%20Clover" class="item">Black Clover</a>
             </div>
-        </header>
+            <div style="height: 60px;" class="clearfix"></div>
+            </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div> 
+<% if (loginState == true) { %>
+    <div id="continue-watching" class="new-releases">
+        <h1 id="continue-watching-txt" class="new_releases header"></h1>
+        <div id="continue-watching-grid" class="grid-wrapper-continue-watching">
+            
+        </div>
+    </div>
+<% } %>
+<br>
 <div class="new-releases">
 <h1 class="new_releases header">New Releases</h1>
-<div class="grid-wrapper">
-            <% recentReleases.results.forEach(card => { %>
-                <li class="splide__slide" onclick="window.location.href = `${window.location.origin}/watch/<%- card.episodeId %>`">
-                    <img src="<%- card.image %>" alt="<%- card.title %>" style="width: 164px; height: 231px; align-self: center"> 
-                    <p class="splide__animeTitle"><%- card.title %></p>
-                    <p class="splide__episodeNum">Episode:  <%- card.episodeNumber %></p>
-                </li>
-            <% }) %>
-            <% recentReleases2.results.forEach(card => { %>
-                <li class="splide__slide" onclick="window.location.href = `${window.location.origin}/watch/<%- card.episodeId %>`">
-                    <img src="<%- card.image %>" alt="<%- card.title %>" style="width: 164px; height: 231px; align-self: center"> 
-                    <p class="splide__animeTitle"><%- card.title %></p>
-                    <p class="splide__episodeNum">Episode:  <%- card.episodeNumber %></p>
-                </li>
-            <% }) %>
-		</ul>
+<br>
+<div align="center">
+<ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-d9+i-1g-4q+e1" data-ad-client="ca-pub-9870376562547077" data-ad-slot="9808535270"></ins>
 </div>
-<script src="./js/main.js"></script>
+<br>
+<div id="recent-releases" class="grid-wrapper-new-release">
+                <% recentReleases.forEach(card => { %>
+                    <li class="splide__slide">
+                    <a class="searchLink" href="/watch/<%- card.episodeId %>"></a>
+                        <img src="<%- card.image %>" alt="<%- card.title %>" style="width: 148px; height: 208px; align-self: center"> 
+                        <p class="splide__animeTitle"><%- card.title %></p>
+                        <p class="splide__episodeNum">Episode:  <%- card.episodeNumber %></p>
+                    </li>
+                <% }) %>
+                <% recentReleases2.forEach(card => { %>
+                    <li class="splide__slide">
+                    <a class="searchLink" href="/watch/<%- card.episodeId %>"></a>
+                        <img src="<%- card.image %>" alt="<%- card.title %>" style="width: 148px; height: 208px; align-self: center"> 
+                        <p class="splide__animeTitle"><%- card.title %></p>
+                        <p class="splide__episodeNum">Episode:  <%- card.episodeNumber %></p>
+                    </li>
+                <% }) %>
+		    </ul>
+        </div>
+    </div>
+</div>
+<br>
+<!-- Ads by google, these will NOT display if you create an account and disable ads!!-->
+<div align="center">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9870376562547077" data-ad-slot="3343329158" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <br>
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9870376562547077" data-ad-slot="8345843007" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <br>
+    <ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed" data-ad-client="ca-pub-9870376562547077" data-ad-slot="7895320825"></ins>
+</div>
+<script>
+if (localStorage.getItem("_firstload") == undefined) {
+    localStorage.setItem("_noads", false)
+    localStorage.setItem("_firstload", false)
+}
+if (window.location.hostname == "haikei.xyz" || window.location.hostname == "www.haikei.xyz") {
+    if (localStorage.getItem("_noads") == 'false') {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    } else {
+        let ads = document.getElementsByClassName("adsbygoogle")
+        for(let i = 0; i < ads.length; i++) {
+            ads[i].style.display = "none"
+        }
+    }
+} else {
+    let ads = document.getElementsByClassName("adsbygoogle")
+    for(let i = 0; i < ads.length; i++) {
+        ads[i].style.display = "none"
+    }
+}
+</script>
+<script>
+let msg = "%c Hi 👋! Welcome to HaiKei!"; 
+let styles= [ 
+    'font-size: 18px', 
+    'font-family: monospace', 
+    'background: white', 
+    'color: black', 
+    'padding: 8px 19px',  
+].join(';') 
+console.log(msg, styles);
+
+               
+</script>
+<div style="display:none;">
+
+</div>
+
+</div>
+<div class="clearfix"></div>
+<%- include('templates/footer') %>
+<%- include('templates/login_modals') %>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+    $("#xheader_browser").click(function (e) {
+        $("#xheader_menu, #xheader_browser").toggleClass("active");
+    });
+        $(".register-tab-link").click(function (e) {
+        $("#modal-tab-register").addClass("active show"),
+        $("#modal-tab-login").removeClass("active show");
+    })
+        $(".forgot-tab-link").click(function (e) {
+        $("#modal-tab-forgot").addClass("active show"),
+        $("#modal-tab-login").removeClass("active show");
+    }),
+        $(".login-tab-link").click(function (e) {
+        $("#modal-tab-login").addClass("active show"),
+        $("#modal-tab-register, #modal-tab-forgot").removeClass("active show");
+    })
+});
+</script>
+</script>
+<% if (loginState == true) { %>
+<script>
+if (localStorage.getItem("continueWatching") !== "") {
+    let fetchData;
+    fetch('https://cors.haikei.xyz/https://api.haikei.xyz/anime/gogoanime/info/' + continueWatching)
+    .then((response) => response.json())
+    .then((data) => fetchData = data)
+    .then(() => {
+        let continueWatchingTitle = document.getElementById('continue-watching-txt')
+        continueWatchingTitle.textContent = "Continue Watching..."
+        let continueWatchingDiv = document.createElement('li')
+        continueWatchingDiv.className = "splide__slide"
+        let continueWatchingLink = document.createElement('a')
+        continueWatchingLink.className = "continueWatchingLink"
+        continueWatchingLink.href = '/watch/' + fetchData.id + '-episode-' + localStorage.getItem('continueWatchingEp')
+        continueWatchingDiv.appendChild(continueWatchingLink)
+        let continueWatchingImg = document.createElement('img')
+        continueWatchingImg.src = fetchData.image
+        continueWatchingImg.width = "148"
+        continueWatchingImg.height = "208"
+        continueWatchingDiv.appendChild(continueWatchingImg)
+        let continueWatchingText = document.createElement('p')
+        continueWatchingText.textContent = fetchData.title
+        continueWatchingText.className = "splide__animeTitle"
+        continueWatchingDiv.appendChild(continueWatchingText)
+        let continueWatchingEpisode = document.createElement('p')
+        continueWatchingEpisode.className = "splide__episodeNum"
+        continueWatchingEpisode.textContent = "Episode: " + localStorage.getItem('continueWatchingEp')
+        continueWatchingDiv.appendChild(continueWatchingEpisode)
+        let continueGridWrapper = document.getElementById('continue-watching-grid')
+        continueGridWrapper.appendChild(continueWatchingDiv)
+    })
+}
+</script>
+<% } %>
+<script src="/js/main.js"></script>
 <!-- <script src="./js/recent-release.js"></script> -->
 </body>
 </html>

@@ -18,11 +18,17 @@
 
                             <h6 style="text-align: center;">Username: <%- username %></h6>
                             <br>
-                            <div style="display: flex; justify-content: center;" class="input-wrapper">
-                            <label style="margin-bottom: 0; margin-right: 5px;" for="videoSource">Video Source</label>
+                            <div style="display: flex; justify-content: center; flex-direction: column; text-align: center;" class="input-wrapper">
+                            <label style="margin-bottom: 0; margin-right: 5px;" for="videoSource">Video Source:</label>
                             <select class="videoSourceSelector" name="videoSource" id="videoSource">
                                 <option id="gogoanime" value="gogoanime">Gogoanime</option>
                                 <option id="zoro" value="zoro">Zoro</option>
+                            </select>
+                            <br>
+                            <label style="margin-bottom: 0; margin-right: 5px;" for="videoSource">Enable Ads:</label>
+                            <select class="adSelector" name="adSelector" id="adSelector">
+                                <option id="ads-enabled" value="false">Ads Enabled (supports the creator!)</option>
+                                <option id="ads-disabled" value="true">Ads Disabled</option>
                             </select>
                             </div>
                             <br>
@@ -130,8 +136,7 @@
                                 <form method="POST" class="preform" id="login-forms" action="/login/password">
                                     <div class="form-group">
                                         <label class="prelabel" for="username">Username</label>
-                                        <input type="text" class="form-control" id="username" placeholder="Alice"
-                                            name="username" required>
+                                        <input type="text" class="form-control" id="username" placeholder="Alice" name="username" required>
                                     </div>
                                     <div class="form-group">
                                         <label class="prelabel" for="password">Password</label>
@@ -248,3 +253,42 @@
             </div>
         </div>
 <% } %>
+<script>
+    let vidSource = localStorage.getItem('videoSource')
+    if (vidSource === undefined || vidSource === null || vidSource.length === 0) {
+       localStorage.setItem('videoSource', "gogoanime")
+    }
+    
+    let continueWatching = localStorage.getItem('continueWatching')
+    if (continueWatching === undefined || continueWatching === null || continueWatching.length === 0) {
+       localStorage.setItem('continueWatching', "")
+    }
+    document.getElementById('videoSource').addEventListener("change", () => {
+        localStorage.setItem('videoSource', event.target.value)
+        window.location.reload()
+    })
+    let isAds = localStorage.getItem('_noads')
+    if (isAds === undefined || isAds === null || isAds.length === 0) {
+       localStorage.setItem('_noads', "false")
+    }
+    document.getElementById('adSelector').addEventListener("change", () => {
+        localStorage.setItem('_noads', event.target.value)
+        window.location.reload()
+    })
+    if (isAds == "true") {
+        document.getElementById('ads-disabled').selected = "selected"
+    } else {
+        document.getElementById('ads-enabled').selected = "selected"
+    }
+    let getVids;
+    if (vidSource == "zoro") {
+        document.getElementById('zoro').selected = "selected"
+        getVids = document.querySelectorAll('.splide__slide > a')
+        for (var i=0; i < getVids.length; i++) {
+            getVids[i].href = getVids[i].href + "/zoro"
+        }
+    } else {
+        document.getElementById('gogoanime').selected = "selected"  
+    }
+
+</script>

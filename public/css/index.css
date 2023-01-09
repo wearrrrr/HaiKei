@@ -1,3 +1,4 @@
+@import "https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap";
 html {
   position: relative;
 }
@@ -32,7 +33,7 @@ body {
 .grid-wrapper-new-release {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 15px;
 }
 
@@ -42,7 +43,7 @@ body {
 }
 
 .new-releases {
-    width: 95vw;
+    width: 80vw;
     margin: 0 auto;
 }
 
@@ -52,9 +53,9 @@ body {
     width: 280px;
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1450px) {
   .grid-wrapper-new-release {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
 }
 @media (max-width: 850px) {
@@ -80,11 +81,13 @@ body {
   border: 2px solid #51D3FF;
   border-radius: 15px;
   cursor: pointer;
+  padding: 5px;
 }
 
 .splide__slide > img {
   margin-top: 15px;
   border-radius: 15px;
+  max-width: fit-content;
 }
 
 .splide__animeTitle {
@@ -95,7 +98,7 @@ body {
   height: 55px;
   max-height: 55px;
   font-size: 18px;
-  max-width: 100%;
+  max-width: 90%;
   font-weight: 400;
 }
 .splide__episodeNum {
@@ -111,7 +114,6 @@ body {
   line-height: 1.4em;
   margin-bottom: 20px
 }
-@import "https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap";
 a {
   outline: none;
   -moz-outline: none;
@@ -400,10 +402,6 @@ input.submit::placeholder {
   -webkit-transition: all 0.2s ease 0s;
   -moz-transition: all 0.2s ease 0s;
 }
-.mw-buttons .btn-primary:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 20px rgba(97, 222, 86, 0.6) !important;
-}
 .mw-body .mwb-left {
   font-size: 14px;
   line-height: 1.5em;
@@ -441,8 +439,6 @@ input.submit::placeholder {
 .mwb-right {
   float: right;
   width: 400px;
-}
-.zr-news {
 }
 .zr-news .item .zr-news-thumb {
   width: 100%;
@@ -491,21 +487,21 @@ input.submit::placeholder {
     rgba(65, 66, 72, 0) 0%,
     rgba(65, 66, 72, 1) 30%,
     rgba(65, 66, 72, 1) 70%,
-    rgba(65, 66, 72, 0.050840404521183435) 100%
+    rgba(65, 66, 72, 0.051) 100%
   );
   background: -webkit-linear-gradient(
     180deg,
     rgba(65, 66, 72, 0) 0%,
     rgba(65, 66, 72, 1) 30%,
     rgba(65, 66, 72, 1) 70%,
-    rgba(65, 66, 72, 0.050840404521183435) 100%
+    rgba(65, 66, 72, 0.051) 100%
   );
   background: linear-gradient(
     180deg,
     rgba(65, 66, 72, 0) 0%,
     rgba(65, 66, 72, 1) 30%,
     rgba(65, 66, 72, 1) 70%,
-    rgba(65, 66, 72, 0.050840404521183435) 100%
+    rgba(65, 66, 72, 0.051) 100%
   );
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#414248",endColorstr="#414248",GradientType=1);
 }
@@ -914,7 +910,19 @@ input.submit::placeholder {
     padding: 1px;
 }
 
+.adSelector {
+    border-radius: 10px;
+    background-color: #434242;
+    color: white;
+    border: none;
+    padding: 1px;
+}
+
 .videoSourceSelector:focus-visible {
+    outline: none;
+}
+
+.adSelector:focus-visible {
     outline: none;
 }
 
