@@ -27,5 +27,5 @@ Due to the way that the information is scraped, sometimes it fails, try again in
 
 
 # Screenshots!
-![HaiKei](https://user-images.githubusercontent.com/99224452/210157868-ad9ac5ab-d82b-42b0-beed-61d49e37f380.PNG)
+![HaiKei](https://user-images.githubusercontent.com/99224452/211406382-79da313e-432f-4b6a-9364-05b5ef5f8faf.png)
 ![hk_player](https://user-images.githubusercontent.com/99224452/210157881-c297bcd0-2806-43b2-b55b-e31da4187d77.png)
