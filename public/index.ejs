@@ -45,7 +45,7 @@
                         <div class="type"><i class="fa-light fa-tv-retro"></i> <%- card.type %></div>
                     </div>
                     <div class="btn-wrapper">
-                        <div class="play-btn"><a href="/watch/anilist/<%- card.malId %>"><i class="fa-solid fa-play"></i> Play Now</a></div>
+                        <div class="play-btn"><a href="/watch/mal/<%- card.malId %>"><i class="fa-solid fa-play"></i> Play Now</a></div>
                     </div>
                 </div>
             </div>
@@ -58,9 +58,9 @@
         <div class="recent-releases-grid">
             <% recentReleases.forEach(card => { %>
                 <div class="splide__slide">
-                <a aria-label="<%- card.episodeId %>" class="searchLink" href="/watch/anilist/<%- card.malId %>"></a>
-                    <img loading="lazy" src="<%- card.image %>" alt="<%- card.title %>" style="width: 148px; height: 208px; align-self: center"> 
-                    <p class="splide__animeTitle"><%- card.title.romaji %></p>
+                <a aria-label="<%- card.episodeId %>" class="searchLink" href="/watch/mal/<%- card.malId %>"></a>
+                    <img loading="lazy" class="recent_releases_img" src="<%- card.image %>" alt="<%- card.title.romaji %>" style="width: 148px; height: 208px; align-self: center"> 
+                    <p class="splide__animeTitle recent_releases_title"><%- card.title.romaji %></p>
                     <p class="splide__episodeNum">Episode: <%- card.episodeNumber %></p>
                 </div>
             <% }) %>

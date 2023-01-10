@@ -5,52 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results for <%= query %></title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" type="text/css">
-    <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/m.min.css">
     <link rel="stylesheet" href="/css/watchpage.css">
+    <link rel="stylesheet" href="/css/index-redesign.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css">
 </head>
 <body>
-<div id="xwrapper">
-<%- include('templates/header') %>
-    <div id="xmain-wrapper">
-        <div id="mw-top">
-            <div class="container">
-            <div class="mwt-content">
-            <div class="mwh-logo">
-                    <div class="clearfix"></div>
-                </div>
-            <div class="xhashtag">
-            <span class="title">Top search:</span>
-            <a href="/search?query=One%20Piece" class="item">One Piece</a>
-            <a href="/search?query=Naruto%3A%20Shippuden" class="item">Naruto: Shippuden</a>
-            <a href="/search?query=Mugen Train" class="item">Demon Slayer Movie: Mugen Train</a>
-            <a href="/search?query=Boruto%3A%20Naruto%20Next%20Generations" class="item">Boruto: Naruto Next Generations</a>
-            <a href="/search?query=Naruto" class="item">Naruto</a>
-            <a href="/search?query=Sorcery+Fight" class="item">Jujutsu Kaisen (TV)</a>
-            <a href="/search?query=Boku+No+Hero+Academia+5th+Season" class="item">My Hero Academia 5th Season</a>
-            <a href="/search?query=Demon%20Slayer%3A%20Kimetsu%20no%20Yaiba" class="item">Demon Slayer: Kimetsu no Yaiba</a>
-            <a href="/search?query=Attack%20on%20Titan" class="item">Attack on Titan</a>
-            <a href="/search?query=Black%20Clover" class="item">Black Clover</a>
-            </div>
-            <div class="clearfix"></div>
-            </div>
-            </div>
-            </div>
-            </div>
-    </div>
+    <%- include("./templates/sidenav.ejs") %>
+    <%- include("./templates/navbar.ejs") %>
 </div>
     <h1 style="margin-top: 50px; margin-left: 20px; margin-bottom: 20px;" class="header">Search Results for: "<%= query %>"  </h1>
-    <div class="grid-wrapper-new-release">
+    <div class="new-releases">
+    <div class="recent-releases-grid">
         <% searchData.forEach((searchData) => { %>
                 <li class="splide__slide">
-                <a class="searchLink" href="/watch/<%-searchData.id%>-episode-1"></a>
-                    <img style="width: 164px; height: 231px; align-self: center;" src="<%- searchData.image %>" alt="<%- searchData.title %>">
-                    <p style="margin-top: 30px;" class="splide__animeTitle"><%- searchData.title  %></p>
+                <a class="searchLink" href="/watch/mal/<%-searchData.malId %>"></a>
+                    <img style="width: 164px; height: 231px; align-self: center;" src="<%- searchData.image %>" alt="<%- searchData.title.romaji %>">
+                    <p style="margin-top: 30px;" class="splide__animeTitle search_result"><%- searchData.title.romaji  %></p>
                 </li>	
         <% }) %>
             </ul>
+    </div>
     </div>
 <script src="/js/main.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

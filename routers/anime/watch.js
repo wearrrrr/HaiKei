@@ -647,7 +647,7 @@ const fullUrl = `${req.originalUrl}`;
   }
 }
 // I hate everything about this function, but it works so I'm not touching it
-async function getWatchDataAnilist(req, res) {
+async function getWatchDataMal(req, res) {
     try {
         let malsyncRequest = await axios.get(`https://api.malsync.moe/mal/anime/${req.params.id}`)
         let malsyncData = await malsyncRequest.data
@@ -668,6 +668,6 @@ async function getWatchDataAnilist(req, res) {
 app.get("/:id", getWatchDataGogo);
 app.get('/:id/old_zoro', getWatchDataZoro)
 app.get("/:id/zoro", getWatchDataZoroNew)
-app.get("/anilist/:id", getWatchDataAnilist)
+app.get("/mal/:id", getWatchDataMal)
 
 module.exports = app;

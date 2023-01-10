@@ -26,6 +26,13 @@ window.addEventListener('keydown', function(e) {
     }
 });
 
+let searchBox = document.getElementById("searchanime")
+searchBox.addEventListener('keyup', function(e) {
+    if (e.key == "Enter" || e.keyCode == 13) {
+        window.location.href = `/search?query=${searchBox.value}`
+    }
+})
+
 function sidebarOpen() {
   if (window.innerWidth <= 585) {
     document.getElementById("sidebar-nav").style.width = "100%";

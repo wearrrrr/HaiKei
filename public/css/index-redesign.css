@@ -342,6 +342,11 @@ body {
         margin-left: 10px;
     }
 }
+@media (max-width: 1680px) {
+    .recent_releases_title {
+        max-width: 150px !important;
+    }
+}
 @media (max-width: 1450px) {
     .recent-releases-grid {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -371,9 +376,7 @@ body {
     border-radius: 15px;
     cursor: pointer;
     padding: 5px;
-    max-lines: 2;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    height: 375px;
     transition: 250ms ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -398,23 +401,45 @@ body {
     font-family: "Inter", sans-serif;
     color: #3fccfc;
     text-align: center;
-    max-height: 45px;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
     font-size: 18px;
     text-overflow: ellipsis;
-    max-width: 90%;
+    max-width: 215px;
     font-weight: 400;
     overflow: hidden;
+}
+.recent_releases_img {
+    margin-top: 15px;
+    max-width: fit-content;
+    position: absolute;
+    margin-bottom: 100px;
+}
+.recent_releases_title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    margin-top: 235px;
+    position: absolute;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.search_result {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 .splide__episodeNum {
     font-family: "Inter", sans-serif;
     color: white;
+    margin-top: 330px;
+    position: absolute;
 }
 .searchLink {
-  height: 335px;
-  position: absolute;
-  width: 215px;
+    height: 335px;
+    position: absolute;
+    width: 215px;
+    z-index: 3;
 }
 #login {
     padding: 0px;
@@ -546,7 +571,7 @@ input[type="checkbox"]:checked::before {
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 3;
+    z-index: 4;
     top: 0;
     left: 0;
     background-color: #242527;
@@ -554,8 +579,6 @@ input[type="checkbox"]:checked::before {
     padding-top: 50px;
     transition: 250ms ease-in-out;
 }
-
-/* The navigation menu links */
 .sidenav a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
@@ -564,13 +587,18 @@ input[type="checkbox"]:checked::before {
   display: block;
   transition: 0.3s;
 }
-
-/* When you mouse over the navigation links, change their color */
+.sidenav > span {
+  font-size: 24px;
+  color: var(--light-accent);
+  transition: 0.3s;
+  cursor: pointer;
+}
+.sidenav span:hover {
+  color: var(--light);
+}
 .sidenav a:hover {
   color: var(--light);
 }
-
-/* Position and style the close button (top right corner) */
 .sidenav .close {
   position: absolute;
   top: 0;
@@ -578,13 +606,10 @@ input[type="checkbox"]:checked::before {
   font-size: 36px;
   margin-left: 50px;
 }
-
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
-
 .disabled {
     cursor: not-allowed !important;
 }

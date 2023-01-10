@@ -3,9 +3,9 @@ const axios = require('axios');
 const app = ex.Router();
 const config = require('../config')
 
-const { ANIME } = require('@consumet/extensions')
+const { META } = require('@consumet/extensions')
 
-const gogoanime = new ANIME.Gogoanime();
+const anilist = new META.Anilist()
 
 const consumetURL = config.app.api_url3
 app.get("/", async(req, res) => {
@@ -18,7 +18,7 @@ try {
         username = req.user.username
     }
     let searchQuery = req.query.query;
-    let query = await gogoanime.search(searchQuery)
+    let query = await anilist.search(searchQuery)
     let queryData = query.results
     if (loginState == true) {
         return res.render('search.ejs', {query: searchQuery, searchData: queryData, url: fullUrl, loginState: loginState, username: username}); 
