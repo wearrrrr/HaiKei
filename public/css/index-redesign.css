@@ -183,9 +183,11 @@ body {
 }
 .swiper {
   width: 90%;
-  height: 600px;
+  height: 500px;
   cursor: grab;
   color: white;
+  margin-top: 15px;
+  border-radius: 15px;
 }
 .swiper-slide {
     display: flex;
@@ -238,7 +240,7 @@ body {
     margin-left: 2rem;
     position: absolute;
     top: 55%;
-    margin-top: 2rem;
+    margin-top: 3rem;
 }
 .emblem-info > div {
     background-color: var(--dark);
@@ -258,6 +260,7 @@ body {
     padding: 10px;
     background-color: #131313;
     font-size: 1.5rem;
+    margin-top: 3rem;
     text-align: center;
     border-radius: 10px;
     position: absolute;
