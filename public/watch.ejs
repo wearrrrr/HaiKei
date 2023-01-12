@@ -562,9 +562,13 @@ getQuality();
                                                 <div id="streamQuality" class="tac tick-item tick-quality"></div>
                                                 <div class="tac tick-item tick-<%-showInfo.subOrDub%>">SUB</div>
                                                 <span class="dot"></span>
-                                                <%# jeez thats a lot of math for rounding a rating and truncating it %>
-                                                <span class="item">★ <%- Math.round(showInfo.rating.toFixed(2)*2)/2; %> / 10</span>
+                                                <% if (showInfo.rating == null) { %>
+                                                <span class="item">NO RATING</span>
                                                 <span class="dot"></span>
+                                                <% } else { %>
+                                                <span class="item">★ <%- Math.round(showInfo.rating *2)/2; %> / 10</span>
+                                                <span class="dot"></span>
+                                                <% } %>
                                                 <span class="item"><%-showInfo.status.toUpperCase() %></span>
                                                 <span class="dot"></span>
                                                 <%# For some reason, MAL's date is interpreted incorrectly with consumet, so adding 1 is a fix for that :) %>

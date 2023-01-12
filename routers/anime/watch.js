@@ -18,6 +18,7 @@ let redisClient;
 
   await redisClient.connect();
 })();
+
 async function fetchApiData(watch, serverToUse) {
     switch (epData[0]) {
         case "Gintama.-Shirogane-no-Tamashii-hen---Kouhan-sen":
@@ -251,6 +252,7 @@ async function fetchApiData(watch, serverToUse) {
   
   return apiResponse.data;
 }
+
 async function getTrending() {
     try {
         let trending = await axios.get(`${consumetURL}meta/anilist/trending`)
@@ -336,25 +338,68 @@ async function getSources(ID) {
     }
 }
 async function getWatchData(req, res) {
-    const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
-    let showID = req.params.id
-    let episode = req.params.episode
-    let trending = await getTrending()
-    let showInfo = await getShowInfo(req.params.id)
-    let recommendedGenre = await showInfo.genres[0]
-    if (showInfo.genres[0] == undefined) {
-        recommendedGenre = "Action" // fallback to action shows if genre is undefined (somehow)
+    const watch_dblink = req.params.id
+    const trending_dblink = "trending"
+    const info_dblink = req.params.id + "/info"
+
+    let sources;
+    let trending;
+    let showInfo;
+
+    try {
+        const watchResults = await redisClient.get(watch_dblink);
+        const trendingResults = await redisClient.get(trending_dblink);
+        const showInfoResults = await redisClient.get(info_dblink);
+        if (watchResults) {
+            sources = JSON.parse(watchResults)
+        } else {
+            sources = await getSources(req.params.id)
+            await redisClient.set(watch_dblink, JSON.stringify(sources), {
+                EX: 5400,
+                NX: true,
+            });
+        }
+        if (trendingResults) {
+            trending = JSON.parse(trendingResults)
+        } else {
+            trending = await getTrending()
+            await redisClient.set(trending_dblink, JSON.stringify(trending), {
+                EX: 5400,
+                NX: true,
+            });
+        }
+        if (showInfoResults) {
+            showInfo = JSON.parse(showInfoResults)
+        } else {
+            showInfo = await getShowInfo(req.params.id)
+            await redisClient.set(info_dblink, JSON.stringify(showInfo), {
+                EX: 32400,
+                NX: true,
+            });
+            if (showInfo.genres[0] == undefined) {
+                recommendedGenre = "Action" // fallback to action shows if genre is undefined (somehow)
+            }
+        }
+        const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
+        let showID = req.params.id
+        let episode = req.params.episode
+        let recommendedGenre = await showInfo.genres[0]
+        let recommended = await getRecommended(recommendedGenre)
+
+        
+        if (req.user == undefined) {
+            loginState = false;
+            username = undefined
+        } else {
+            loginState = true;
+            username = req.user.username
+        }
+
+        res.render("watch.ejs", {id: showID, sources: sources, trending: trending, showInfo: showInfo, recommended: recommended, downloadUrl: undefined, episode: episode, loginState: loginState, username: username, url: fullUrl})
+    } catch(err) {
+        console.log(err)
+        res.render('error.ejs', {loginState: loginState, username: username, errCode: "Failed to get episode data! Show likely doesn't exist."})
     }
-    let recommended = await getRecommended(recommendedGenre)
-    let sources = await getSources(req.params.id)
-    if (req.user == undefined) {
-        loginState = false;
-        username = undefined
-    } else {
-        loginState = true;
-        username = req.user.username
-    }
-    res.render("watch.ejs", {id: showID, sources: sources, trending: trending, showInfo: showInfo, recommended: recommended, downloadUrl: undefined, episode: episode, loginState: loginState, username: username, url: fullUrl})
 }
 
 let epData;
