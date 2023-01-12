@@ -8170,6 +8170,7 @@ ul.color-list li:nth-of-type(7n+6) a {
     padding: 0 15px 15px;
     background: #08090b;
     overflow: hidden;
+    padding-left: 245px;
     position: relative
 }
 
@@ -8287,12 +8288,12 @@ ul.color-list li:nth-of-type(7n+6) a {
 }
 
 .ps__-list .item .btn.active {
-    background: #51D3FF;
+    background: #f8af3f;
     color: #111
 }
 
 .showmodal .modal-content {
-    background: rgba(62, 68, 89, .9)
+    background: #51D3FF
 }
 
 .showmodal .content {

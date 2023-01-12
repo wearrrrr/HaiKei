@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Watch <%- showInfo.title %> Episode <%- epData[1] %> on HaiKei</title>
+    <title>Watch <%- showInfo.title.romaji %> Episode <%- episode %> on HaiKei</title>
     <meta name="clckd" content="54ce2917172b5d332b4ca43e99fc3425"/>
-    <meta name="description" content="Watch <%- showInfo.title %> Episode <%- epData[1] %> for free on HaiKei, no ads forever!">
+    <meta name="description" content="Watch <%- showInfo.title.romaji %> Episode <%- episode %> for free on HaiKei, no ads forever!">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="keywords" content="HaiKei, anime, free anime, anime stream, anime hd, english sub, kissanime, gogoanime, 9anime, 123anime, animefreak, vidstreaming, gogo-stream, no ads, no-ads, free streaming">
     <meta name="charset" content="UTF-8">
@@ -30,7 +30,7 @@
         id: "<%- showInfo.id %>"
     }
     var episode_play = {
-        "id": "<%- epData[1] %>"
+        "id": "<%- episode %>"
     }
     var site_config = {
         'domain': 'haikei.xyz',
@@ -40,7 +40,7 @@
     <%# I am going to genuinely skin someone if I ever have to do this again %>
     <% let watchlistObj = {}; %>
     <% watchlistObj["id"] = showInfo.id %>
-    <% watchlistObj["title"] = showInfo.title %>
+    <% watchlistObj["title"] = showInfo.title.romaji %>
     <% watchlistObj["genres"] = showInfo.genres %>
     <% watchlistObj["image"] = showInfo.image %>
     <% watchlistObj["totalEpisodes"] = showInfo.totalEpisodes %>
@@ -52,9 +52,10 @@
     <%# now I just have to pass it down to the browser *ensue clown music* %>
     <script>
         let watchlistObject = '<%- stringifiedWatchlistObj %>'
+        let ep = "<%- episode %>"
     </script>
 </head>
-<%
+<%#
 async function getQuality() {
     try {
         streamSource = data.sources.find(x => x.quality === 'default')
@@ -99,32 +100,30 @@ getQuality();
     let queryID;
     let aniSkipStartTime;
     let aniSkipEndTime;
-    async function loadMalID() {
-        let metaRequest = await fetch(`https://api.consumet.org/meta/anilist/<%- showInfo.title %>`)
-        let metadata = await metaRequest.json();
-        queryID = metadata.results[0].malId   
-    }
     async function loadSkipBtn() {
-        await loadMalID()
-        let aniskipRequest = await fetch(`https://api.aniskip.com/v1/skip-times/${queryID}/1?types[]=op`)
+        let aniskipRequest = await fetch(`https://api.aniskip.com/v1/skip-times/<%- id %>/<%- episode %>?types[]=op`)
         let aniskipData = await aniskipRequest.json();
         if (aniskipData.found == false) {
             console.log("No skip data found")
         }
         if (aniskipData.found == true) {
-            aniSkipStartTime = aniskipData.results[0].interval.start_time
-            aniSkipEndTime = aniskipData.results[0].interval.end_time
-            let skipBtn = document.createElement('button')
-            let shakaContainer = document.getElementsByClassName('shaka-video-container')[0]
-            skipBtn.classList.add('skip-intro')
-            shakaContainer.appendChild(skipBtn)
-            skipBtn.textContent = "Skip Intro"
-            document.getElementsByClassName('skip-intro')[0].addEventListener('click', (e) => {
-            video.currentTime = aniSkipEndTime - 1;
-    })
+                setTimeout(() => {
+                    aniSkipStartTime = aniskipData.results[0].interval.start_time
+                    aniSkipEndTime = aniskipData.results[0].interval.end_time
+                    let skipBtn = document.createElement('button')
+                    let shakaContainer = document.getElementsByClassName('shaka-video-container')[0]
+                    skipBtn.classList.add('skip-intro')
+                    shakaContainer.appendChild(skipBtn)
+                    skipBtn.textContent = "Skip Intro"
+                    document.getElementsByClassName('skip-intro')[0].addEventListener('click', (e) => {
+                    video.currentTime = aniSkipEndTime - 1;
+                }, 5000)
+            })
         }
     }
-    loadSkipBtn();
+    setTimeout(() => {
+        loadSkipBtn();
+    }, 2000)
 </script>
     <div id="sidebar_menu_bg"></div>
     <div id="wrapper" data-page="movie_watch">
@@ -333,8 +332,8 @@ getQuality();
     <% if (loginState == true) { %>
         <a data-toggle="modal" data-target="#modalUserInfo" class="btn-user btn btn-sm btn-primary btn-login"><%- username %></a>
         <script>
-            localStorage.setItem("continueWatching", "<%- epData[0] %>")
-            localStorage.setItem("continueWatchingEp", "<%- epData[1] %>")
+            localStorage.setItem("continueWatching", "<%- id %>")
+            localStorage.setItem("continueWatchingEp", "<%- episode %>")
         </script>    
     <% } else { %>
         <a data-toggle="modal" data-target="#modallogin" class="btn-user btn btn-sm btn-primary btn-login">Login</a>
@@ -378,20 +377,20 @@ getQuality();
                                             <li itemprop="itemListElement" itemscope=""
                                                 itemtype="http://schema.org/ListItem"
                                                 class="breadcrumb-item dynamic-name"
-                                                data-jname="<%- showInfo.title %>" aria-current="page"
-                                                style="opacity: 1;"><%- showInfo.title %></li>
+                                                data-jname="<%- showInfo.title.romaji%>" aria-current="page"
+                                                style="opacity: 1;"><%- showInfo.title.romaji %></li>
                                             <li itemprop="itemListElement" itemscope=""
                                                 itemtype="http://schema.org/ListItem" class="breadcrumb-item"
                                                 aria-current="page">
                                                 <a itemprop="item"
-                                                    href="/watch/<%- showInfo.id %>-episode-<%- epData[1] %>"><span
-                                                        itemprop="name">Episode <%- epData[1] %></span></a>
+                                                    href="/watch/<%- id %>/<%- episode %>"><span
+                                                        itemprop="name">Episode <%- episode %></span></a>
                                                 <meta itemprop="position" content="4">
                                             </li>
                                         </ol>
                                     </nav>
                                 </div>                                                                 <div class="anis-watch anis-watch-tv">
-                                                                        <div class="watch-player">
+                            <div class="watch-player">
                                         <div class="player-frame">
                                             <div class="loading-relative loading-box" id="embed-loading">
                                                 <div class="loading">
@@ -426,16 +425,16 @@ getQuality();
                                             <div class="pc-right">
                                                 <% let nextOrPrev; %>
                                                 <% let hrefToUse %>
-                                                <% let nextEp = parseInt(epData[1]) + 1 %>
-                                                <% let prevEp = parseInt(epData[1]) - 1 %>
-                                                <% if (parseInt(epData[1]) == showInfo.totalEpisodes) { %>
+                                                <% let nextEp = parseInt(episode) + 1 %>
+                                                <% let prevEp = parseInt(episode) - 1 %>
+                                                <% if (parseInt(episode) == showInfo.totalEpisodes) { %>
                                                 <%    nextOrPrev = "Prev";
                                                     hrefToUse = prevEp; %>
                                                 <% } else { %>
                                                 <%    nextOrPrev = "Next";
                                                     hrefToUse = nextEp; %>
                                                 <% } %>
-                                                <a href="<%- epData[0] %>-episode-<%- hrefToUse %>">
+                                                <a href="<%- id %>-episode-<%- hrefToUse %>">
                                                 <button class="btn btn-secondary" type="button" style="float:right;height: 32px; margin-top: 3px;font-size: 14px;font-weight: normal;display: block;">
                                                 <% if (nextOrPrev == "Prev") { %>
                                                     <i class="fa-solid fa-backward-step"></i>
@@ -456,7 +455,40 @@ getQuality();
                                         </div>
                                     <div class="clearfix"></div>
                                 </div>
-                                    </div>                     
+                                    </div>
+                            <div class="player-servers">
+                            <div id="servers-content">
+                                            <div class="ps_-status">
+                                                <div class="content">
+                                                    <div class="server-notice"><strong>Currently watching <b>Episode
+                                                                <%- episode %></b></strong> 
+                                                    Alternate servers are available if the speed is too slow.</div>
+                                                </div>
+                                            </div>
+                                            <div class="ps_-block ps_-block-sub servers-mixed">
+                                                <div class="ps__-list" id="dt_sv">
+                                                    <div class="ps__-title"><i class="fas fa-server mr-2"></i>Servers:
+                                                    </div>
+                                                    <div class="dropup" id="hostitem">
+                                                        <select class="btn btn-secondary btn-block dropdown-toggle" id="select-source">
+                                                            <% for (let i = 0; i < sources.sources.length; i++) { %>
+                                                                <% if (sources.sources[i].source.toLowerCase() == "gogoanime") { %>
+                                                                    <option default selected id="<%- sources.sources[i].source %>" class="btn-video dropdown-item" value="<%- sources.sources[i].data %>">
+                                                                    <%- sources.sources[i].source %></option>
+                                                                <% } else { %>
+                                                                    <option id="<%- sources.sources[i].source %>" class="btn-video dropdown-item" value="<%- sources.sources[i].data %>">
+                                                                        <%- sources.sources[i].source %></option>
+                                                                <% } %>
+
+                                                            <% } %>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div id="source-guide"></div>
+                                            </div>
+                                </div>
+                            </div>                     
                                     <div id="episodes-content">
                                         <div class="seasons-block seasons-block-max">
                                             <div id="detail-ss-list" class="detail-seasons">
@@ -486,7 +518,7 @@ getQuality();
                                                             data-number="<%- ep.number %>"
                                                             id="<%- ep.number %>"
                                                             data-id="<%- ep.number %>"
-                                                            href="/watch/<%- ep.id %>">
+                                                            href="/watch/<%- id %>/<%- ep.number %>">
                                                             <div class="ssli-order" title="">
                                                                 <%- ep.number %></div>
                                                             <div class="ssli-detail">
@@ -516,25 +548,27 @@ getQuality();
                                                 <img src="<%- showInfo.image %>"
                                                     data-src="<%- showInfo.image %>"
                                                     class="film-poster-img ls-is-cached lazyloaded"
-                                                    alt="<%- showInfo.title %>">
+                                                    alt="<%- showInfo.title.romaji %>">
                                             </div>
                                         </div>
                                         <div class="anisc-detail">
                                             <h2 class="film-name">
-                                                <a href="/watch/<%- showInfo.id %>-episode-1" class="text-white dynamic-name"
-                                                    title="<%- showInfo.title %>"
-                                                    data-jname="<%- showInfo.title %>"
-                                                    style="opacity: 1;"><%- showInfo.title %></a>
+                                                <a href="/watch/<%- id %>/<%- episode %>" class="text-white dynamic-name"
+                                                    title="<%- showInfo.title.romaji %>"
+                                                    data-jname="<%- showInfo.title.romaji %>"
+                                                    style="opacity: 1;"><%- showInfo.title.romaji %></a>
                                             </h2>
                                             <div class="film-stats">
                                                 <div id="streamQuality" class="tac tick-item tick-quality"></div>
-                                                <div class="tac tick-item tick-<%-showInfo.subOrDub%>"><%- showInfo.subOrDub.toUpperCase() %></div>
+                                                <div class="tac tick-item tick-<%-showInfo.subOrDub%>">SUB</div>
                                                 <span class="dot"></span>
-                                                <span class="item"><%- showInfo.type %></span>
+                                                <%# jeez thats a lot of math for rounding a rating and truncating it %>
+                                                <span class="item">★ <%- Math.round(showInfo.rating.toFixed(2)*2)/2; %> / 10</span>
                                                 <span class="dot"></span>
                                                 <span class="item"><%-showInfo.status.toUpperCase() %></span>
                                                 <span class="dot"></span>
-                                                <span class="item"><%-showInfo.releaseDate%></span>
+                                                <%# For some reason, MAL's date is interpreted incorrectly with consumet, so adding 1 is a fix for that :) %>
+                                                <span class="item"><%- parseInt(showInfo.startDate.month) + 1 %> - <%- showInfo.startDate.year %></span>
                                                 <div class="clearfix"></div>
                                             </div>
                                             <div class="film-description m-hide">
@@ -589,7 +623,7 @@ getQuality();
                             <div class="tab-content">
                                 <div class="block_area-content block_area-list film_list film_list-grid film_list-wfeature">
                                     <div class="film_list-wrap">
-                                    <% recommended.forEach((rec) => { %>
+                                    <% recommended.results.forEach((rec) => { %>
                                         <div class="flw-item ">
                                             <div class="film-poster">
                                                 <div class="tick rtl">
@@ -648,11 +682,11 @@ getQuality();
                                             <li class="item-top">
                                               <div class="film-number"><span><%- trendingIndex %></span></div>
                                                     <div class="film-poster">
-                                                        <img data-src="<%- ti.image %>" class="film-poster-img lazyload" alt="<%- ti.title %>" src="<%- ti.image %>">
+                                                        <img data-src="<%- ti.image %>" class="film-poster-img lazyload" alt="<%- ti.title.romaji %>" src="<%- ti.image %>">
                                                     </div>
                                                     <div class="film-detail">
                                                         <h3 class="film-name">
-														<a href="/watch/<%-ti.id %>-episode-1" title="<%- ti.title %>>" class="dynamic-name" data-jname="<%- ti.title %>"><%- ti.title %></a>
+														<a href="/watch/<%-ti.id %>-episode-1" title="<%- ti.title.romaji %>" class="dynamic-name" data-jname="<%- ti.title.romaji %>"><%- ti.title.romaji %></a>
 														</h3>
 														<div class="fd-infor">
 														<span class="fdi-item">
@@ -721,7 +755,7 @@ getQuality();
 <li> <a href="../genres?sort_genre=Yuri" title="Yuri">Yuri</a> </li>  
 							  </ul>
                                 <div class="anime-info">
-                                    <a href="<%- epData[0] %>"></a>
+                                    <a href="<%- id %>"></a>
                                 </div>                         
                                 <div class="clearfix"></div>
                                 <button class="btn btn-sm btn-block btn-showmore mt-2"></button>
@@ -1019,6 +1053,7 @@ getQuality();
                 <script type="text/javascript" src="/js/af/common.js"></script>
                 <script type="text/javascript" src="/js/af/movie.js"></script>
                 <script type="text/javascript" src="/js/af/search_list.js"></script>
+                <script src="/js/af/sources.js"></script>
                 <script src="/js/af/random.js"></script>
                 <script src="https://github.com/videojs/mux.js/releases/latest/download/mux.js"></script> 
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/shaka-player.compiled.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -1077,7 +1112,7 @@ shaka.ui.Controls.registerElement(
   'fast_forward',
   new video.FFButton.Factory());
 
-const youtube_theme_manifestUri = '<%- streamSource.url %>';
+const vidURL = '<%#- streamSource.url %>';
 
 async function init() {
   const video = document.getElementById('youtube-theme');
@@ -1094,7 +1129,7 @@ let config;
       'customContextMenu' : true,
       'contextMenuElements' : ['statistics', 'loop'],
       'playbackRates': [0.1, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 4],
-      'controlPanelElements': ['play_pause', 'mute', 'volume', 'fast_rewind', 'fast_forward', 'time_and_duration', 'spacer', 'overflow_menu', 'fullscreen'],
+      'controlPanelElements': ['play_pause', 'mute', 'volume', 'fast_rewind', 'fast_forward', 'time_and_duration', 'spacer', 'captions', 'overflow_menu', 'fullscreen'],
     }
 
    ui.configure(config);
@@ -1104,7 +1139,7 @@ let config;
     window.player = player
 
     try {
-      await player.load(youtube_theme_manifestUri);
+      await player.load(vidURL);
     } catch (error) {
     }
 
@@ -1151,8 +1186,8 @@ function addToWatchlist() {
 </script>
 <% } %>
 <script>
-    let isHD = '<%- hdChecker %>'; 
-    let streamQuality = '<%- hdCheck.quality %>'
+    let isHD = '<%#- hdChecker %>'; 
+    let streamQuality = '<%#- hdCheck.quality %>'
     if (isHD == "PASS") {
         document.getElementById('streamQuality').textContent = "HD"
     } else {

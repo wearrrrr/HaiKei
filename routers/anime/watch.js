@@ -251,6 +251,112 @@ async function fetchApiData(watch, serverToUse) {
   
   return apiResponse.data;
 }
+async function getTrending() {
+    try {
+        let trending = await axios.get(`${consumetURL}meta/anilist/trending`)
+        let trendingData = await trending.data
+        return trendingData
+    } catch(e) {
+        console.log(e)
+    }
+
+}
+async function getShowInfo(showID) {
+    try {
+        let showInfo = await axios.get(`https://api.consumet.org/meta/mal/info/${showID}`)
+        let showData = await showInfo.data
+        return showData
+    } catch(e) {
+        console.log(e)
+    }
+
+}
+async function getRecommended(genre) {
+    try {
+        let recommended = await axios.get(`${consumetURL}meta/anilist/advanced-search?genres=["${genre}"]`)
+        let recData = await recommended.data
+        return recData
+    } catch(e) {
+        console.log(e)
+    }
+}
+async function getSources(ID) {
+    try {
+        let availableSources = [];
+        let showIds = {
+            sources: []
+        };
+        let id = ID
+
+        let malSync = await axios.get(`https://api.malsync.moe/mal/anime/${id}`)
+        let malSyncData = await malSync.data
+
+        let zoroData = await malSyncData.Sites.Zoro
+        let gogoData = await malSyncData.Sites.Gogoanime
+        let tenshiData = await malSyncData.Sites.Tenshi
+        let animepaheData = await malSyncData.Sites.animepahe
+        let nineanimeData = await malSyncData.Sites["9anime"] // javascript moment
+        if (zoroData !== undefined) {
+            availableSources.push("Zoro")
+            Object.getOwnPropertyNames(zoroData).forEach(function (val, idx, array) {
+                showIds.sources.push({"data": zoroData[val].url.slice(16), "source": "Zoro"})
+            });
+        }
+        if (gogoData !== undefined) { 
+            availableSources.push("Gogoanime")
+            Object.getOwnPropertyNames(gogoData).forEach(function (val, idx, array) {
+                if (gogoData[val].identifier.slice(-4) == "-dub") {
+                    showIds.sources.push({"data": gogoData[val].identifier, "source": "Gogoanime (Dub)"})
+                    return
+                }
+                showIds.sources.push({"data": gogoData[val].identifier, "source": "Gogoanime"})
+            });
+        }
+        if (tenshiData !== undefined) {
+            availableSources.push("Tenshi") // we also do nothing because tenshi isn't in a public API form yet.
+            // Object.getOwnPropertyNames(tenshiData).forEach(function (val, idx, array) {
+            //     showIds.sources.push({"data": tenshiData[val].identifier, "source": "Tenshi"})
+            // });
+        }
+        if (animepaheData !== undefined) { 
+            availableSources.push("Animepahe")
+            Object.getOwnPropertyNames(animepaheData).forEach(function (val, idx, array) {
+                showIds.sources.push({"data": animepaheData[val].identifier, "source": "Animepahe"})
+            });
+        }
+        if (nineanimeData !== undefined) {
+            availableSources.push("9anime") // do nothing because 9anime cannot be used as a source quite yet. :(
+        }
+        let sources = showIds
+
+        return sources
+
+    } catch(err) {
+        console.log(err)
+    }
+}
+async function getWatchData(req, res) {
+    const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
+    let showID = req.params.id
+    let episode = req.params.episode
+    let trending = await getTrending()
+    let showInfo = await getShowInfo(req.params.id)
+    let recommendedGenre = await showInfo.genres[0]
+    if (showInfo.genres[0] == undefined) {
+        recommendedGenre = "Action" // fallback to action shows if genre is undefined (somehow)
+    }
+    let recommended = await getRecommended(recommendedGenre)
+    let sources = await getSources(req.params.id)
+    if (req.user == undefined) {
+        loginState = false;
+        username = undefined
+    } else {
+        loginState = true;
+        username = req.user.username
+    }
+    res.render("watch.ejs", {id: showID, sources: sources, trending: trending, showInfo: showInfo, recommended: recommended, downloadUrl: undefined, episode: episode, loginState: loginState, username: username, url: fullUrl})
+}
+
 let epData;
 let searchRes;
 let infoRes
@@ -665,9 +771,9 @@ async function getWatchDataMal(req, res) {
 }
 
 
-app.get("/:id", getWatchDataGogo);
-app.get('/:id/old_zoro', getWatchDataZoro)
-app.get("/:id/zoro", getWatchDataZoroNew)
-app.get("/mal/:id", getWatchDataMal)
+app.get("/:id/:episode", getWatchData);
+// app.get('/:id/old_zoro', getWatchDataZoro)
+// app.get("/:id/zoro", getWatchDataZoroNew)
+// app.get("/mal/:id", getWatchDataMal)
 
 module.exports = app;

@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css">
     <link rel="stylesheet" href="/vendor/swiper.js/swiper-bundle.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/css/iziModal.css" integrity="sha512-uZ+G0SzK4GMUDUzxzbIeLGLjYgAhQ2KrIV4bWIP5o6URt5XVcn8S02eW6C1DH35bqq/XX1jYwlhhNPPIE1+q1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9870376562547077" crossorigin="anonymous"></script>
 </head>
 <body id="full-doc">
     <%- include("./templates/sidenav.ejs") %>
@@ -45,7 +46,7 @@
                         <div class="type"><i class="fa-light fa-tv-retro"></i> <%- card.type %></div>
                     </div>
                     <div class="btn-wrapper">
-                        <div class="play-btn"><a href="/watch/mal/<%- card.malId %>"><i class="fa-solid fa-play"></i> Play Now</a></div>
+                        <div class="play-btn"><a href="/watch/<%- card.malId %>/1"><i class="fa-solid fa-play"></i> Play Now</a></div>
                     </div>
                 </div>
             </div>
@@ -54,11 +55,14 @@
     <div class="swiper-pagination"></div>
     </div>
     <br>
+    <div align="center">
+        <ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-d9+i-1g-4q+e1" data-ad-client="ca-pub-9870376562547077" data-ad-slot="9808535270"></ins>
+    </div>
     <div class="new-releases">
         <div class="recent-releases-grid">
             <% recentReleases.forEach(card => { %>
                 <div class="splide__slide">
-                <a aria-label="<%- card.episodeId %>" class="searchLink" href="/watch/mal/<%- card.malId %>"></a>
+                <a aria-label="<%- card.episodeId %>" class="searchLink" href="/watch/<%- card.malId %>/1"></a>
                     <img loading="lazy" class="recent_releases_img" src="<%- card.image %>" alt="<%- card.title.romaji %>" style="width: 148px; height: 208px; align-self: center"> 
                     <p class="splide__animeTitle recent_releases_title"><%- card.title.romaji %></p>
                     <p class="splide__episodeNum">Episode: <%- card.episodeNumber %></p>
@@ -66,6 +70,38 @@
             <% }) %>
         </div>
     </div>
+<div align="center">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9870376562547077" data-ad-slot="3343329158" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <br>
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9870376562547077" data-ad-slot="8345843007" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <br>
+    <ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed" data-ad-client="ca-pub-9870376562547077" data-ad-slot="7895320825"></ins>
+</div>
+<script>
+if (localStorage.getItem("_firstload") == undefined) {
+    localStorage.setItem("_noads", false)
+    localStorage.setItem("_firstload", false)
+}
+// ensure that ads only show on the main domains
+if (window.location.hostname == "haikei.xyz" || window.location.hostname == "www.haikei.xyz") {
+    if (localStorage.getItem("_noads") == 'false') {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    } else {
+        let ads = document.getElementsByClassName("adsbygoogle")
+        for(let i = 0; i < ads.length; i++) {
+            ads[i].style.display = "none"
+        }
+    }
+} else {
+    let ads = document.getElementsByClassName("adsbygoogle")
+    for(let i = 0; i < ads.length; i++) {
+        ads[i].style.display = "none"
+    }
+}
+</script>
 
 <div id="login">
 <form method="POST" action="/login/password">
@@ -110,7 +146,6 @@
         </div>
     </div>
 <% } %>
-
 
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/js/iziModal.min.js" integrity="sha512-lR/2z/m/AunQdfBTSR8gp9bwkrjwMq1cP0BYRIZu8zd4ycLcpRYJopB+WsBGPDjlkJUwC6VHCmuAXwwPHlacww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
