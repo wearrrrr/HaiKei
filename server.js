@@ -29,7 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   name : '.HKSECURITY',
-  secret: process.env.AUTH_SECRET,
+  secret: process.env.AUTH_SECRET || "tacocat", // absolutely set a AUTH_SECRET for production...
   resave: false, // don't save session if unmodified
   saveUninitialized: false, // don't create session until something stored
   store: new SQLiteStore({ db: 'sessions.db', dir: './var/db' })
