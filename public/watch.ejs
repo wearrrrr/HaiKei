@@ -637,14 +637,14 @@ getQuality();
                                                 <img class="film-poster-img lazyload"
                                                     data-src="<%- rec.image %>"
                                                     src="<%- rec.image %>"
-                                                    alt="<%- rec.title %>">
+                                                    alt="<%- rec.title.romaji %>">
                                                 <a class="film-poster-ahref" href="/watch/<%-rec.id %>-episode-1"
-                                                    title="<% rec.title %>"><i class="fas fa-play"></i></a>
+                                                    title="<% rec.title.romaji %>"><i class="fas fa-play"></i></a>
                                             </div>
                                             <div class="film-detail">
                                                 <h3 class="film-name">
                                                     <a class="dynamic-name" href="/watch/<%- rec.id %>-episode-1"
-                                                        title="<%- rec.title %>" data-jname="<%- rec.title %>" style="opacity: 1;"><%- rec.title %></a>
+                                                        title="<%- rec.title %>" data-jname="<%- rec.title.romaji %>" style="opacity: 1;"><%- rec.title.romaji %></a>
                                                 </h3>
                                                 <div class="fd-infor">
                                                     <span class="fdi-item"><%- rec.type %></span>

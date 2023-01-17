@@ -75,7 +75,7 @@ body {
     display: flex;
     transition: 250ms ease-in-out;
 }
-.mobile-searchbar > input {
+.mobile-searchbar > form > input {
     background: 0 0;
     border: none;
     width: 538px;
@@ -99,7 +99,7 @@ body {
     color: var(--dark-accent);
 }
 
-.searchbar > input {
+.searchbar > form > input {
     background: 0 0;
     border: none;
     width: 538px;
@@ -484,6 +484,14 @@ body {
     justify-content: center;
     align-items: center;
     transition: 250ms ease-in-out;
+}
+.remember-me-label {
+    margin-left: 2px;
+}
+.register-an-account-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
 }
 input[type="checkbox"] {
     -webkit-appearance: none;

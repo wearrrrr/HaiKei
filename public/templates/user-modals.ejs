@@ -1,0 +1,66 @@
+<div id="login">
+    <form method="POST" action="/login/password">
+        <h2 class="modal-title">Login to HaiKei</h2>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <input type="hidden" name="returnURL" value="<%= url %>">
+        <div class="modal-input-container">
+            <input type="text" class="form-control" id="username" placeholder="username" name="username" required>
+            <input id="password" placeholder="password" name="password" required autocomplete="on" type="password">
+        </div>
+        <div class="remember-me-container">
+            <input value="true" name="remember" type="checkbox" class="custom-control-input" id="remember">
+            <label for="remember" class="remember-me-label">Remember me</label>
+        </div>
+        <div class="register-an-account-container">
+            <a href="" data-izimodal-open="#register" data-izimodal-zindex="20000" data-izimodal-preventclose="true">Don't Have An Account?</a>
+        </div>
+        <div class="btn-container">
+            <button class="modal-btn">Login</button>
+        </div>
+    </form>
+</div>
+<div id="register">
+    <form method="POST" action="/signup">
+        <h2 class="modal-title">Register With HaiKei</h2>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <input type="hidden" name="returnURL" value="<%= url %>">
+        <div class="modal-input-container">
+            <input type="email" id="register-email" name="email" placeholder="alice@haikei.xyz" aria-required="true" required>
+            <input type="text" class="form-control" id="username" placeholder="username" name="username" aria-required="true" required >
+            <input id="register-password" placeholder="password" name="password" required autocomplete="on" type="password" aria-required="true" required>
+            <input id="register-confirm-password" placeholder="confirm password" name="confirm_password" required autocomplete="on" type="password" aria-required="true" required>
+        </div>
+        <div class="remember-me-container">
+            <input value="true" name="remember" type="checkbox" class="custom-control-input" id="remember">
+            <label for="remember" class="remember-me-label">Remember me</label>
+        </div>
+        <div class="btn-container">
+            <button class="modal-btn">Register</button>
+        </div>
+    </form>
+</div>
+<% if(loginState == true) { %>
+    <div id="userInfo">
+        <h2 class="modal-title">Welcome Back, <%- username %>!</h2>
+        <form method="POST" action="/logout">
+            <div class="btn-container">
+                <button type="submit" class="modal-btn">Logout</button>
+            </div>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="hidden" name="returnURL" value="<%= url %>">
+        </form>
+        <div class="input-wrapper">
+        <label style="margin-bottom: 0; margin-right: 5px;" for="videoSource">Video Source:</label>
+        <select class="videoSourceSelector" name="videoSource" id="videoSource">
+            <option id="gogoanime" value="gogoanime">Gogoanime</option>
+            <option id="zoro" value="zoro">Zoro</option>
+        </select>
+        <br>
+        <label style="margin-bottom: 0; margin-right: 5px;" for="videoSource">Enable Ads:</label>
+        <select class="adSelector" name="adSelector" id="adSelector">
+            <option id="ads-enabled" value="false">Ads Enabled (supports the creator!)</option>
+            <option id="ads-disabled" value="true">Ads Disabled</option>
+        </select>
+        </div>
+    </div>
+<% } %>

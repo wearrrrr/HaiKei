@@ -253,42 +253,34 @@
             </div>
         </div>
 <% } %>
-<script>
-    let vidSource = localStorage.getItem('videoSource')
-    if (vidSource === undefined || vidSource === null || vidSource.length === 0) {
-       localStorage.setItem('videoSource', "gogoanime")
-    }
-    
-    let continueWatching = localStorage.getItem('continueWatching')
-    if (continueWatching === undefined || continueWatching === null || continueWatching.length === 0) {
-       localStorage.setItem('continueWatching', "")
-    }
-    document.getElementById('videoSource').addEventListener("change", () => {
-        localStorage.setItem('videoSource', event.target.value)
-        window.location.reload()
-    })
-    let isAds = localStorage.getItem('_noads')
-    if (isAds === undefined || isAds === null || isAds.length === 0) {
-       localStorage.setItem('_noads', "false")
-    }
-    document.getElementById('adSelector').addEventListener("change", () => {
-        localStorage.setItem('_noads', event.target.value)
-        window.location.reload()
-    })
-    if (isAds == "true") {
-        document.getElementById('ads-disabled').selected = "selected"
-    } else {
-        document.getElementById('ads-enabled').selected = "selected"
-    }
-    let getVids;
-    if (vidSource == "zoro") {
-        document.getElementById('zoro').selected = "selected"
-        getVids = document.querySelectorAll('.splide__slide > a')
-        for (var i=0; i < getVids.length; i++) {
-            getVids[i].href = getVids[i].href + "/zoro"
+<% if (loginState == true) { %>
+    <script>
+        let vidSource = localStorage.getItem('videoSource')
+        if (vidSource === undefined || vidSource === null || vidSource.length === 0) {
+           localStorage.setItem('videoSource', "gogoanime")
         }
-    } else {
-        document.getElementById('gogoanime').selected = "selected"  
-    }
-
-</script>
+        
+        let continueWatching = localStorage.getItem('continueWatching')
+        if (continueWatching === undefined || continueWatching === null || continueWatching.length === 0) {
+           localStorage.setItem('continueWatching', "")
+        }
+        document.getElementById('videoSource').addEventListener("change", () => {
+            localStorage.setItem('videoSource', event.target.value)
+            window.location.reload()
+        })
+        let isAds = localStorage.getItem('_noads')
+        if (isAds === undefined || isAds === null || isAds.length === 0) {
+           localStorage.setItem('_noads', "false")
+        }
+        document.getElementById('adSelector').addEventListener("change", () => {
+            localStorage.setItem('_noads', event.target.value)
+            window.location.reload()
+        })
+        if (isAds == "true") {
+            document.getElementById('ads-disabled').selected = "selected"
+        } else {
+            document.getElementById('ads-enabled').selected = "selected"
+        }
+    
+    </script>
+<% } %>

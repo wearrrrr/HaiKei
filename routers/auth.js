@@ -107,6 +107,9 @@ function(req, res) {
           req.session.cookie.expires = false; // Cookie expires at end of session
         }
         const redirect = req.body.returnURL ? req.body.returnURL : '';
+        if (redirect == undefined) {
+          res.redirect("/")
+        }
         res.redirect(process.env.WEBSITE_URL + redirect || '/');
 });
 

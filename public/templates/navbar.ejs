@@ -3,7 +3,7 @@
         <a href="/"><img width="168" height="62" class="navbar-brand" src="/img/logo.png" alt="HaiKei Logo"></a>
         <div class="searchbar">
             <div class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-            <input id="searchanime" type="search" class="searchLink" placeholder="Search...">
+            <form method="GET" action="/search"><input name="query" id="searchanime" type="search" placeholder="Search..."></form>
         </div>
         <div class="navbar-links">
             <div class="navbar-link random disabled"><a aria-label="random_WIP" class="disabled" href="#"><i class="fa-solid fa-shuffle"></i> Random</a></div>
@@ -35,6 +35,6 @@
     <div class="mobile-searchbar-container">
         <div class="mobile-searchbar">
             <div class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-            <input type="text" placeholder="Search...">
+            <form method="GET" action="/search"><input name="query" id="searchanime" type="search" placeholder="Search..."></form>
         </div>
     </div>

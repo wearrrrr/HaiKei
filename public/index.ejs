@@ -103,54 +103,13 @@ if (window.location.hostname == "haikei.xyz" || window.location.hostname == "www
 }
 </script>
 
-<div id="login">
-<form method="POST" action="/login/password">
-    <h2 class="modal-title">Login to HaiKei</h2>
-    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-    <input type="hidden" name="returnURL" value="<%= url %>">
-    <div class="modal-input-container">
-        <input type="text" class="form-control" id="username" placeholder="username" name="username" required>
-        <input id="password" placeholder="password" name="password" required autocomplete="on" type="password">
-    </div>
-    <div class="remember-me-container">
-        <input value="true" name="remember" type="checkbox" class="custom-control-input" id="remember">
-        <label for="remember" class="custom-control-label">Remember me</label>
-    </div>
-    <div class="btn-container">
-        <button class="modal-btn">Login</button>
-    </div>
-</form>
-</div>
-<% if(loginState == true) { %>
-    <div id="userInfo">
-        <h2 class="modal-title">Welcome Back, <%- username %>!</h2>
-        <form method="POST" action="/logout">
-            <div class="btn-container">
-                <button type="submit" class="modal-btn">Logout</button>
-            </div>
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <input type="hidden" name="returnURL" value="<%= url %>">
-        </form>
-        <div class="input-wrapper">
-        <label style="margin-bottom: 0; margin-right: 5px;" for="videoSource">Video Source:</label>
-        <select class="videoSourceSelector" name="videoSource" id="videoSource">
-            <option id="gogoanime" value="gogoanime">Gogoanime</option>
-            <option id="zoro" value="zoro">Zoro</option>
-        </select>
-        <br>
-        <label style="margin-bottom: 0; margin-right: 5px;" for="videoSource">Enable Ads:</label>
-        <select class="adSelector" name="adSelector" id="adSelector">
-            <option id="ads-enabled" value="false">Ads Enabled (supports the creator!)</option>
-            <option id="ads-disabled" value="true">Ads Disabled</option>
-        </select>
-        </div>
-    </div>
-<% } %>
+<%- include("./templates/user-modals.ejs") %>
 
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/js/iziModal.min.js" integrity="sha512-lR/2z/m/AunQdfBTSR8gp9bwkrjwMq1cP0BYRIZu8zd4ycLcpRYJopB+WsBGPDjlkJUwC6VHCmuAXwwPHlacww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js" integrity="sha512-wdUM0BxMyMC/Yem1RWDiIiXA6ssXMoxypihVEwxDc+ftznGeRu4s9Fmxl8PthpxOh5CQ0eqjqw1Q8ScgNA1moQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>   
 <script src="/js/index.js"></script>
+<script src="/js/modals.js"></script>
 <% if(loginState == true) { %>
 <script>
     let vidSource = localStorage.getItem('videoSource')
