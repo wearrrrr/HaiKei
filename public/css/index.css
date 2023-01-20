@@ -364,7 +364,7 @@ input.submit::placeholder {
     }
 }
 .searchLink {
-  height: 335px;
+  height: 435px;
   position: absolute;
   width: 215px;
 }
@@ -931,4 +931,15 @@ input.submit::placeholder {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+.deleteItem {
+  width: 30px;
+  height: 30px;
+  background-color: red;
+  position: absolute;
+  border-radius: 50%;
+  left: 85%;
+  top: 2px;
+  align-self: center;
+  text-align: center;
 }

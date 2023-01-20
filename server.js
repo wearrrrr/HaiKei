@@ -51,20 +51,6 @@ app.engine('ejs', require('ejs').__express);
 app.set('views', 'public')
 app.listen(port);
 
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error', {loginState: "false"});
-// });
-
-app.get('/test', (req, res) => {
-    res.render('test.ejs')
-})
-
 app.use('/', require('./routers/index.js'));
 app.use('/api', require('./routers/api.js'))
 app.use('/', require('./routers/auth.js'))
