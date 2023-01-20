@@ -3,6 +3,7 @@
         <h2 class="modal-title">Login to HaiKei</h2>
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <input type="hidden" name="returnURL" value="<%= url %>">
+        <input id="login-platform" type="hidden" name="platform" value="">
         <div class="modal-input-container">
             <input type="text" class="form-control" id="username" placeholder="username" name="username" required>
             <input id="password" placeholder="password" name="password" required autocomplete="on" type="password">
@@ -12,7 +13,7 @@
             <label for="remember" class="remember-me-label">Remember me</label>
         </div>
         <div class="register-an-account-container">
-            <a href="" data-izimodal-open="#register" data-izimodal-zindex="20000" data-izimodal-preventclose="true">Don't Have An Account?</a>
+            <a style="margin-top: 5px;" href="" data-izimodal-open="#register" data-izimodal-zindex="20000" data-izimodal-preventclose="true">Don't Have An Account?</a>
         </div>
         <div class="btn-container">
             <button class="modal-btn">Login</button>
@@ -23,22 +24,29 @@
     <form method="POST" action="/signup">
         <h2 class="modal-title">Register With HaiKei</h2>
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-        <input type="hidden" name="returnURL" value="<%= url %>">
+        <input id="platform" type="hidden" name="returnURL" value="<%= url %>">
+        <input id="register-platform" type="hidden" name="platform" value="">
         <div class="modal-input-container">
             <input type="email" id="register-email" name="email" placeholder="alice@haikei.xyz" aria-required="true" required>
-            <input type="text" class="form-control" id="username" placeholder="username" name="username" aria-required="true" required >
+            <input type="text" class="form-control" id="register-username" placeholder="username" name="username" aria-required="true" required >
             <input id="register-password" placeholder="password" name="password" required autocomplete="on" type="password" aria-required="true" required>
             <input id="register-confirm-password" placeholder="confirm password" name="confirm_password" required autocomplete="on" type="password" aria-required="true" required>
-        </div>
-        <div class="remember-me-container">
-            <input value="true" name="remember" type="checkbox" class="custom-control-input" id="remember">
-            <label for="remember" class="remember-me-label">Remember me</label>
         </div>
         <div class="btn-container">
             <button class="modal-btn">Register</button>
         </div>
     </form>
 </div>
+
+<script>
+    // Get user platform and save it in the input box
+    function userPlatform() {
+        document.getElementById('register-platform').value = navigator.platform
+        document.getElementById('login-platform').value = navigator.platform
+    }
+    userPlatform()
+</script>
+
 <% if(loginState == true) { %>
     <div id="userInfo">
         <h2 class="modal-title">Welcome Back, <%- username %>!</h2>

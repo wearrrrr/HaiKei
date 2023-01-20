@@ -5,19 +5,18 @@ const fetch = require('node-fetch')
 const config = require('../../../config.js')
 const consumetURL = config.app.api_url3
 
-app.get("/:id", async(req, res) => {
+app.get("/", async(req, res) => {
 const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
 let loginState;
 let username;
 try {
-    let genreData = req.params.id.split("/genre/")
+    let genreData = req.query.sort
     genreString = genreData.toString()
     genreData = genreString[0].toUpperCase() + genreString.substring(1);
-    // boo! edge cases
-    if (genreData.includes('Slice-of-life')) {
+    if (genreData.includes('Slice of life')) {
         genreData = [ 'Slice of Life' ]
     }
-    if (genreData.includes('Magical-girl')) {
+    if (genreData.includes('Mahou shoujo')) {
         genreData = [ 'Mahou Shoujo' ] // 魔法少女
     }
     if (genreData.includes('Sci-fi')) {
@@ -39,7 +38,7 @@ try {
 
     } catch(e) {
         console.log(e);
-        return res.status(404).render('error.ejs', {loginState: loginState, username: username})
+        return res.status(404).render('error.ejs', {loginState: loginState, username: username, errCode: "Unknown Error has occured!"})
     }
  })
 

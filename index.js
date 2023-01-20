@@ -22,7 +22,7 @@ webServer.on("exit", function(exitCode) {
     console.log(exitCode)
 })
 if (os.platform == "win32") {
-    console.log("platform is win32")
+    console.log("platform is " + os.platform)
     console.log(success("Starting Consumet..."))
     let consumetServer = cp.spawn('consumet_start.bat')
     consumetServer.stdout.on('data', function (data) {
@@ -42,6 +42,17 @@ if (os.platform == 'darwin' || os.platform == 'linux') {
     });
 
     consumetServer.stderr.on('data', function (data) {
+    console.log(data.toString());
+    });
+}
+if (os.platform == "linux" ) {
+    console.log(success("Starting Redis..."))
+    let redis = cp.spawn("redis-server")
+    redis.stdout.on('data', function (data) {
+    console.log(data.toString());
+    });
+
+    redis.stderr.on('data', function (data) {
     console.log(data.toString());
     });
 }

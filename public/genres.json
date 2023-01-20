@@ -1,0 +1,78 @@
+{
+    "genres": [
+        {
+            "action": {
+                "genre_name": "Action",
+                "image_url": "https://gogocdn.net/cover/chainsaw-man-1664388043.png"
+            },
+            "adventure": {
+                "genre_name": "Adventure",
+                "image_url": "https://gogocdn.net/cover/isekai-meikyuu-de-harem-wo.png"
+            },
+            "comedy": {
+                "genre_name": "Comedy",
+                "image_url": "https://gogocdn.net/cover/tensei-shitara-slime-datta-ken-movie-guren-no-kizuna-hen.png"
+            },
+            "drama": {
+                "genre_name": "Drama",
+                "image_url": "https://gogocdn.net/cover/natsu-e-no-tunnel-sayonara-no-deguchi.png"
+            }, 
+            "ecchi": {
+                "genre_name": "Ecchi",
+                "image_url": "https://gogocdn.net/cover/uzaki-chan-wa-asobitai-double.png"
+            },
+            "fantasy": {
+                "genre_name": "Fantasy",
+                "image_url": "https://gogocdn.net/cover/tensei-kenja-no-isekai-life-dai-2-no-shokugyou-wo-ete-sekai-saikyou-ni-narimashita.png"
+            },
+            "horror": {
+                "genre_name": "Horror",
+                "image_url": "https://gogocdn.net/cover/happy-sugar-life-dub.png"
+            },
+            "mahou-shoujo": {
+                "genre_name": "Mahou Shoujo",
+                "image_url": "https://gogocdn.net/cover/yes-precure-5-gogo.png"
+            },
+            "mecha": {
+                "genre_name": "Mecha",
+                "image_url": "https://gogocdn.net/cover/86-2nd-season.png"
+            },
+            "music": {
+                "genre_name": "Music",
+                "image_url": "https://gogocdn.net/images/anime/K/K-on.jpg"
+            },
+            "mystery": {
+                "genre_name": "Mystery",
+                "image_url": "https://gogocdn.net/cover/great-pretender.png"
+            },
+            "psychological": {
+                "genre_name": "Psychological",
+                "image_url": "https://gogocdn.net/cover/youkoso-jitsuryoku-shijou-shugi-no-kyoushitsu-e-tv-2nd-season.png"
+            },
+            "romance": {
+                "genre_name": "Romance",
+                "image_url": "https://gogocdn.net/cover/kaguya-sama-wa-kokurasetai-ultra-romantic.png"
+            },
+            "sci-fi": {
+                "genre_name": "Sci-Fi",
+                "image_url": "https://gogocdn.net/cover/dr-stone-ryuusui.png"
+            },
+            "slice-of-life": {
+                "genre_name": "Slice of Life",
+                "image_url": "https://gogocdn.net/cover/kobayashi-san-chi-no-maid-dragon-s-nippon-no-omotenashi-attend-wa-dragon-desu.png"
+            },
+            "sports": {
+                "genre_name": "Sports",
+                "image_url": "https://gogocdn.net/cover/haikyuu-to-the-top.png"
+            },
+            "supernatural": {
+                "genre_name": "Supernatural",
+                "image_url": "https://gogocdn.net/cover/mahoutsukai-no-yoru.png"
+            },
+            "thriller": {
+                "genre_name": "Thriller",
+                "image_url": "https://gogocdn.net/cover/magia-record-mahou-shoujo-madokamagica-gaiden-tv-2nd-season.png"
+            }
+        }
+    ]
+}

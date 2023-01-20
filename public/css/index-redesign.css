@@ -75,10 +75,13 @@ body {
     display: flex;
     transition: 250ms ease-in-out;
 }
+.mobile-searchbar > form {
+    width: 100%;
+}
 .mobile-searchbar > form > input {
     background: 0 0;
     border: none;
-    width: 538px;
+    width: 100%;
     font-size: 0.9rem;
     overflow: hidden;
     height: 30px;
@@ -203,7 +206,7 @@ body {
     font-size: 3em;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
 .swiper-slide > .show-info > .hidden {
@@ -274,7 +277,7 @@ body {
     color: white;
     text-decoration: none;
 }
-.recent-releases-grid {
+.grid-container {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -351,22 +354,31 @@ body {
     }
 }
 @media (max-width: 1450px) {
-    .recent-releases-grid {
+    .grid-container {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
 }
-@media (max-width: 850px) {
-    .recent-releases-grid {
+@media (max-width: 1020px) {
+    .grid-container {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+@media (max-width: 840px) {
+    .grid-container {
         grid-template-columns: 1fr 1fr 1fr;
     }
 }
-@media (max-width: 650px) {
-    .recent-releases-grid {
+@media (max-width: 750px) {
+    .grid-container {
         grid-template-columns: 1fr 1fr;
+    }
+    .swiper-slide > .show-info > .title {
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
     }
 }
 @media (max-width: 450px) {
-    .recent-releases-grid {
+    .grid-container {
         grid-template-columns: 1fr;
     }
 }
@@ -487,6 +499,10 @@ body {
 }
 .remember-me-label {
     margin-left: 2px;
+}
+#register {
+    background-color: var(--darker);
+    color: white;
 }
 .register-an-account-container {
     display: flex;
@@ -623,4 +639,37 @@ input[type="checkbox"]:checked::before {
 }
 .disabled {
     cursor: not-allowed !important;
+}
+.search-by-genre-header {
+    color: var(--light);
+    margin-left: 20px;
+    margin-top: 50px;
+}
+.genre-container {
+    width: 90%;
+    margin: 0 auto;
+}
+.genre-card {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: var(--darker);
+    position: relative;
+    align-items: center;
+    height: 350px;
+    border-radius: 20px;
+    text-decoration: none;
+}
+.genre-image {
+    background-position: top center;
+    background-size: cover;
+    filter: blur(2px);
+    width: 100%;
+    height: 100%;
+}
+.genre-title {
+    background-color: var(--darker);
+    width: 95%;
+    border-radius: 15px;
+    height: 25px;
 }

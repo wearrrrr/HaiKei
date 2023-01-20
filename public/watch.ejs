@@ -1185,7 +1185,7 @@ document.addEventListener('shaka-ui-loaded', init);
 <script>
 document.getElementById('add-to-watchlist').addEventListener('click', addToWatchlist)
 function addToWatchlist() {
-    $.post("https://haikei.xyz/api/watchlist/add", { data: watchlistObject, _csrf: "<%- csrfToken %>" })
+    $.post("<%- process.env.WEBSITE_URL %>/api/watchlist/add", { data: watchlistObject, _csrf: "<%- csrfToken %>" })
 }
 </script>
 <% } %>
@@ -1195,7 +1195,7 @@ function addToWatchlist() {
     if (isHD == "PASS") {
         document.getElementById('streamQuality').textContent = "HD"
     } else {
-        document.getElementById('streamQuality').textContent = "SD" 
+        document.getElementById('streamQuality').textContent = "HD" 
     }
 </script>
 <script>
