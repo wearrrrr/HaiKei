@@ -13,7 +13,7 @@ HaiKei is a streaming website that focuses on minimial loading times and an inte
 
 idk what are you, a cop?
 
-The interface will get better, because currently this is extremely open beta, have fun and if you want to make a contribution don't hesistate to open a pr.
+HaiKei is still very actively maintained and looking for contributors! If you know javascript, especially NodeJS and server side work, feel free to make a contribution!
 
 # Screenshots!
 ![HaiKei](https://user-images.githubusercontent.com/99224452/211406382-79da313e-432f-4b6a-9364-05b5ef5f8faf.png)
