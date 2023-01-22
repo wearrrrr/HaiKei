@@ -46,15 +46,21 @@ document.getElementById('select-source').addEventListener('change', async functi
             let subtitleForm;
             subtitles.forEach((track) => {
             if (track.lang == "English") {
-                subtitleForm = "eng"
-            } else if (track.lang == "Arabic") {
-                subtitleForm = "ara"
+                subtitleForm = "en"
+            } else if (track.lang == "Arabic - العربية (Arabic)") {
+                subtitleForm = "ar"
             } else if (track.lang == "French") {
-                subtitleForm = "fre"
-            } else if (track.lang == "Portuguese - Portuguese(Brazil)") {
-                subtitleForm = "por"
-            } else if (track.lang == "Spanish - Spanish(Latin_America)") {
-                subtitleForm = "spa"
+                subtitleForm = "fr"
+            } else if (track.lang == "Portuguese - Português (Brasil)") {
+                subtitleForm = "pt"
+            } else if (track.lang == "Spanish - Español (España)") {
+                subtitleForm = "es"
+            } else if (track.lang == "Russian - Русский (Russian)") {
+                subtitleForm = "ru"
+            } else if (track.lang == "German - Deutsch") {
+                subtitleForm = "de"
+            } else if (track.lang == "Italian - Italiano (Italian)") {
+                subtitleForm = "it"
             }
             
             player.addTextTrackAsync(track.url, subtitleForm, 'subtitle', 'text/vtt', '', track.lang)
