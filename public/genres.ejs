@@ -4,168 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genres - HeiKei</title>
-    <link rel="stylesheet" href="/css/genres.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" type="text/css">
-    <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/css/m.min.css">
-    <link rel="stylesheet" href="/css/watchpage.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://site-assets.fontawesome.com">
+    <title>Genres - HaiKei</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="/css/index-redesign.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/css/iziModal.css" integrity="sha512-uZ+G0SzK4GMUDUzxzbIeLGLjYgAhQ2KrIV4bWIP5o6URt5XVcn8S02eW6C1DH35bqq/XX1jYwlhhNPPIE1+q1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PY3MLQPLY1"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-PY3MLQPLY1');
-</script>
-<div id="xwrapper">
-<%- include('templates/header') %>
-    <div id="xmain-wrapper">
-        <div id="mw-top">
-            <div class="container">
-            <div class="mwt-content">
-            <div class="mwh-logo">
-                    <div class="clearfix"></div>
-                </div>
-            <div class="xhashtag">
-            <span class="title">Top search:</span>
-            <a href="/search?query=One%20Piece" class="item">One Piece</a>
-            <a href="/search?query=Naruto%3A%20Shippuden" class="item">Naruto: Shippuden</a>
-            <a href="/search?query=Mugen Train" class="item">Demon Slayer Movie: Mugen Train</a>
-            <a href="/search?query=Boruto%3A%20Naruto%20Next%20Generations" class="item">Boruto: Naruto Next Generations</a>
-            <a href="/search?query=Naruto" class="item">Naruto</a>
-            <a href="/search?query=Sorcery+Fight" class="item">Jujutsu Kaisen (TV)</a>
-            <a href="/search?query=Boku+No+Hero+Academia+5th+Season" class="item">My Hero Academia 5th Season</a>
-            <a href="/search?query=Demon%20Slayer%3A%20Kimetsu%20no%20Yaiba" class="item">Demon Slayer: Kimetsu no Yaiba</a>
-            <a href="/search?query=Attack%20on%20Titan" class="item">Attack on Titan</a>
-            <a href="/search?query=Black%20Clover" class="item">Black Clover</a>
-            </div>
-            <div class="clearfix"></div>
-            </div>
-            </div>
-            </div>
-            </div>
+<body id="full-doc">
+    <%- include("./templates/sidenav.ejs") %>
+    <%- include("./templates/navbar.ejs") %>
+
+    <h1 class="search-by-genre-header">Search By Genre: </h1>
+    <div class="genre-container grid-container">
+        <%# card[String(Object.getOwnPropertyNames(card)[i])] %>
+        <% genreData.genres.forEach((card) => { %>
+            <% for (i = 0; i < Object.getOwnPropertyNames(card).length; i++) { %>
+                <a href="/genre?sort=<%- card[String(Object.getOwnPropertyNames(card)[i])].genre_name.toLowerCase() %>" class="genre-card">
+                    <div style="background-image: url('<%- card[Object.getOwnPropertyNames(card)[i]].image_url %>')" class="genre-image"></div>
+                    <p class="genre-title splide__animeTitle"><%- card[String(Object.getOwnPropertyNames(card)[i])].genre_name %></p>
+                </a>
+            <% } %>
+        <% }) %>
     </div>
-</div>
-<div class="genres">
-    <li id="action" onclick="toggle(genre = 'action');" class="genre-item">
-        <div title="Action" class="name">
-        <span>Action</span>
-        </div>
-    </li>
-    <li id="adventure" onclick="toggle(genre = 'adventure');" class="genre-item">
-        <div title="Adventure" class="name">
-        <span>Adventure</span>
-        </div>
-    </li>
-    <li id="comedy" onclick="toggle(genre = 'comedy');" class="genre-item">
-        <div title="Comedy" class="name">
-        <span>Comedy</span>
-        </div>
-    </li>
-    <li id="drama" onclick="toggle(genre = 'drama');" class="genre-item">
-        <div title="Drama" class="name">
-        <span>Drama</span>
-        </div>
-    </li>
-    <li id="ecchi" onclick="toggle(genre = 'ecchi');" class="genre-item">
-        <div title="Ecchi" class="name">
-        <span>Ecchi</span>
-        </div>
-    </li>
-    <li id="fantasy" onclick="toggle(genre = 'fantasy');" class="genre-item">
-        <div title="Fantasy" class="name">
-        <span>Fantasy</span>
-        </div>
-    </li>
-    <li id="horror" onclick="toggle(genre = 'horror');" class="genre-item">
-        <div title="Horror" class="name">
-        <span>Horror</span>
-        </div>
-    </li>
-    <li id="magical-girl" onclick="toggle(genre = 'magical-girl');" class="genre-item">
-        <div title="Magical Girl" class="name">
-        <span>Magical Girl</span>
-        </div>
-    </li>
-    <li id="mecha" onclick="toggle(genre = 'mecha');" class="genre-item">
-        <div title="Mecha" class="name">
-        <span>Mecha</span>
-        </div>
-    </li>
-    <li id="music" onclick="toggle(genre = 'music');" class="genre-item">
-        <div title="Music" class="name">
-        <span>Music</span>
-        </div>
-    </li>
-    <li id="mystery" onclick="toggle(genre = 'mystery');" class="genre-item">
-        <div title="Mystery" class="name">
-        <span>Mystery</span>
-        </div>
-    </li>
-    <li id="psychological" onclick="toggle(genre = 'psychological');" class="genre-item">
-        <div title="Psychological" class="name">
-        <span>Psychological</span>
-        </div>
-    </li>
-    <li id="romance" onclick="toggle(genre = 'romance');" class="genre-item">
-        <div title="Romance" class="name">
-        <span>Romance</span>
-        </div>
-    </li>
-    <li id="sci-fi" onclick="toggle(genre = 'sci-fi');" class="genre-item">
-        <div title="Sci-Fi" class="name">
-        <span>Sci-Fi</span>
-        </div>
-    </li>
-    <li id="slice-of-life" onclick="toggle(genre = 'slice-of-life');" class="genre-item">
-        <div title="Slice of Life" class="name">
-        <span>Slice of Life</span>
-        </div>
-    </li>
-    <li id="sports" onclick="toggle(genre = 'sports');" class="genre-item">
-        <div title="Sports" class="name">
-        <span>Sports</span>
-        </div>
-    </li>
-    <li id="supernatural" onclick="toggle(genre = 'supernatural');" class="genre-item">
-        <div title="Supernatural" class="name">
-        <span>Supernatural</span>
-        </div>
-    </li>
-    <li id="thriller" onclick="toggle(genre = 'thriller');" class="genre-item">
-        <div title="Thriller" class="name">
-        <span>Thriller</span>
-        </div>
-    </li>
-</div>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<%- include('templates/footer') %>
-<%- include('templates/login_modals') %>
-<script src="./js/genres.js"></script>
-<script src="./js/main.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
-<script>
-    $(document).ready(function () {
-    $("#xheader_browser").click(function (e) {
-        $("#xheader_menu, #xheader_browser").toggleClass("active");
-    });
-        $(".register-tab-link").click(function (e) {
-        $("#modal-tab-register").addClass("active show"),
-        $("#modal-tab-login").removeClass("active show");
-    })
-        $(".forgot-tab-link").click(function (e) {
-        $("#modal-tab-forgot").addClass("active show"),
-        $("#modal-tab-login").removeClass("active show");
-    }),
-        $(".login-tab-link").click(function (e) {
-        $("#modal-tab-login").addClass("active show"),
-        $("#modal-tab-register, #modal-tab-forgot").removeClass("active show");
-    })
-});
-</script>
+
+    <%- include("./templates/user-modals.ejs") %>
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/js/iziModal.min.js" integrity="sha512-lR/2z/m/AunQdfBTSR8gp9bwkrjwMq1cP0BYRIZu8zd4ycLcpRYJopB+WsBGPDjlkJUwC6VHCmuAXwwPHlacww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/js/modals.js"></script>
 </body>
 </html>

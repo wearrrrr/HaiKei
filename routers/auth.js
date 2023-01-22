@@ -106,7 +106,10 @@ function(req, res) {
         } else {
           req.session.cookie.expires = false; // Cookie expires at end of session
         }
-        const redirect = req.body.returnURL ? req.body.returnURL : '';
+        const redirect = req.body.returnURL ? req.body.returnURL : '/';
+        if (redirect == undefined) {
+          res.redirect("/")
+        }
         res.redirect(process.env.WEBSITE_URL + redirect || '/');
 });
 
@@ -118,9 +121,10 @@ router.post('/logout', limit({max: 20, period: 60 * 1000, message: "Request Limi
   req.logout(function (err) {
     if (err) { return next(err); }
   });
-  const redirect = req.body.returnURL ? req.body.returnURL : '';
-  res.redirect(process.env.WEBSITE_URL + redirect || '/');
-});
+
+    const redirect = req.body.returnURL ? req.body.returnURL : '/';
+    res.redirect(process.env.WEBSITE_URL + redirect || '/');
+  });
 
 /* GET /signup
  * This route prompts the user to sign up.

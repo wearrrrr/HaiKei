@@ -29,7 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   name : '.HKSECURITY',
-  secret: process.env.AUTH_SECRET,
+  secret: process.env.AUTH_SECRET || "tacocat", // absolutely set a AUTH_SECRET for production...
   resave: false, // don't save session if unmodified
   saveUninitialized: false, // don't create session until something stored
   store: new SQLiteStore({ db: 'sessions.db', dir: './var/db' })
@@ -50,20 +50,6 @@ app.engine('ejs', require('ejs').__express);
 
 app.set('views', 'public')
 app.listen(port);
-
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error', {loginState: "false"});
-// });
-
-app.get('/test', (req, res) => {
-    res.render('test.ejs')
-})
 
 app.use('/', require('./routers/index.js'));
 app.use('/api', require('./routers/api.js'))

@@ -4,6 +4,7 @@ var LocalStrategy = require('passport-local');
 const app = express.Router();
 var db = require('../db');
 var crypto = require('crypto');
+const { parse } = require('path');
 const limit = require('express-limit').limit;
 
 
@@ -12,31 +13,57 @@ app.post('/watchlist/add', (req, res) => {
         let data = db.get('SELECT * FROM users WHERE username = ?', [ req.user.username ], function(err, row) {
             let itemToPush = req.body.data
             let currentData = row.watchlist
-            // {"shows":["k-on"]} FORMAT WE WANT
             let parsed = JSON.parse(currentData)
             if (parsed.results.includes(itemToPush)) {
-                parsed.results.push(itemToPush)
-                let parsedText = JSON.stringify(parsed)
-                db.run(`UPDATE "main"."users" SET "watchlist"=? WHERE "_rowid_"="${row.id}"`, [
-                    parsedText
-                ])
-                // return
+                return
             } else {
                 parsed.results.push(itemToPush)
                 let parsedText = JSON.stringify(parsed)
-                db.run(`UPDATE "main"."users" SET "watchlist"=? WHERE "_rowid_"="${row.id}"`, [
-                    parsedText
+                db.run(`UPDATE "main"."users" SET "watchlist"=? WHERE "_rowid_"=?`, [
+                    parsedText,
+                    row.id
                 ])
             }
         });
         setTimeout(() => {
         let returnData = db.get(`SELECT * FROM users WHERE username = ?`, [req.user.username], function(err, row) {
-            res.send(row.watchlist)
+            res.send("Success")
         })
-        }, 1); // i have no clue why i need to do this but updated data doesn't show up without it ;-;
+        }, 1);
 
     } catch {
         res.send("not logged in!")
+    }
+})
+
+app.post("/watchlist/remove", (req, res) => {
+    try {
+        let data = db.get('SELECT * FROM users WHERE username = ?', [req.user.username], function(err, row) {
+            let parsedData = JSON.parse(row.watchlist)
+
+            let idToRemove = req.body.id.toString();
+
+            let newResults = parsedData.results.filter(result => {
+                let jsonResult = JSON.parse(result);
+                return jsonResult.id !== idToRemove;
+              });
+              
+              if(newResults.length === parsedData.results.length){
+                res.send("Watchlist is empty already!")
+              }else{
+                let newResponse = {
+                  "results": newResults
+                };
+                let parsedText = JSON.stringify(newResponse)
+                db.run(`UPDATE "main"."users" SET "watchlist"=? WHERE "_rowid_"=?`, [
+                  parsedText,
+                  row.id
+                ])
+                res.send("Success!")
+              }
+            })
+    } catch(err) {
+        res.send("Error!")
     }
 })
 

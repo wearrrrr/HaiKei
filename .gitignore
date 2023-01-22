@@ -7,3 +7,5 @@ node_modules/
 npm-debug.log*
 # Mac OS X
 .DS_Store
+dump.rdb
+consumet-api

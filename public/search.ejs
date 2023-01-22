@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/watchpage.css">
     <link rel="stylesheet" href="/css/index-redesign.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/css/iziModal.css" integrity="sha512-uZ+G0SzK4GMUDUzxzbIeLGLjYgAhQ2KrIV4bWIP5o6URt5XVcn8S02eW6C1DH35bqq/XX1jYwlhhNPPIE1+q1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <%- include("./templates/sidenav.ejs") %>
@@ -27,9 +28,12 @@
             </ul>
     </div>
     </div>
+    <%- include("./templates/user-modals.ejs") %>
 <script src="/js/main.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/js/iziModal.min.js" integrity="sha512-lR/2z/m/AunQdfBTSR8gp9bwkrjwMq1cP0BYRIZu8zd4ycLcpRYJopB+WsBGPDjlkJUwC6VHCmuAXwwPHlacww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/js/modals.js"></script>
 <script>
     $(document).ready(function () {
     $("#xheader_browser").click(function (e) {
@@ -38,6 +42,5 @@
 });
 </script>
 <%- include('templates/footer') %>
-<%- include('templates/login_modals') %>
 </body>
 </html>

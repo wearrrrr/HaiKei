@@ -252,7 +252,9 @@ async function fetchApiData(watch, serverToUse) {
   
   return apiResponse.data;
 }
-
+async function handleMalformedURL(req, res) {
+    res.redirect(`/watch/${req.params.id}/1`)
+}
 async function getTrending() {
     try {
         let trending = await axios.get(`${consumetURL}meta/anilist/trending`)
@@ -817,6 +819,7 @@ async function getWatchDataMal(req, res) {
 
 
 app.get("/:id/:episode", getWatchData);
+app.get("/:id", handleMalformedURL)
 // app.get('/:id/old_zoro', getWatchDataZoro)
 // app.get("/:id/zoro", getWatchDataZoroNew)
 // app.get("/mal/:id", getWatchDataMal)
