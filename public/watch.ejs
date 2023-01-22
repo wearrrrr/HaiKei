@@ -1,26 +1,1211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch <%- showInfo.title.romaji %> Episode <%- episode %> on HaiKei</title>
+    <meta name="clckd" content="54ce2917172b5d332b4ca43e99fc3425"/>
+    <meta name="description" content="Watch <%- showInfo.title.romaji %> Episode <%- episode %> for free on HaiKei, no ads forever!">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="keywords" content="HaiKei, anime, free anime, anime stream, anime hd, english sub, kissanime, gogoanime, 9anime, 123anime, animefreak, vidstreaming, gogo-stream, no ads, no-ads, free streaming">
+    <meta name="charset" content="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Language" content="en">
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="HaiKei">
-    <title>Watch <%- showInfo.title.romaji %> Episode <%- episode %> on HaiKei</title>
-    <link rel="stylesheet" href="/css/index-redesign.css">
+    <meta name="apple-mobile-web-app-status-bar" content="#202125">
+    <meta name="theme-color" content="#202125">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css" type="text/css">
+    <link rel="stylesheet" href="/css/watchpage.css?v=0.0000001">
+    <link rel="stylesheet" href="/css/m.min.css?v=0.0000001">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/controls.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="/css/youtube-theme.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.1/purify.min.js" integrity="sha512-uHOKtSfJWScGmyyFr2O2+efpDx2nhwHU2v7MVeptzZoiC7bdF6Ny/CmZhN2AwIK1oCFiVQQ5DA/L9FSzyPNu6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript">
+    var movie = {
+        id: "<%- showInfo.id %>"
+    }
+    var episode_play = {
+        "id": "<%- episode %>"
+    }
+    var site_config = {
+        'domain': 'haikei.xyz',
+        'disqus': 'haikei.disqus.com',
+    };
+    </script>
+    <%# I am going to genuinely skin someone if I ever have to do this again %>
+    <% let watchlistObj = {}; %>
+    <% watchlistObj["id"] = showInfo.id %>
+    <% watchlistObj["title"] = showInfo.title.romaji %>
+    <% watchlistObj["genres"] = showInfo.genres %>
+    <% watchlistObj["image"] = showInfo.image %>
+    <% watchlistObj["totalEpisodes"] = showInfo.totalEpisodes %>
+    <% watchlistObj["releaseDate"] = showInfo.releaseDate %>
+    <% watchlistObj["subOrDub"] = showInfo.subOrDub %>
+    <% watchlistObj["status"] = showInfo.status %>
+    <% let stringifiedWatchlistObj = JSON.stringify(watchlistObj) %>
+    
+    <%# now I just have to pass it down to the browser *ensue clown music* %>
+    <script>
+        let watchlistObject = '<%- stringifiedWatchlistObj %>'
+        let ep = "<%- episode %>"
+    </script>
 </head>
-<body>
-    <%- include('./templates/navbar') %>
-    <%- include('./templates/sidenav') %>
-    <%- include('./templates/analytics') %>
+<%#
+async function getQuality() {
+    try {
+        streamSource = data.sources.find(x => x.quality === 'default')
+    } catch {
+        try {
+            if (streamSource == undefined) {
+                streamSource = data.sources.find(x => x.quality === '720p')
+            }
+        } catch {
+            if (streamSource == undefined) {
+                streamSource = data.sources.find(x => x.quality === 'backup')
+            }
+        }
+    }
+}
+getQuality();
 
 
+    let hdCheck = data.sources.find(x => x.quality === '720p')
+    let hdChecker;
+    hdChecker = "PASS"
+        if (hdCheck == undefined) {
+        hdCheck = data.sources.find(x => x.quality === '480p')
+        hdChecker = "FAIL" 
+        }
+        if (hdCheck == undefined) {
+        hdCheck = data.sources.find(x => x.quality === '360p')     
+            hdChecker = "FAIL" 
+        }
+ %>
+<body data-page="movie_watch">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PY3MLQPLY1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-PY3MLQPLY1');
+    </script>
+<script>
+    let queryID;
+    let aniSkipStartTime;
+    let aniSkipEndTime;
+    async function loadSkipBtn() {
+        let aniskipRequest = await fetch(`https://api.aniskip.com/v1/skip-times/<%- id %>/<%- episode %>?types[]=op`)
+        let aniskipData = await aniskipRequest.json();
+        if (aniskipData.found == false) {
+            console.log("No skip data found")
+        }
+        if (aniskipData.found == true) {
+                setTimeout(() => {
+                    aniSkipStartTime = aniskipData.results[0].interval.start_time
+                    aniSkipEndTime = aniskipData.results[0].interval.end_time
+                    let skipBtn = document.createElement('button')
+                    let shakaContainer = document.getElementsByClassName('shaka-video-container')[0]
+                    skipBtn.classList.add('skip-intro')
+                    shakaContainer.appendChild(skipBtn)
+                    skipBtn.textContent = "Skip Intro"
+                    document.getElementsByClassName('skip-intro')[0].addEventListener('click', (e) => {
+                    video.currentTime = aniSkipEndTime - 1;
+                }, 5000)
+            })
+        }
+    }
+    setTimeout(() => {
+        loadSkipBtn();
+    }, 2000)
+</script>
+    <div id="sidebar_menu_bg"></div>
+    <div id="wrapper" data-page="movie_watch">
+        	<div id="sidebar_menu">
+        <button class="btn btn-radius btn-sm btn-secondary toggle-sidebar"><i class="fas fa-angle-left mr-2"></i>Close menu</button>
+        <div class="sb-setting">
+            <div class="header-setting">
+                <div class="hs-toggles">
+                    <a href="/trending" class="hst-item" data-toggle="tooltip" data-original-title="Popular Anime List">
+                        <div class="hst-icon"><i class="fas fa-star"></i></div>
+                        <div class="name"><span>Popular</span></div>
+                    </a>
+                    <a onclick="randomAnime()" rel="nofollow" class="hst-item" data-toggle="tooltip" data-original-title="Select Random Anime">
+                        <div class="hst-icon"><i class="fas fa-random"></i></div>
+                        <div class="name"><span>Random</span></div>
+                    </a>
+                    <a href="/watchlist" rel="nofollow" class="hst-item" data-toggle="tooltip" data-original-title="Go to Watchlist">
+                        <div class="hst-icon"><i class="fas fa-random"></i></div>
+                        <div class="name"><span>Watchlist</span></div>
+                    </a>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <ul class="nav sidebar_menu-list">
+            <li class="nav-item active"><a class="nav-link" href="../home" title="Home"><i class="fas fa-home"></i> Home</a></li>
+			 <li class="nav-item">
+			 <div class="nav-link" title="Types"><strong><i class="fas fa-video"></i> Types</strong></div>
+                <div class="sidebar_menu-sub show" id="sidebar_subs_types">
+                    <ul class="nav sub-menu color-list">
+            <li class="nav-item"><a class="nav-link" href="../type?sort_type=Movie" title="Movies">Movies</a></li>
+            <li class="nav-item"><a class="nav-link" href="../type?sort_type=TV+Series" title="TV Series">TV Series</a></li>
+            <li class="nav-item"><a class="nav-link" href="../type?sort_type=OVA" title="OVAs">OVAs</a></li>
+            <li class="nav-item"><a class="nav-link" href="../type?sort_type=ONA" title="ONAs">ONAs</a></li>
+            <li class="nav-item"><a class="nav-link" href="../type?sort_type=Special" title="Specials">Specials</a></li>
+					</ul>
+					</div>
+					</li>
+					 <li class="nav-item">
+					  <div class="nav-link" title="Status"><strong><i class="fas fa-check"></i> Status</strong></div>
+                <div class="sidebar_menu-sub show" id="sidebar_subs_types">
+                    <ul class="nav sub-menu color-list">
+            <li class="nav-item"><a class="nav-link" href="../status?sort_status=Completed" title="Completed">Completed</a></li>
+            <li class="nav-item"><a class="nav-link" href="../status?sort_status=Ongoing" title="Ongoing">Ongoing</a></li>
+					</ul>
+					</div>
+					</li>
+					<li class="nav-item">
+					  <div class="nav-link" title="Latest"><strong><i class="fas fa-rss"></i> Latest</strong></div>
+                <div class="sidebar_menu-sub show" id="sidebar_subs_types">
+                    <ul class="nav sub-menu color-list">
+            <li class="nav-item"><a class="nav-link" href="../latest-added" title="Sub & Dub">All</a></li>
+            <li class="nav-item"><a class="nav-link" href="../latest-subbed" title="Subbed">Subbed</a></li>
+            <li class="nav-item"><a class="nav-link" href="../latest-dubbed" title="Dubbed">Dubbed</a></li>
+					</ul>
+					</div>
+					</li>
+             <li class="nav-item">
+					 <div class="nav-link" title="Season"><strong><i class="fas fa-leaf"></i> Season</strong></div>
+                <div class="sidebar_menu-sub show" id="sidebar_subs_top">
+                    <ul class="nav sub-menu color-list">
+            <li class="nav-item"><a class="nav-link" href="../season?sort_type=Fall+2021+Anime" title="Fall">Fall</a></li>
+            <li class="nav-item"><a class="nav-link" href="../season?sort_type=Summer+2021+Anime" title="Summer">Summer</a></li>
+            <li class="nav-item"><a class="nav-link" href="../season?sort_type=Spring+2022+Anime" title="Spring">Spring</a></li>
+            <li class="nav-item"><a class="nav-link" href="../season?sort_type=Winter+2022+Anime" title="Winter">Winter</a></li>
+					</ul>
+					</div>
+					</li>
+             <li class="nav-item">
+					 <div class="nav-link" title="Popular"><strong><i class="fa-solid fa-star"></i> Popular</strong></div>
+                <div class="sidebar_menu-sub show" id="sidebar_subs_top">
+                    <ul class="nav sub-menu color-list">
+            <li class="nav-item"><a class="nav-link" href="../trending" title="All Time">All Time</a></li>
+            <li class="nav-item"><a class="nav-link" href="../popular-season" title="Season">Season</a></li>
+            <li class="nav-item"><a class="nav-link" href="../popular-type" title="Type">Type</a></li>
+            <li class="nav-item"><a class="nav-link" href="../popular-year" title="Year">Year</a></li>
+					</ul>
+					</div>
+					</li>
+            <li class="nav-item">
+                <div class="nav-link" title="Genre"><strong><i class="fa fa-angle-down"></i> Genre</strong></div>
+                <div class="sidebar_menu-sub show" id="sidebar_subs_genre">
+                    <ul class="nav color-list sub-menu">
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Action" title="Action">Action</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Adventure" title="Adventure">Adventure</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Cars" title="Cars">Cars</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Comedy" title="Comedy">Comedy</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Dementia" title="Dementia">Dementia</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Demons" title="Demons">Demons</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Drama" title="Drama">Drama</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Ecchi" title="Ecchi">Ecchi</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Fantasy" title="Fantasy">Fantasy</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Game" title="Game">Game</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Harem" title="Harem">Harem</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Historical" title="Historical">Historical</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Horror" title="Horror">Horror</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Josei" title="Josei">Josei</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Kids" title="Kids">Kids</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Magic" title="Magic">Magic</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Martial Arts" title="Martial Arts">Martial Arts</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Mecha" title="Mecha">Mecha</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Military" title="Military">Military</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Music" title="Music">Music</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Mystery" title="Mystery">Mystery</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Parody" title="Parody">Parody</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Police" title="Police">Police</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Psychological" title="Psychological">Psychological</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Romance" title="Romance">Romance</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Samurai" title="Samurai">Samurai</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=School" title="School">School</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Sci-Fi" title="Sci Fi">Sci Fi</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Seinen" title="Seinen">Seinen</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Shoujo" title="Shoujo">Shoujo</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Shoujo Ai" title="Shoujo Ai">Shoujo Ai</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Shounen" title="Shounen">Shounen</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Shounen Ai" title="Shounen Ai">Shounen Ai</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Slice of Life" title="Slice of Life">Slice of Life</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Space" title="Space">Space</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Sports" title="Sports">Sports</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Super Power" title="Super Power">Super Power</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Supernatural" title="Supernatural">Supernatural</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Thriller" title="Thriller">Thriller</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Vampire" title="Vampire">Vampire</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Yaoi" title="Yaoi">Yaoi</a> </li>
+<li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Yuri" title="Yuri">Yuri</a> </li>
+                        <li class="nav-item nav-more">
+	<a class="nav-link"><i class="fas fa-plus mr-2"></i>More</a>
+	</li>
+					</ul>
+					</div>
+					</li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>        
+ <div id="header" class="header-home ">
+        <div class="container">
+            <div id="mobile_menu"><i class="fa fa-bars"></i></div>
+            <a href="/" id="logo" title="HaiKei">
+                <img src="/img/logo.png" width="100%" height="auto" alt="HaiKei">
+                <div class="clearfix"></div>
+            </a>
+            <div id="search">
+                <div class="search-content">
+                    <form action="/search" autocomplete="off">
+                        <input type="text" class="form-control search-input" name="query" id="livesearch" placeholder="Search anime...">
+                        <button style="right:0;outline:0;" type="submit" class="search-icon"><i class="fas fa-search"></i></button>
+                    </form>
+                    <div class="nav search-result-pop" id="search-suggest" style="display: block;">
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="header-group">
+<div class="zoro-group">
+<div class="clearfix"></div>
+        </div>
+    </div>       
+        <div class="header-setting">
+                    <div class="hs-toggles">
+						<a href="/trending" class="hst-item" data-toggle="tooltip" data-original-title="Popular Anime List">
+                            <div class="hst-icon"><i class="fas fa-star"></i></div>
+                            <div class="name"><span>Popular</span></div>
+                        </a>
+                        <a onclick="randomAnime()" class="hst-item" data-toggle="tooltip" data-original-title="Select Random Anime">
+                            <div class="hst-icon"><i id="random-btn" class="fas fa-random"></i></div>
+                            <div class="name"><span>Random</span></div>
+                        </a>
+                        <a href="/watchlist" rel="nofollow" class="hst-item" data-toggle="tooltip" data-original-title="Go to Watchlist">
+                            <div class="hst-icon"><i class="fas fa-random"></i></div>
+                            <div class="name"><span>Watchlist</span></div>
+                        </a>
+			            <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div id="pick_menu">
+                    <div class="pick_menu-ul">
+                        <ul class="ulclear">
+                            <li class="pmu-item pmu-item-home">
+                                <a class="pmu-item-icon" href="/" title="Home">
+                                    <img src="/assets/images/pick-home.svg" data-toggle="tooltip" data-placement="right" title="" data-original-title="Home">
+                                </a>
+                            </li>
+                            <li class="pmu-item pmu-item-movies">
+                                <a class="pmu-item-icon" href="/movies" title="Movies">
+                                    <img src="/assets/images/pick-movies.svg" data-toggle="tooltip" data-placement="right" title="" data-original-title="Movies">
+                                </a>
+                            </li>
+                            <li class="pmu-item pmu-item-show">
+                                <a class="pmu-item-icon" href="/tv-series" title="TV Series">
+                                    <img src="/assets/images/pick-show.svg" data-toggle="tooltip" data-placement="right" title="" data-original-title="TV Series">
+                                </a>
+                            </li>
+                            <li class="pmu-item pmu-item-popular">
+                                <a class="pmu-item-icon" href="/most-popular-anime" title="Most Popular">
+                                    <img src="/assets/images/pick-popular.svg" data-toggle="tooltip" data-placement="right" title="" data-original-title="Most Popular">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="header_right">
+
+<div class="header_right-user">
+    <% if (loginState == true) { %>
+        <a data-toggle="modal" data-target="#modalUserInfo" class="btn-user btn btn-sm btn-primary btn-login"><%- username %></a>
+        <script>
+            localStorage.setItem("continueWatching", "<%- id %>")
+            localStorage.setItem("continueWatchingEp", "<%- episode %>")
+        </script>    
+    <% } else { %>
+        <a data-toggle="modal" data-target="#modallogin" class="btn-user btn btn-sm btn-primary btn-login">Login</a>
+    <% } %>
+</div>                
+				</div>
+                <div id="mobile_search" class=""><i class="fa fa-search"></i></div>
+                <div class="clearfix"></div>
+            </div>
+        </div>            
+        <div class="clearfix"></div>
+            <div id="main-wrapper" date-page="movie_watch" data-id="">
+                <div id="ani_detail">
+                    <div class="ani_detail-stage">
+                        <div class="container">                            <div class="anis-cover-wrap">
+                                <div class="anis-cover"
+                                    style="background-image: url('<%- showInfo.image %>')">
+                                </div>
+                            </div>
+                            <div class="anis-watch-wrap">
+                                <div class="prebreadcrumb">
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li itemprop="itemListElement" itemscope=""
+                                                itemtype="http://schema.org/ListItem" class="breadcrumb-item">
+                                                <a itemprop="item" href="/"><span itemprop="name">Home</span></a>
+                                                <meta itemprop="position" content="1">
+                                            </li>
+                                            <li itemprop="itemListElement" itemscope=""
+                                                itemtype="http://schema.org/ListItem"
+                                                class="breadcrumb-item dynamic-name"
+                                                data-jname="<%- showInfo.title.romaji%>" aria-current="page"
+                                                style="opacity: 1;"><%- showInfo.title.romaji %></li>
+                                            <li itemprop="itemListElement" itemscope=""
+                                                itemtype="http://schema.org/ListItem" class="breadcrumb-item"
+                                                aria-current="page">
+                                                <a itemprop="item"
+                                                    href="/watch/<%- id %>/<%- episode %>"><span
+                                                        itemprop="name">Episode <%- episode %></span></a>
+                                                <meta itemprop="position" content="4">
+                                            </li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            <div class="anis-watch anis-watch-tv">
+                            <div class="watch-player">
+                                        <div class="player-frame">
+                                            <div class="loading-relative loading-box" id="embed-loading">
+                                                <div class="loading">
+                                                    <div class="span1"></div>
+                                                    <div class="span2"></div>
+                                                    <div class="span3"></div>
+                                                </div>
+                                            </div>
+                                            <div class="youtube-theme">
+                                                <video autostart="false" data-shaka-player id="youtube-theme"></video>
+                                                <button class="skip-intro">Skip Intro</button>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="player-controls">
+                                        <div class="pc-item pc-download">
+                                        <% if (downloadUrl == undefined) { %>
+
+                                        <% } else { %>
+                                            <a class="btn btn-sm pc-download" href="<%- downloadUrl[0].downloadUrl %>"><i class="fas fa-download mr-2"></i>Download</a>
+                                        <% } %>
+                                            
+                                        </div>
+                                            <div class="pc-item pc-toggle pc-light">
+                                                <div id="turn-off-light" class="toggle-basic">
+
+                                                </div>
+                                            </div>
+                                            <div class="pc-right">
+                                                <% let nextOrPrev; %>
+                                                <% let hrefToUse %>
+                                                <% let nextEp = parseInt(episode) + 1 %>
+                                                <% let prevEp = parseInt(episode) - 1 %>
+                                                <% if (parseInt(episode) == showInfo.totalEpisodes) { %>
+                                                <%    nextOrPrev = "Prev";
+                                                    hrefToUse = prevEp; %>
+                                                <% } else { %>
+                                                <%    nextOrPrev = "Next";
+                                                    hrefToUse = nextEp; %>
+                                                <% } %>
+                                                <a href="<%- id %>-episode-<%- hrefToUse %>">
+                                                <button class="btn btn-secondary" type="button" style="float:right;height: 32px; margin-top: 3px;font-size: 14px;font-weight: normal;display: block;">
+                                                <% if (nextOrPrev == "Prev") { %>
+                                                    <i class="fa-solid fa-backward-step"></i>
+                                                <% } %>
+                                                    <%- nextOrPrev %> 
+                                                    <% if (nextOrPrev == "Next") { %>
+                                                        <i class="fa fa-step-forward"></i>
+                                                    <% } %>
+                                                    </button>
+                                                </a>
+                                        <% if (loginState == true) { %>
+                                        <div class="pc-item pc-toggle">
+                                            <div id="add-to-watchlist" class="toggle-basic">
+                                                <span class="tb-name"><i class="fa-solid fa-plus mr-1"></i>Add to Watchlist</span>
+                                            </div>
+                                        </div>
+                                        <% } %>
+                                        </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                    </div>
+                            <div class="player-servers">
+                            <div id="servers-content">
+                                            <div class="ps_-status">
+                                                <div class="content">
+                                                    <div class="server-notice"><strong>Currently watching <b>Episode
+                                                                <%- episode %></b></strong> 
+                                                    Alternate servers are available if the speed is too slow.</div>
+                                                </div>
+                                            </div>
+                                            <div class="ps_-block ps_-block-sub servers-mixed">
+                                                <div class="ps__-list" id="dt_sv">
+                                                    <div class="ps__-title"><i class="fas fa-server mr-2"></i>Servers:
+                                                    </div>
+                                                    <div class="dropup" id="hostitem">
+                                                        <select class="btn btn-secondary btn-block dropdown-toggle" id="select-source">
+                                                            <% for (let i = 0; i < sources.sources.length; i++) { %>
+                                                                <% if (sources.sources[i].source.toLowerCase() == "gogoanime") { %>
+                                                                    <option default selected id="<%- sources.sources[i].source %>" class="btn-video dropdown-item" value="<%- sources.sources[i].data %>">
+                                                                    <%- sources.sources[i].source %></option>
+                                                                <% } else { %>
+                                                                    <option id="<%- sources.sources[i].source %>" class="btn-video dropdown-item" value="<%- sources.sources[i].data %>">
+                                                                        <%- sources.sources[i].source %></option>
+                                                                <% } %>
+
+                                                            <% } %>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div id="source-guide"></div>
+                                            </div>
+                                </div>
+                            </div>                     
+                                    <div id="episodes-content">
+                                        <div class="seasons-block seasons-block-max">
+                                            <div id="detail-ss-list" class="detail-seasons">
+                                                <div class="detail-infor-content">
+                                                    <div style="min-height:43px;" class="ss-choice">
+                                                        <div class="ssc-list">
+                                                            <div id="ssc-list" class="ssc-button">
+                                                                <div class="ssc-label">List of episodes:</div>
+                                                            <div class="reverseEp">
+                                                                <span onclick="reverseEpListing()">Reverse</span>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="ssc-quick">
+                                                            <div class="sscq-icon"><i class="fas fa-search"></i></div>
+                                                            <input id="search-ep" class="form-control" type="text"
+                                                                placeholder="Search EP #" autocomplete="off">
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                    <div id="episodes-content">
+                                                        <div id="episodes-page-1"
+                                                            class="ss-list ss-list-min" data-page="1"
+                                                            style="display:block;">
+                                                        <% showInfo.episodes.forEach((ep) => { %>
+                                                                <a title="Episode <%- ep.number %>"
+                                                                class="ssl-item ep-item "
+                                                                data-number="<%- ep.number %>"
+                                                                id="<%- ep.number %>"
+                                                                data-id="<%- ep.number %>"
+                                                                href="/watch/<%- id %>/<%- ep.number %>">
+                                                                <div class="ssli-order" title="">
+                                                                    <%- ep.number %></div>
+                                                                <div class="ssli-detail">
+                                                                    <div class="ep-name dynamic-name" data-jname=""
+                                                                        title=""></div>
+                                                                </div>
+                                                                <div class="ssli-btn">
+                                                                    <div class="btn btn-circle"><i class="fas fa-play"></i>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="clearfix"></div>
+                                                            </a>
+                                                            <% }) %>
+                                                        
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                    <div class="anis-watch-detail">
+                                    <div class="anis-content">
+                                        <div class="anisc-poster">
+                                            <div class="film-poster">
+                                                <img src="<%- showInfo.image %>"
+                                                    data-src="<%- showInfo.image %>"
+                                                    class="film-poster-img ls-is-cached lazyloaded"
+                                                    alt="<%- showInfo.title.romaji %>">
+                                            </div>
+                                        </div>
+                                        <div class="anisc-detail">
+                                            <h2 class="film-name">
+                                                <a href="/watch/<%- id %>/<%- episode %>" class="text-white dynamic-name"
+                                                    title="<%- showInfo.title.romaji %>"
+                                                    data-jname="<%- showInfo.title.romaji %>"
+                                                    style="opacity: 1;"><%- showInfo.title.romaji %></a>
+                                            </h2>
+                                            <div class="film-stats">
+                                                <div id="streamQuality" class="tac tick-item tick-quality"></div>
+                                                <div class="tac tick-item tick-<%-showInfo.subOrDub%>">SUB</div>
+                                                <span class="dot"></span>
+                                                <% if (showInfo.rating == null) { %>
+                                                <span class="item">NO RATING</span>
+                                                <span class="dot"></span>
+                                                <% } else { %>
+                                                <span class="item">★ <%- Math.round(showInfo.rating *2)/2; %> / 10</span>
+                                                <span class="dot"></span>
+                                                <% } %>
+                                                <span class="item"><%-showInfo.status.toUpperCase() %></span>
+                                                <span class="dot"></span>
+                                                <%# For some reason, MAL's date is interpreted incorrectly with consumet, so adding 1 is a fix for that :) %>
+                                                <span class="item"><%- parseInt(showInfo.startDate.month) + 1 %> - <%- showInfo.startDate.year %></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="film-description m-hide">
+                                                <div class="text"><%- showInfo.description %></div>
+                                            </div>
+                                            <!-- <div class="block"><a href="/anime/INSERT_LOGIC_HERE"
+                                                    class="btn btn-xs btn-light"><i class="fas fa-book-open mr-2"></i>
+                                                    View detail</a></div>
+                                        </div> -->
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                <div class="container">
+                    <div id="main-content">
+                        <section class="block_area block_area-comment">
+                            <div class="block_area-header block_area-header-tabs">
+                                <div class="float-left bah-heading mr-4">
+                                    <h2 class="cat-heading">Comments</h2>
+                                </div>
+                                <div class="float-left bah-setting">
+                                    <a data-type="episode"
+                                        class="btn btn-sm btn-radius btn-tab btn-comment-tab active mr-1">Episode <span
+                                            id="cm-episode-number"></span></a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="tab-content">
+                                <div class="show-comments">
+                                    <div id="disqus_thread"></div>
+                                <script>
+                                </script>
+                                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                                    <div class="text-center">
+                                        <button class="btn btn-sm btn-secondary sc-button btn-load-comment"><i
+                                                class="fas fa-comment mr-2"></i>Click to load comments</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="block_area block_area_category">
+                            <div class="block_area-header">
+                                <div class="float-left bah-heading mr-4">
+                                    <h2 class="cat-heading">Recommended For You</h2>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="tab-content">
+                                <div class="block_area-content block_area-list film_list film_list-grid film_list-wfeature">
+                                    <div class="film_list-wrap">
+                                    <% recommended.results.forEach((rec) => { %>
+                                        <div class="flw-item ">
+                                            <div class="film-poster">
+                                                <div class="tick rtl">
+                                                    <div class="tick-item tick-eps amp-algn">EP
+                                                        <%- rec.totalEpisodes %></div>
+                                                </div>
+                                                <img class="film-poster-img lazyload"
+                                                    data-src="<%- rec.image %>"
+                                                    src="<%- rec.image %>"
+                                                    alt="<%- rec.title %>">
+                                                <a class="film-poster-ahref" href="/watch/<%-rec.id %>-episode-1"
+                                                    title="<% rec.title %>"><i class="fas fa-play"></i></a>
+                                            </div>
+                                            <div class="film-detail">
+                                                <h3 class="film-name">
+                                                    <a class="dynamic-name" href="/watch/<%- rec.id %>-episode-1"
+                                                        title="<%- rec.title %>" data-jname="<%- rec.title %>" style="opacity: 1;"><%- rec.title %></a>
+                                                </h3>
+                                                <div class="fd-infor">
+                                                    <span class="fdi-item"><%- rec.type %></span>
+                                                    <span class="dot"></span>
+                                                    <span class="fdi-item"><%- rec.status %></span>
+                                                    <span class="dot"></span>
+                                                    <span class="fdi-item"><%- rec.released %></span>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    <% }) %>
+                                        </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div class="clearfix"></div>
+                    </div>
+
+		<div id="main-sidebar">
+          		                    <section class="block_area block_area_sidebar block_area-realtime">
+                        <div class="block_area-header">
+                            <div class="float-left bah-heading mr-2">
+                                <h2 class="cat-heading">Trending</h2>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+					
+                        <div class="block_area-content">
+                            <div class="cbox cbox-list cbox-realtime">
+                                <div class="cbox-content">
+                                    <div class="tab-content">
+<div id="trending" class="anif-block-ul anif-block-chart tab-pane active">
+                                            <ul class="ulclear">
+                                            <% let trendingIndex = 1 %>
+                                            <% trending.results.forEach((ti) => { %>
+                                            <li class="item-top">
+                                              <div class="film-number"><span><%- trendingIndex %></span></div>
+                                                    <div class="film-poster">
+                                                        <img data-src="<%- ti.image %>" class="film-poster-img lazyload" alt="<%- ti.title.romaji %>" src="<%- ti.image %>">
+                                                    </div>
+                                                    <div class="film-detail">
+                                                        <h3 class="film-name">
+														<a href="/watch/<%-ti.id %>-episode-1" title="<%- ti.title.romaji %>" class="dynamic-name" data-jname="<%- ti.title.romaji %>"><%- ti.title.romaji %></a>
+														</h3>
+														<div class="fd-infor">
+														<span class="fdi-item">
+														<i class="fa fa-tv"></i> Spring 2022  </span> <span class="dot"></span> <span class="fdi-item"><i class="fas fa-calendar mr-1"></i> 2022</span> <span class="dot"></span> <span class="fdi-item"><i class="fas fa-play-circle mr-1"></i> EP 12</span>
+                                                        </div>
+                                                    </div>
+                                                <div class="clearfix"></div>
+                                            </li>
+                                            <% trendingIndex++ %>	          
+                                            <% }) %>
+                                        </ul>
+                                        </div>
+                    </section>
+					
+                        <section class="block_area block_area_sidebar block_area-genres">
+                        <div class="block_area-header">
+                            <div class="float-left bah-heading mr-4">
+                                <h2 class="cat-heading">Genres</h2>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="block_area-content">
+                            <div class="cbox cbox-genres">
+                                <ul class="ulclear color-list sb-genre-list sb-genre-less">
+                                    <li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Action" title="Action">Action</a> </li>
+<li> <a href="../genres?sort_genre=Adventure" title="Adventure">Adventure</a> </li>
+<li> <a href="../genres?sort_genre=Cars" title="Cars">Cars</a> </li>
+<li> <a href="../genres?sort_genre=Comedy" title="Comedy">Comedy</a> </li>
+<li> <a href="../genres?sort_genre=Dementia" title="Dementia">Dementia</a> </li>
+<li> <a href="../genres?sort_genre=Demons" title="Demons">Demons</a> </li>
+<li> <a href="../genres?sort_genre=Drama" title="Drama">Drama</a> </li>
+<li> <a href="../genres?sort_genre=Ecchi" title="Ecchi">Ecchi</a> </li>
+<li> <a href="../genres?sort_genre=Fantasy" title="Fantasy">Fantasy</a> </li>
+<li> <a href="../genres?sort_genre=Game" title="Game">Game</a> </li>
+<li> <a href="../genres?sort_genre=Harem" title="Harem">Harem</a> </li>
+<li> <a href="../genres?sort_genre=Historical" title="Historical">Historical</a> </li>
+<li> <a href="../genres?sort_genre=Horror" title="Horror">Horror</a> </li>
+<li> <a href="../genres?sort_genre=Josei" title="Josei">Josei</a> </li>
+<li> <a href="../genres?sort_genre=Kids" title="Kids">Kids</a> </li>
+<li> <a href="../genres?sort_genre=Magic" title="Magic">Magic</a> </li>
+<li> <a href="../genres?sort_genre=Martial Arts" title="Martial Arts">Martial Arts</a> </li>
+<li> <a href="../genres?sort_genre=Mecha" title="Mecha">Mecha</a> </li>
+<li> <a href="../genres?sort_genre=Military" title="Military">Military</a> </li>
+<li> <a href="../genres?sort_genre=Music" title="Music">Music</a> </li>
+<li> <a href="../genres?sort_genre=Mystery" title="Mystery">Mystery</a> </li>
+<li> <a href="../genres?sort_genre=Parody" title="Parody">Parody</a> </li>
+<li> <a href="../genres?sort_genre=Police" title="Police">Police</a> </li>
+<li> <a href="../genres?sort_genre=Psychological" title="Psychological">Psychological</a> </li>
+<li> <a href="../genres?sort_genre=Romance" title="Romance">Romance</a> </li>
+<li> <a href="../genres?sort_genre=Samurai" title="Samurai">Samurai</a> </li>
+<li> <a href="../genres?sort_genre=School" title="School">School</a> </li>
+<li> <a href="../genres?sort_genre=Sci-Fi" title="Sci Fi">Sci Fi</a> </li>
+<li> <a href="../genres?sort_genre=Seinen" title="Seinen">Seinen</a> </li>
+<li> <a href="../genres?sort_genre=Shoujo" title="Shoujo">Shoujo</a> </li>
+<li> <a href="../genres?sort_genre=Shoujo Ai" title="Shoujo Ai">Shoujo Ai</a> </li>
+<li> <a href="../genres?sort_genre=Shounen" title="Shounen">Shounen</a> </li>
+<li> <a href="../genres?sort_genre=Shounen Ai" title="Shounen Ai">Shounen Ai</a> </li>
+<li> <a href="../genres?sort_genre=Slice of Life" title="Slice of Life">Slice of Life</a> </li>
+<li> <a href="../genres?sort_genre=Space" title="Space">Space</a> </li>
+<li> <a href="../genres?sort_genre=Sports" title="Sports">Sports</a> </li>
+<li> <a href="../genres?sort_genre=Super Power" title="Super Power">Super Power</a> </li>
+<li> <a href="../genres?sort_genre=Supernatural" title="Supernatural">Supernatural</a> </li>
+<li> <a href="../genres?sort_genre=Thriller" title="Thriller">Thriller</a> </li>
+<li> <a href="../genres?sort_genre=Vampire" title="Vampire">Vampire</a> </li>
+<li> <a href="../genres?sort_genre=Yaoi" title="Yaoi">Yaoi</a> </li>
+<li> <a href="../genres?sort_genre=Yuri" title="Yuri">Yuri</a> </li>  
+							  </ul>
+                                <div class="anime-info">
+                                    <a href="<%- id %>"></a>
+                                </div>                         
+                                <div class="clearfix"></div>
+                                <button class="btn btn-sm btn-block btn-showmore mt-2"></button>
+                            </div>
+                        </div>
+                    </section>                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div id="footer" data-settings='{"auto_play":1,"auto_next":1,"auto_load_comments":0,"enable_dub":0,"anime_name":"jp","play_original_audio":0}'>
+                <div id="footer-about">
+                    <div class="container">
+                        <div class="footer-top">
+                            <a href="/" class="footer-logo">
+                                <img src="/img/logo.png" alt="HaiKei">
+                                <div class="clearfix"></div>
+                            </a>
+                        <div class="footer-joingroup">
+                            <div class="zoro-group">
+                                <div class="zrg-list">
+
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="footer-az">
+                        <div class="block mb-3">
+                            
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="about-text">HaiKei does not store any files on our server, we
+                                only share link to the media which is hosted on 3rd party services.</div>
+                            <p class="copyright">Copyright © 2022 HaiKei. All Rights
+                                Reserved</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div id="mask-overlay"></div>
+<% if (loginState == true) { %>
+        <div class="modal fade premodal premodal-login" id="modalUserInfo" tabindex="-1" role="dialog"
+            aria-labelledby="modallogintitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="tab-content">
+
+                        <div id="modal-tab-userinfo" class="tab-pane active">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modallogintitle">Welcome back, <%- username %>!</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                                            
+                            <h5 style="text-align: center;">Account Info</h5>
+
+                            <h6 style="text-align: center;">Username: <%- username %></h6>
+                            <br>
+                            <form method="POST" action="/logout">
+                                <button type="submit" class="btn btn-block btn-logout">Logout</button>
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <input type="hidden" name="returnURL" value="<%= url %>">
+                            </form>
+                              
+                            </div>
+                        </div>
+
+
+                        <div id="modal-tab-forgot" class="tab-pane fade">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modallogintitle3">Reset Password</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="padding-bottom: 20px;">
+                                <form class="preform" action="/signup">
+                                    <div class="form-group">
+                                        <label class="prelabel" for="forgot-email">Your Email</label>
+                                        <input type="text" class="form-control" id="forgot-email"
+                                            placeholder="name@email.com" disabled>
+                                    </div>
+                                    <div class="form-group login-btn mb-0">
+                                        <a href="#" class="btn btn-primary btn-block" disabled>Forgot your
+                                            password</a>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer text-center">
+                                <a class="link-highlight login-tab-link" title=""><i
+                                        class="fas fa-angle-left mr-2"></i>Back to
+                                    Sign-in</a>
+                            </div>
+                        </div>
+
+                        <div id="modal-tab-register" class="tab-pane fade">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modallogintitle2">Create an Account</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="alert alert-danger mb-5" id="register-error" style="display: none;"></div>
+                                <form class="preform" method="post" action="/signup" id="register-forms">
+                                    <div class="form-group">
+                                        <label class="prelabel" for="re-email">Email Address</label>
+                                        <input type="text" class="form-control" id="re-email" 
+                                            placeholder="example@example.com" name="email" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="prelabel" for="re-email">Username</label>
+                                        <input type="text" class="form-control" id="re-email" 
+                                            placeholder="Alice" name="username" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="prelabel" for="re-password">Password</label>
+                                        <input type="password" class="form-control" id="re-password" 
+                                            placeholder="Password" name="password" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="prelabel" for="re-confirmpassword">Confirm Password</label>
+                                        <input type="password" class="form-control" id="re-confirmpassword" 
+                                            placeholder="Confirm Password" name="confirm_password" required="">
+                                    </div>
+                                    <div class="mt-4">&nbsp;</div>
+                                    <div class="form-group login-btn mb-0">
+                                        <button id="btn-registers" type="submit" class="btn btn-primary btn-block">Register</button>
+                                        <div class="loading-relative" id="register-loading" style="display: none;">
+                                            <div class="loading">
+                                                <div class="span1"></div>
+                                                <div class="span2"></div>
+                                                <div class="span3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer text-center">
+                                Have an account? <a class="link-highlight login-tab-link" title="Login">Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<% } %>
+
+        <div class="modal fade premodal premodal-login" id="modallogin" tabindex="-1" role="dialog" aria-labelledby="modallogintitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="tab-content">
+
+                        <div id="modal-tab-login" class="tab-pane active">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modallogintitle">Welcome back</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="alert alert-danger mb-5" id="login-error" style="display: none;"></div>
+                                <form method="POST" class="preform" id="login-forms" action="/login/password">
+                                    <div class="form-group">
+                                        <label class="prelabel" for="username">Username</label>
+                                        <input type="text" class="form-control" id="username" placeholder="Alice"
+                                            name="username" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="prelabel" for="password">Password</label>
+                                        <input type="password" class="form-control" id="password" placeholder="Password"
+                                            name="password" required>
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                        <input type="hidden" name="returnURL" value="<%= url %>">
+                                    </div>
+                                    <div class="form-check custom-control custom-checkbox">
+                                        <div class="float-left">
+                                            <input value="true" name="remember" type="checkbox" class="custom-control-input" id="remember">
+                                            <label for="remember" class="custom-control-label">Remember me</label>
+                                        </div>
+                                        <div class="float-right">
+                                            <a href="#" class="link-highlight text-forgot forgot-tab-link">Forgot
+                                                password?</a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="mt-4">&nbsp;</div>
+                                    <div class="form-group login-btn mb-0">
+                                        <button id="btn-logins" type="submit" class="btn btn-primary btn-block">Login</button>
+                                        <div class="loading-relative" id="login-loading" style="display: none;">
+                                            <div class="loading">
+                                                <div class="span1"></div>
+                                                <div class="span2"></div>
+                                                <div class="span3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer text-center">
+                                Don't have an account? <a class="link-highlight register-tab-link"
+                                    title="Register">Register</a>
+                            </div>
+                        </div>
+
+
+                        <div id="modal-tab-forgot" class="tab-pane fade">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modallogintitle3">Reset Password</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="padding-bottom: 20px;">
+                                <form class="preform" action="/signup">
+                                    <div class="form-group">
+                                        <label class="prelabel" for="forgot-email">Your Email</label>
+                                        <input type="text" class="form-control" id="forgot-email"
+                                            placeholder="name@email.com" disabled>
+                                    </div>
+                                    <div class="form-group login-btn mb-0">
+                                        <a href="#" class="btn btn-primary btn-block" disabled>Forgot your
+                                            password</a>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer text-center">
+                                <a class="link-highlight login-tab-link" title=""><i
+                                        class="fas fa-angle-left mr-2"></i>Back to
+                                    Sign-in</a>
+                            </div>
+                        </div>
+
+                        <div id="modal-tab-register" class="tab-pane fade">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modallogintitle2">Create an Account</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="alert alert-danger mb-5" id="register-error" style="display: none;"></div>
+                                <form class="preform" method="post" action="/signup" id="register-forms">
+                                    <div class="form-group">
+                                        <label class="prelabel" for="re-email">Email Address</label>
+                                        <input type="text" class="form-control" id="re-email" 
+                                            placeholder="example@example.com" name="email" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="prelabel" for="re-email">Username</label>
+                                        <input type="text" class="form-control" id="re-email" 
+                                            placeholder="Alice" name="username" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="prelabel" for="re-password">Password</label>
+                                        <input type="password" class="form-control" id="re-password" 
+                                            placeholder="Password" name="password" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="prelabel" for="re-confirmpassword">Confirm Password</label>
+                                        <input type="password" class="form-control" id="re-confirmpassword" 
+                                            placeholder="Confirm Password" name="confirm_password" required="">
+                                    </div>
+                                    <div class="mt-4">&nbsp;</div>
+                                    <div class="form-group login-btn mb-0">
+                                        <button id="btn-registers" type="submit" class="btn btn-primary btn-block">Register</button>
+                                        <div class="loading-relative" id="register-loading" style="display: none;">
+                                            <div class="loading">
+                                                <div class="span1"></div>
+                                                <div class="span2"></div>
+                                                <div class="span3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer text-center">
+                                Have an account? <a class="link-highlight login-tab-link" title="Login">Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                
+
+                <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+                <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+                <script type="text/javascript" src="/js/af/app.min.js"></script>
+                <script type="text/javascript" src="/js/af/common.js"></script>
+                <script type="text/javascript" src="/js/af/movie.js"></script>
+                <script type="text/javascript" src="/js/af/search_list.js"></script>
+                <script src="/js/af/sources.js"></script>
+                <script src="/js/af/random.js"></script>
+                <script src="https://github.com/videojs/mux.js/releases/latest/download/mux.js"></script> 
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/shaka-player.compiled.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                <script src="/js/shaka-player-ui.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                <script src="/js/jquery_debounce.js"></script>
+<script>
+// Use shaka.ui.Element as a base class
+const video = document.getElementById('youtube-theme');
+const ui = video['ui'];
+video.RWButton = class extends shaka.ui.Element {
+  constructor(parent, controls) {
+    super(parent, controls);
+
+    this.button_ = document.createElement('button');
+    this.button_.className = "material-icons-round"
+    this.button_.textContent = 'fast_rewind';
+    this.parent.appendChild(this.button_);
+
+    this.eventManager.listen(this.button_, 'click', () => {
+      const nextManifest = 
+        video.currentTime = video.currentTime - 5;
+    });
+  }
+};
+video.RWButton.Factory = class {
+  create(rootElement, controls) {
+    return new video.RWButton(rootElement, controls);
+  }
+};
+shaka.ui.Controls.registerElement(
+  'fast_rewind',
+  new video.RWButton.Factory());
+video.FFButton = class extends shaka.ui.Element {
+  constructor(parent, controls) {
+    super(parent, controls);
+
+    // The actual button that will be displayed
+    this.button_ = document.createElement('button');
+    this.button_.className = "material-icons-round"
+    this.button_.textContent = 'fast_forward';
+    this.parent.appendChild(this.button_);
+
+    // Listen for clicks on the button to start the next playback
+    this.eventManager.listen(this.button_, 'click', () => {
+      const nextManifest = /* Your logic to pick the next video to be played */
+        video.currentTime = video.currentTime + 5;
+    });
+  }
+};
+video.FFButton.Factory = class {
+  create(rootElement, controls) {
+    return new video.FFButton(rootElement, controls);
+  }
+};
+shaka.ui.Controls.registerElement(
+  'fast_forward',
+  new video.FFButton.Factory());
+
+const vidURL = '<%#- streamSource.url %>';
+
+async function init() {
+  const video = document.getElementById('youtube-theme');
+    const ui = video['ui'];
+
+let config;
+    config = {
+      'seekBarColors': {
+        base: 'rgba(255,255,255,1)',
+        buffered: 'rgba(255,255,255,.8)',
+        played: 'rgb(255, 0, 200)',
+      },
+      'overflowMenuButtons': ['quality', 'playback_rate', 'picture_in_picture', 'airplay', 'cast', ],
+      'customContextMenu' : true,
+      'contextMenuElements' : ['statistics', 'loop'],
+      'playbackRates': [0.1, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 4],
+      'controlPanelElements': ['play_pause', 'mute', 'volume', 'fast_rewind', 'fast_forward', 'time_and_duration', 'spacer', 'captions', 'overflow_menu', 'fullscreen'],
+    }
+
+   ui.configure(config);
+
+    const controls = ui.getControls();
+    const player = controls.getPlayer();
+    window.player = player
+
+    try {
+      await player.load(vidURL);
+    } catch (error) {
+    }
+
+    // TODO find a way to do this without jquery. -___- or find a way to replace them CSS. maybe usering :after  
+    $('.shaka-overflow-menu-button').html('settings');
+    $('.shaka-back-to-overflow-button .material-icons-round').html('arrow_back_ios_new');
+
+    document.getElementsByClassName('player-frame')[0]
+}
+document.addEventListener('shaka-ui-loaded', init);
+</script>
+<script>
+    let loaded = false;
+    video.addEventListener('timeupdate', (event) => {
+        if (video.currentTime >= aniSkipStartTime && video.currentTime <= aniSkipEndTime) {
+            if (loaded == false) {
+                loadAniSkipButton();
+                loaded = true;
+            }
+
+        }
+        if (loaded == true) {
+            if (video.currentTime >= aniSkipEndTime) {
+                destroyAniSkipButton()
+                loaded = false;
+            }
+        }
+    })
+    function loadAniSkipButton() {
+        document.getElementsByClassName('skip-intro')[0].classList.add('displayed')
+        loaded = true;
+    }
+    function destroyAniSkipButton() {
+        document.getElementsByClassName('skip-intro')[0].classList.remove('displayed')
+        loaded = false;
+    }
+</script>
+<% if (loginState == true) { %>
+<script>
+document.getElementById('add-to-watchlist').addEventListener('click', addToWatchlist)
+function addToWatchlist() {
+    $.post("https://haikei.xyz/api/watchlist/add", { data: watchlistObject, _csrf: "<%- csrfToken %>" })
+}
+</script>
+<% } %>
+<script>
+    let isHD = '<%#- hdChecker %>'; 
+    let streamQuality = '<%#- hdCheck.quality %>'
+    if (isHD == "PASS") {
+        document.getElementById('streamQuality').textContent = "HD"
+    } else {
+        document.getElementById('streamQuality').textContent = "HD" // temporary D: 
+    }
+</script>
+<script>
+let msg = "%c Hi 👋! Welcome to HaiKei!"; 
+let styles= [ 
+    'font-size: 18px;', 
+    'font-family: monospace;', 
+    'background: white;', 
+    'color: black;', 
+    'padding: 8px 19px;',  
+]
+console.log(msg, styles);
+
+function reverseEpListing() {
+    var episode = document.getElementById("episodes-page-1");
+    var i = episode.childNodes.length;
+    while (i--)
+    episode.appendChild(episode.childNodes[i]);
+}
+
+</script>
+</div>
 </body>
 </html>
