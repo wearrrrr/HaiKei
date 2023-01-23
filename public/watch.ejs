@@ -560,8 +560,12 @@ getQuality();
                                                 <% } %>
                                                 <span class="item"><%-showInfo.status.toUpperCase() %></span>
                                                 <span class="dot"></span>
-                                                <%# For some reason, MAL's date is interpreted incorrectly with consumet, so adding 1 is a fix for that :) %>
-                                                <span class="item"><%- parseInt(showInfo.startDate.month) + 1 %> - <%- showInfo.startDate.year %></span>
+                                                <%# For some reason, MAL's month is set 0 indexed, so adding 1 is a fix for that :) %>
+                                                <% if (showInfo.startDate !== undefined) { %>
+                                                    <span class="item"><%- showInfo.startDate.year %></span>
+                                                <% } else { %>
+
+                                                <% } %>
                                                 <div class="clearfix"></div>
                                             </div>
                                             <div class="film-description m-hide">

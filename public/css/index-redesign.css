@@ -673,3 +673,56 @@ input[type="checkbox"]:checked::before {
     border-radius: 15px;
     height: 25px;
 }
+.header {
+    color: var(--light);
+    text-align: center;
+}
+.subheader {
+    color: var(--light);
+    text-align: center;
+    margin-top: 30px;
+}
+.subheader > a {
+    color: var(--light);
+}
+@media (max-width: 420px) {
+    .hardcoded-kaomoji {
+        display: none;
+    }
+}
+.hardcoded-kaomoji {
+    color: var(--dark-accent);
+    text-align: center;
+    font-size: 72px;
+    overflow: hidden;
+}
+
+.footer {
+    position: relative;
+    left: 0;
+    bottom: -250px;
+    width: 100%;
+    background-color: var(--darker);
+    color: white;
+}
+.web-title {
+    font-size: 24px;
+    margin-left: 20px;
+}
+.description {
+    margin-left: 20px;
+}
+.social-icons {
+    margin-left: 20px;
+}
+.discord {
+    padding: 5px;
+    font-size: 32px;
+}
+.discord > a > i {
+    color: var(--light);
+    padding: 10px;
+    background-color: #5865F2;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}

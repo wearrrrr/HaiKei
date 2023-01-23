@@ -78,12 +78,25 @@ try {
     } else {
         loginState = true;
         username = req.user.username
-        user = req.user
     }
     if (loginState == true) {
         return res.render('donate.ejs', {loginState: loginState, username: username})
     } else {
         return res.render('donate.ejs', {loginState: loginState})
+    }
+ })
+
+ app.get('/contribute', async (req, res) => {
+    if (req.user == undefined) {
+        loginState = false
+    } else {
+        loginState = true
+        username = req.username
+    }
+    if (loginState == true) {
+        return res.render('contribute.ejs', {loginState: loginState, username: username})
+    } else {
+        return res.render('contribute.ejs', {loginState: loginState})
     }
  })
 
@@ -100,7 +113,6 @@ try {
     } else {
         return res.render('error.ejs', {loginState: loginState, errCode: "N/A"})
     }
-    
  })
 
 module.exports = app
