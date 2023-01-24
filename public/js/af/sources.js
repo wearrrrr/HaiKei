@@ -87,6 +87,6 @@ document.getElementById('select-source').addEventListener('change', async functi
             streamSource = data2.sources.find(x => x.quality === '360')
         }
         player.unload()
-        player.load("https://cors.haikei.xyz//" + streamSource.url)
+        player.load("https://cors.haikei.xyz/" + streamSource.url)
     }
 })
