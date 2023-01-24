@@ -18,6 +18,7 @@ document.getElementById('select-source').addEventListener('change', async functi
         data = await url.json()
         streamSource = data.sources.find(x => x.quality === 'default')
         player.unload()
+        streamSource.url.replace('.pro', '.net')
         player.load(streamSource.url)
         destroyAniSkipButton()
     }
@@ -86,6 +87,6 @@ document.getElementById('select-source').addEventListener('change', async functi
             streamSource = data2.sources.find(x => x.quality === '360')
         }
         player.unload()
-        player.load(streamSource.url)
+        player.load("https://cors.haikei.xyz//" + streamSource.url)
     }
 })
