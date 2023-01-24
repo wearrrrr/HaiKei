@@ -87,6 +87,10 @@ document.getElementById('select-source').addEventListener('change', async functi
             streamSource = data2.sources.find(x => x.quality === '360')
         }
         player.unload()
-        player.load("https://cors.haikei.xyz/" + streamSource.url)
+        player.getNetworkingEngine().registerRequestFilter(function(type, request) {
+            console.log(request);
+            request.headers["x-referer"] = "https://kwik.cx/"
+          });  
+        player.load("https://cdn.nade.me/redirect?url=" + streamSource.url)
     }
 })
