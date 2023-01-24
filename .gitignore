@@ -9,3 +9,5 @@ npm-debug.log*
 .DS_Store
 dump.rdb
 consumet-api
+package-lock.json
+dump.rdb

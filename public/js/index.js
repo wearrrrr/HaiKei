@@ -68,7 +68,6 @@ function romajiNames() {
     let eng_titles = document.getElementsByClassName('eng-title')
 
 
-
     for (i = 0; i < jp_titles.length; i++) {
         if (jp_titles[i].classList.contains("hidden")) {
             eng_titles[i].classList.add('hidden')
