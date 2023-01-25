@@ -110,7 +110,7 @@ function(req, res) {
         if (redirect == undefined) {
           res.redirect("/")
         }
-        res.redirect(process.env.WEBSITE_URL + redirect || '/');
+        res.redirect(redirect || '/');
 });
 
 /* POST /logout
@@ -123,7 +123,7 @@ router.post('/logout', limit({max: 20, period: 60 * 1000, message: "Request Limi
   });
 
     const redirect = req.body.returnURL ? req.body.returnURL : '/';
-    res.redirect(process.env.WEBSITE_URL + redirect || '/');
+    res.redirect(redirect || '/');
   });
 
 /* GET /signup

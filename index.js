@@ -26,12 +26,19 @@ if (os.platform == "win32") {
     console.log(success("Starting Consumet..."))
     let consumetServer = cp.spawn('consumet_start.bat')
     consumetServer.stdout.on('data', function (data) {
-    console.log(data.toString());
+        console.log(data.toString());
     });
 
     consumetServer.stderr.on('data', function (data) {
     console.log(data.toString());
     });
+
+    console.log(success("Starting Redis..."))
+
+    let memurai = cp.exec('memurai')
+    memurai.stdout.on('data', (data) => console.log(data.toString()))
+    memurai.stderr.on('data', (data) => console.log(data.toString()))
+
 } 
 if (os.platform == 'darwin' || os.platform == 'linux') {
     console.log("platform is " + os.platform)
