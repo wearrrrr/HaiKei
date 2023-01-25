@@ -16,17 +16,17 @@ Prerequisites for hosting a HaiKei instance are
 
 ## Putting it all together
 
-First run `git clone https://github.com/wearrrrr/HaiKei` to create a local copy of the repository
-Then run `cd HaiKei` to get into the HaiKei directory.
-Then run `npm install -g yarn` if you didn't do so before.
-Then `cd consumet-api`
-Now simply `yarn` to install all the node modules for consumet
-Then `cd ../` to go back one directory and run `yarn` again to install the HaiKei node modules.
+First run `git clone https://github.com/wearrrrr/HaiKei` to create a local copy of the repository<br>
+Then run `cd HaiKei` to get into the HaiKei directory.<br>
+Then run `npm install -g yarn` if you didn't do so before.<br>
+Then `cd consumet-api`<br>
+Now simply `yarn` to install all the node modules for consumet<br>
+Then `cd ../` to go back one directory and run `yarn` again to install the HaiKei node modules.<br>
 
-Almost there!
+Almost there!<br>
 
-Now finally you can run `npm start` and the script will automatically start Memurai or Redis (platform dependent), consumet-api (included in the repo) and the HaiKei frontend.
+Now finally you can run `npm start` and the script will automatically start Memurai or Redis (platform dependent), consumet-api (included in the repo) and the HaiKei frontend.<br>
 
-Enjoy your private instance of HaiKei! (^///^) 
+Enjoy your private instance of HaiKei! (^///^) <br>
 
-Don't you feel proud of yourself?
+Don't you feel proud of yourself?<br>
