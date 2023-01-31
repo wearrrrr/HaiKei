@@ -77,6 +77,7 @@ document.getElementById('select-source').addEventListener('change', async functi
         let paheEpId = paheEp.id
         let url2 = await fetch("https://api.haikei.xyz/anime/" + selectedIndex + "/watch/" + paheEpId)
         data2 = await url2.json()
+        console.log(data2)
         // this is what happens to a mf when there isn't an auto quality selector.
         streamSource = data2.sources.find(x => x.quality === '1080')
         if (streamSource == undefined) {
