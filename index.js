@@ -12,15 +12,10 @@ const success = chalk.bold.green;
 
 console.log(success("Starting Web Server..."))
 
-let webServer = cp.fork("server.js", {cwd: "./"})
+// start the webserver using cp.exec
+let webserver = cp.spawn('./webserver.sh')
+webserver.stdout.on('data', (data) => {console.log(data.toString())});
 
-webServer.on("message", function (data) {
-    console.log("Message From Child ==> " + info(data))
-})
-
-webServer.on("exit", function(exitCode) {
-    console.log(exitCode)
-})
 if (os.platform == "win32") {
     console.log("platform is " + os.platform)
     console.log(success("Starting Consumet..."))
@@ -55,13 +50,13 @@ if (os.platform == 'darwin' || os.platform == 'linux') {
 if (os.platform == "linux" ) {
     console.log(success("Starting Redis..."))
     let redis = cp.spawn("redis-server")
-    redis.stdout.on('data', function (data) {
-    console.log(data.toString());
-    });
+    // redis.stdout.on('data', function (data) {
+    // console.log(data.toString());
+    // });
 
-    redis.stderr.on('data', function (data) {
-    console.log(data.toString());
-    });
+    // redis.stderr.on('data', function (data) {
+    // console.log(data.toString());
+    // });
 }
 
 

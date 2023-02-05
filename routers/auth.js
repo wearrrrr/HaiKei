@@ -1,10 +1,12 @@
-var express = require('express');
-var passport = require('passport');
-var LocalStrategy = require('passport-local');
-var crypto = require('crypto');
-var db = require('../db');
+const express = require('express');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+const db = require('../db');
 const limit = require('express-limit').limit;
 const { body, validationResult } = require('express-validator');
+const sendMail = require('../utils/tokenSender');
 
 
 /* Configure password authentication strategy.
@@ -176,6 +178,7 @@ router.post('/signup', body("email").isEmail(), limit({max: 10, period: 60 * 100
                 id: this.lastID,
                 username: req.body.username
             };
+            sendMail(req.body.email, req.body.username);
             req.login(user, function(err) {
                 if (err) { return next(err); }
                 res.redirect('/');
@@ -198,6 +201,26 @@ router.post('/signup', body("email").isEmail(), limit({max: 10, period: 60 * 100
         return res.status(400).render("error.ejs", {statusCode: 400, loginState: loginState, errCode: "Account Creation Failure - User Supplied incorrect details"})  
     }
 }
+});
+
+router.get('/verify/:token', (req, res)=>{
+  const {token} = req.params;
+  let isVerified = false;
+  jwt.verify(token, process.env.JWT_SECRET, function(err) {
+      if (err) {
+          res.send("Email verification failed, possibly the link is invalid or expired");
+      }
+      else {
+          res.send("Email verified successfully!");
+          isVerified = true;
+          db.get('SELECT * FROM users WHERE username = ?', [ req.user.username ], function(err, row) {
+            db.run(`UPDATE "main"."users" SET "email_verified"=? WHERE "_rowid_"=?`, [
+              isVerified.toString(),
+              row.id
+            ])
+          });
+      }
+  });
 });
 
 module.exports = router;

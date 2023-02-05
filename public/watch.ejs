@@ -25,6 +25,7 @@
     <link href="https://fonts.googleapis.com/css?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="/css/youtube-theme.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.1/purify.min.js" integrity="sha512-uHOKtSfJWScGmyyFr2O2+efpDx2nhwHU2v7MVeptzZoiC7bdF6Ny/CmZhN2AwIK1oCFiVQQ5DA/L9FSzyPNu6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9870376562547077" crossorigin="anonymous"></script>
     <script type="text/javascript">
     var movie = {
         id: "<%- showInfo.id %>"
@@ -610,6 +611,14 @@ getQuality();
                                 </div>
                             </div>
                         </section>
+                        <ins 
+                            class="adsbygoogle"
+                            style="display: flex; justify-content: center;"
+                            data-ad-client="ca-pub-9870376562547077"
+                            data-ad-slot="5339103346"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true">
+                        </ins>
                         <section class="block_area block_area_category">
                             <div class="block_area-header">
                                 <div class="float-left bah-heading mr-4">
@@ -630,21 +639,19 @@ getQuality();
                                                 <img class="film-poster-img lazyload"
                                                     data-src="<%- rec.image %>"
                                                     src="<%- rec.image %>"
-                                                    alt="<%- rec.title %>">
+                                                    alt="<%- rec.title.romaji %>">
                                                 <a class="film-poster-ahref" href="/watch/<%-rec.id %>-episode-1"
-                                                    title="<% rec.title %>"><i class="fas fa-play"></i></a>
+                                                    title="<% rec.title.romaji %>"><i class="fas fa-play"></i></a>
                                             </div>
                                             <div class="film-detail">
                                                 <h3 class="film-name">
                                                     <a class="dynamic-name" href="/watch/<%- rec.id %>-episode-1"
-                                                        title="<%- rec.title %>" data-jname="<%- rec.title %>" style="opacity: 1;"><%- rec.title %></a>
+                                                        title="<%- rec.title.romaji %>" data-jname="<%- rec.title.romaji %>" style="opacity: 1;"><%- rec.title.romaji %></a>
                                                 </h3>
                                                 <div class="fd-infor">
                                                     <span class="fdi-item"><%- rec.type %></span>
                                                     <span class="dot"></span>
                                                     <span class="fdi-item"><%- rec.status %></span>
-                                                    <span class="dot"></span>
-                                                    <span class="fdi-item"><%- rec.released %></span>
                                                 </div>
                                             </div>
                                             <div class="clearfix"></div>
@@ -762,6 +769,32 @@ getQuality();
                     <div class="clearfix"></div>
                 </div>
             </div>
+            <ins 
+                style="display: flex; justify-content: center;"
+                class="adsbygoogle"
+                data-ad-client="ca-pub-9870376562547077"
+                data-ad-slot="1184235911"
+                data-ad-format="auto"
+                data-full-width-responsive="true">
+            </ins>
+            <script>
+                let isAds = localStorage.getItem('_noads')
+                if (isAds == "false" || isAds == undefined) {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    if (isAds == undefined) {
+                        localStorage.setItem('_noads', "false")
+                    }
+                }
+            </script>
+            <% if (loginState == true) { %>
+                <script>
+                if (isAds === undefined || isAds === null || isAds.length === 0) {
+                    localStorage.setItem('_noads', "false")
+                }
+                </script>
+            <% } %>
+            <br>
             <div id="footer" data-settings='{"auto_play":1,"auto_next":1,"auto_load_comments":0,"enable_dub":0,"anime_name":"jp","play_original_audio":0}'>
                 <div id="footer-about">
                     <div class="container">

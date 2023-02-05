@@ -14,6 +14,8 @@ const SQLiteStore = require('connect-sqlite3')(session);
 const limit = require('express-limit').limit;
 const app = express();
 const port = process.env.PORT || 3000;
+const sendMail = require('./utils/tokenSender')
+const jwt = require('jsonwebtoken')
 
 app.locals.pluralize = require('pluralize');
 
@@ -36,17 +38,16 @@ app.use(session({
 }));
 app.use(flash());
 app.use(csrf());
-app.use(limit({max: 50, period: 30 * 1000, message: "Request Limit Exceeded!" }), passport.authenticate('session'));
+app.use(limit({max: 25, period: 30 * 1000, message: "Request Limit Exceeded!" }), passport.authenticate('session'));
+
 app.use(function(req, res, next) {
   res.locals.csrfToken = req.csrfToken();
   next();
 });
 
-
 app.use(express.static('public'))
 app.set('view engine', 'ejs')
 app.engine('ejs', require('ejs').__express);
-
 
 app.set('views', 'public')
 app.listen(port);
@@ -61,5 +62,3 @@ app.use('/releases', require('./routers/releases.js'));
 app.use('/genres', require('./routers/anime/genre/genres.js'));
 app.use('/genre/', require('./routers/anime/genre/genre.js'))
 app.use('/watch', require("./routers/anime/watch.js"));
-
-// let init = process.send("Web Server Init!")
