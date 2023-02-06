@@ -1,9 +1,56 @@
+async function loadZoroSource(source) {
+    let url = await fetch("https://api.haikei.xyz/anime/zoro/info?id=hk-hk-" + source) 
+    let zoroData = await url.json()
+    let zoroEp = zoroData.episodes[Number(ep) - 1]
+    let zoroEpId = zoroEp.id
+    let url2 = await fetch("https://api.haikei.xyz/anime/zoro/watch?episodeId=" + zoroEpId)
+    zoroData2 = await url2.json()
+    streamSource = zoroData2.sources.find(x => x.quality === 'auto')
+    // load in the url, but add a cors proxy to it
+    player.unload()
+    player.load("https://cors.haikei.xyz/" + streamSource.url)
+    setTimeout(() => {
+        let subtitles = zoroData2.subtitles;
+        let subtitleForm;
+        subtitles.forEach((track) => {
+        if (track.lang == "English") {
+            subtitleForm = "en"
+        } else if (track.lang == "Arabic - العربية (Arabic)") {
+            subtitleForm = "ar"
+        } else if (track.lang == "French") {
+            subtitleForm = "fr"
+        } else if (track.lang == "Portuguese - Português (Brasil)") {
+            subtitleForm = "pt"
+        } else if (track.lang == "Spanish - Español (España)") {
+            subtitleForm = "es"
+        } else if (track.lang == "Russian - Русский (Russian)") {
+            subtitleForm = "ru"
+        } else if (track.lang == "German - Deutsch") {
+            subtitleForm = "de"
+        } else if (track.lang == "Italian - Italiano (Italian)") {
+            subtitleForm = "it"
+        }
+        
+        player.addTextTrackAsync(track.url, subtitleForm, 'subtitle', 'text/vtt', '', track.lang)
+        }); 
+    }, 500);
+}
 async function defaultSourceLoad() {
-    let showID = document.getElementById('Gogoanime').value
-    let url = await fetch("https://api.haikei.xyz/anime/gogoanime/watch/" + showID + '-episode-' + ep + "?server=vidstreaming")
-    data = await url.json()
-    streamSource = data.sources.find(x => x.quality === 'default')
-    player.load(streamSource.url)
+    if (defaultSource == "gogoanime") {
+        let showID = document.getElementById('gogoanime').value
+        let url = await fetch("https://api.haikei.xyz/anime/gogoanime/watch/" + showID + '-episode-' + ep + "?server=vidstreaming")
+        data = await url.json()
+        streamSource = data.sources.find(x => x.quality === 'default')
+        player.load(streamSource.url)
+    } else if (defaultSource == "zoro") {
+        loadZoroSource(document.getElementById('zoro').value)
+    } else {
+        let showID = document.getElementById('gogoanime').value
+        let url = await fetch("https://api.haikei.xyz/anime/gogoanime/watch/" + showID + '-episode-' + ep + "?server=vidstreaming")
+        data = await url.json()
+        streamSource = data.sources.find(x => x.quality === 'default')
+        player.load(streamSource.url)
+    }
 }
 let zoroData2;
 defaultSourceLoad()
@@ -31,42 +78,7 @@ document.getElementById('select-source').addEventListener('change', async functi
         destroyAniSkipButton()
     }
     if (selectedIndex == "zoro") {
-        // im still not sure why this works but it does
-        let url = await fetch("https://api.haikei.xyz/anime/" + selectedIndex + "/info?id=hk-hk-" + source) 
-        let zoroData = await url.json()
-        let zoroEp = zoroData.episodes[Number(ep) - 1]
-        let zoroEpId = zoroEp.id
-        let url2 = await fetch("https://api.haikei.xyz/anime/" + selectedIndex + "/watch?episodeId=" + zoroEpId)
-        zoroData2 = await url2.json()
-        streamSource = zoroData2.sources.find(x => x.quality === 'auto')
-        // load in the url, but add a cors proxy to it
-        player.unload()
-        player.load("https://cors.haikei.xyz/" + streamSource.url)
-        setTimeout(() => {
-            let subtitles = zoroData2.subtitles;
-            let subtitleForm;
-            subtitles.forEach((track) => {
-            if (track.lang == "English") {
-                subtitleForm = "en"
-            } else if (track.lang == "Arabic - العربية (Arabic)") {
-                subtitleForm = "ar"
-            } else if (track.lang == "French") {
-                subtitleForm = "fr"
-            } else if (track.lang == "Portuguese - Português (Brasil)") {
-                subtitleForm = "pt"
-            } else if (track.lang == "Spanish - Español (España)") {
-                subtitleForm = "es"
-            } else if (track.lang == "Russian - Русский (Russian)") {
-                subtitleForm = "ru"
-            } else if (track.lang == "German - Deutsch") {
-                subtitleForm = "de"
-            } else if (track.lang == "Italian - Italiano (Italian)") {
-                subtitleForm = "it"
-            }
-            
-            player.addTextTrackAsync(track.url, subtitleForm, 'subtitle', 'text/vtt', '', track.lang)
-            }); 
-        }, 500);
+        loadZoroSource(source)
         destroyAniSkipButton()
 
     }

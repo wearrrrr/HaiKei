@@ -4,7 +4,7 @@ const env = require('dotenv').config();
 const crypto = require('crypto');
 const token = jwt.sign({
         data: `${process.env.JWT_MSG} ${crypto.randomBytes(32)}`
-    }, process.env.JWT_SECRET, { expiresIn: '15m' }  
+    }, process.env.JWT_SECRET, { expiresIn: '1h' }  
 );    
 
 async function sendMail(sender, username) {
@@ -21,7 +21,7 @@ async function sendMail(sender, username) {
         from: '"no-reply" <no-reply@haikei.xyz>',
         to: `${sender}`, 
         subject: `Hello ${username}!`,
-        text: `Hi There!, You recently signed up for HaiKei.xyz. Please verify your email by clicking the link below. (This link will expire in 15 minutes!)
+        text: `Hi There!, You recently signed up for HaiKei.xyz. Please verify your email by clicking the link below. (This link will expire in 1 hour!)
         ${process.env.WEBSITE_URL}/verify/${token} 
         Thanks!
         wearr - HaiKei.xyz

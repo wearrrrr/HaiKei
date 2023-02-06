@@ -141,11 +141,7 @@ if (window.location.hostname == "haikei.xyz" || window.location.hostname == "www
     }
     let getVids;
     if (vidSource == "zoro") {
-        document.getElementById('zoro').selected = "selected"
-        getVids = document.querySelectorAll('.splide__slide > a')
-        for (var i=0; i < getVids.length; i++) {
-            getVids[i].href = getVids[i].href + "/zoro"
-        }
+        document.getElementById('zoro').selected = "selected" 
     } else {
         document.getElementById('gogoanime').selected = "selected"  
     }

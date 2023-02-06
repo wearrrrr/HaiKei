@@ -460,16 +460,16 @@ getQuality();
                                                     <div class="dropup" id="hostitem">
                                                         <select class="btn btn-secondary btn-block dropdown-toggle" id="select-source">
                                                             <% for (let i = 0; i < sources.sources.length; i++) { %>
-                                                                <% if (sources.sources[i].source.toLowerCase() == "gogoanime") { %>
-                                                                    <option default selected id="<%- sources.sources[i].source %>" class="btn-video dropdown-item" value="<%- sources.sources[i].data %>">
+                                                                <option id="<%- sources.sources[i].source.toLowerCase() %>" class="btn-video dropdown-item" value="<%- sources.sources[i].data %>">
                                                                     <%- sources.sources[i].source %></option>
-                                                                <% } else { %>
-                                                                    <option id="<%- sources.sources[i].source %>" class="btn-video dropdown-item" value="<%- sources.sources[i].data %>">
-                                                                        <%- sources.sources[i].source %></option>
-                                                                <% } %>
-
                                                             <% } %>
                                                         </select>
+                                                    <script>
+                                                        let defaultSource = localStorage.getItem('videoSource').toLowerCase() || 'gogoanime'
+                                                        setTimeout(() => {
+                                                            document.getElementById(defaultSource.toLowerCase()).selected = true
+                                                        }, 500);
+                                                    </script>
                                                     </div>
                                                 </div>
                                                 <div class="clearfix"></div>
