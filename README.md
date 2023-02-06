@@ -16,5 +16,5 @@ idk what are you, a cop?
 HaiKei is still very actively maintained and looking for contributors! If you know javascript, especially NodeJS and server side work, feel free to make a contribution!
 
 # Screenshots!
-![HaiKei](https://user-images.githubusercontent.com/99224452/211406382-79da313e-432f-4b6a-9364-05b5ef5f8faf.png)
+![HaiKei](https://user-images.githubusercontent.com/99224452/217099723-6d985dfc-aa0a-430f-aa44-6744e95f6fd8.png)
 ![hk_player](https://user-images.githubusercontent.com/99224452/210157881-c297bcd0-2806-43b2-b55b-e31da4187d77.png)
