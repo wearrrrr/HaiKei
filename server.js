@@ -1,21 +1,17 @@
 require('dotenv').config();
 
-const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
 const csrf = require('csurf');
-const { body, validationResult } = require('express-validator');
 const passport = require('passport');
 const helmet = require("helmet");
 const SQLiteStore = require('connect-sqlite3')(session);
 const limit = require('express-limit').limit;
 const app = express();
 const port = process.env.PORT || 3000;
-const sendMail = require('./utils/tokenSender')
-const jwt = require('jsonwebtoken')
 
 app.locals.pluralize = require('pluralize');
 
@@ -52,9 +48,11 @@ app.engine('ejs', require('ejs').__express);
 app.set('views', 'public')
 app.listen(port);
 
+
+// Set up app routes
 app.use('/', require('./routers/index.js'));
+app.use('/', require('./routers/auth.js'));
 app.use('/api', require('./routers/api.js'))
-app.use('/', require('./routers/auth.js'))
 app.use('/watchlist', require('./routers/watchlist.js'))
 app.use('/search', require('./routers/search.js'));
 app.use('/trending', require('./routers/trending.js'));

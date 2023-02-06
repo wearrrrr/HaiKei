@@ -36,7 +36,7 @@ async function sendMail(sender, username) {
 
 
 
-if (process.env.SMTP_PROVIDER) {
+if (!process.env.SMTP_PROVIDER) {
     console.log('SMTP Provider not set!');
 } else {
   module.exports = sendMail;

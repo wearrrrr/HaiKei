@@ -209,6 +209,7 @@ router.get('/verify/:token', (req, res)=>{
   jwt.verify(token, process.env.JWT_SECRET, function(err) {
       if (err) {
           res.send("Email verification failed, possibly the link is invalid or expired");
+          console.log(err)
       }
       else {
           res.send("Email verified successfully!");

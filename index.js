@@ -12,7 +12,6 @@ const success = chalk.bold.green;
 
 console.log(success("Starting Web Server..."))
 
-// start the webserver using cp.exec
 let webserver = cp.spawn('./webserver.sh')
 webserver.stdout.on('data', (data) => {console.log(data.toString())});
 
