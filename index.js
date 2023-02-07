@@ -12,9 +12,6 @@ const success = chalk.bold.green;
 
 console.log(success("Starting Web Server..."))
 
-let webserver = cp.spawn('./webserver.sh')
-webserver.stdout.on('data', (data) => {console.log(data.toString())});
-
 if (os.platform == "win32") {
     console.log("platform is " + os.platform)
     console.log(success("Starting Consumet..."))
@@ -30,8 +27,11 @@ if (os.platform == "win32") {
     console.log(success("Starting Redis..."))
 
     let memurai = cp.exec('memurai')
-    memurai.stdout.on('data', (data) => console.log(data.toString()))
-    memurai.stderr.on('data', (data) => console.log(data.toString()))
+    // memurai.stdout.on('data', (data) => console.log(data.toString()))
+    // memurai.stderr.on('data', (data) => console.log(data.toString()))
+
+    let webserver = cp.spawn('webserver.bat')
+    webserver.stdout.on('data', (data) => {console.log(data.toString())});
 
 } 
 if (os.platform == 'darwin' || os.platform == 'linux') {
@@ -45,6 +45,8 @@ if (os.platform == 'darwin' || os.platform == 'linux') {
     consumetServer.stderr.on('data', function (data) {
     console.log(data.toString());
     });
+    let webserver = cp.spawn('./webserver.sh')
+    webserver.stdout.on('data', (data) => {console.log(data.toString())});
 }
 if (os.platform == "linux" ) {
     console.log(success("Starting Redis..."))
