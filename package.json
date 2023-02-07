@@ -16,7 +16,7 @@
     "axios": "^0.27.2",
     "bcrypt": "^5.1.0",
     "chalk": "^4.1.2",
-    "config": "^3.3.8",
+    "config": "^3.3.9",
     "connect-flash": "^0.1.1",
     "connect-sqlite3": "^0.9.13",
     "cookie-parser": "^1.4.6",
