@@ -7,7 +7,7 @@ Creating a personal instance of HaiKei is really simple as long as you have basi
 Prerequisites for hosting a HaiKei instance are
 ```
 1. NodeJS / npm 
-2. Yarn (`npm install -g yarn`)
+2. Yarn (node module)
 3. Redis (or Memurai for Windows users.)
 4. Git
 5. Patience (optional)
@@ -18,7 +18,7 @@ Prerequisites for hosting a HaiKei instance are
 
 First run `git clone https://github.com/wearrrrr/HaiKei` to create a local copy of the repository<br>
 Then run `cd HaiKei` to get into the HaiKei directory.<br>
-Then run `npm install -g yarn` if you didn't do so before.<br>
+Then run `npm install -g yarn` if you haven't already<br>
 Then `cd consumet-api`<br>
 Now simply `yarn` to install all the node modules for consumet<br>
 Then `cd ../` to go back one directory and run `yarn` again to install the HaiKei node modules.<br>
