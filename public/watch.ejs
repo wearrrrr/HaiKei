@@ -49,46 +49,13 @@
     <% watchlistObj["subOrDub"] = showInfo.subOrDub %>
     <% watchlistObj["status"] = showInfo.status %>
     <% let stringifiedWatchlistObj = JSON.stringify(watchlistObj) %>
-    
     <%# now I just have to pass it down to the browser *ensue clown music* %>
     <script>
         let watchlistObject = '<%- stringifiedWatchlistObj %>'
         let ep = "<%- episode %>"
     </script>
 </head>
-<%#
-async function getQuality() {
-    try {
-        streamSource = data.sources.find(x => x.quality === 'default')
-    } catch {
-        try {
-            if (streamSource == undefined) {
-                streamSource = data.sources.find(x => x.quality === '720p')
-            }
-        } catch {
-            if (streamSource == undefined) {
-                streamSource = data.sources.find(x => x.quality === 'backup')
-            }
-        }
-    }
-}
-getQuality();
-
-
-    let hdCheck = data.sources.find(x => x.quality === '720p')
-    let hdChecker;
-    hdChecker = "PASS"
-        if (hdCheck == undefined) {
-        hdCheck = data.sources.find(x => x.quality === '480p')
-        hdChecker = "FAIL" 
-        }
-        if (hdCheck == undefined) {
-        hdCheck = data.sources.find(x => x.quality === '360p')     
-            hdChecker = "FAIL" 
-        }
- %>
 <body data-page="movie_watch">
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PY3MLQPLY1"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
@@ -349,10 +316,17 @@ getQuality();
             <div id="main-wrapper" date-page="movie_watch" data-id="">
                 <div id="ani_detail">
                     <div class="ani_detail-stage">
-                        <div class="container">                            <div class="anis-cover-wrap">
+                        <div class="container">                            
+                            <div class="anis-cover-wrap">
+                                <% if (showInfo.cover == undefined) { %>
                                 <div class="anis-cover"
                                     style="background-image: url('<%- showInfo.image %>')">
                                 </div>
+                                <% } else { %>
+                                    <div class="anis-cover"
+                                    style="background-image: url('<%- showInfo.cover %>')">
+                                </div>
+                                <% } %>
                             </div>
                             <div class="anis-watch-wrap">
                                 <div class="prebreadcrumb">
@@ -590,11 +564,6 @@ getQuality();
                             <div class="block_area-header block_area-header-tabs">
                                 <div class="float-left bah-heading mr-4">
                                     <h2 class="cat-heading">Comments</h2>
-                                </div>
-                                <div class="float-left bah-setting">
-                                    <a data-type="episode"
-                                        class="btn btn-sm btn-radius btn-tab btn-comment-tab active mr-1">Episode <span
-                                            id="cm-episode-number"></span></a>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
