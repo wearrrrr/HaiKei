@@ -83,11 +83,11 @@ document.getElementById('select-source').addEventListener('change', async functi
 
     }
     if (selectedIndex == "animepahe") {
-        let url = await fetch("https://api.haikei.xyz/anime/" + selectedIndex + "/info/" + source) // https://api.haikei.xyz/anime/animepahe/info/4
+        let url = await fetch("https://api.consumet.org/anime/" + selectedIndex + "/info/" + source) // https://api.haikei.xyz/anime/animepahe/info/4
         let data = await url.json()
         let paheEp = data.episodes[Number(ep) - 1]
         let paheEpId = paheEp.id
-        let url2 = await fetch("https://api.haikei.xyz/anime/" + selectedIndex + "/watch/" + paheEpId)
+        let url2 = await fetch("https://api.consumet.org/anime/" + selectedIndex + "/watch/" + paheEpId)
         data2 = await url2.json()
         console.log(data2)
         // this is what happens to a mf when there isn't an auto quality selector.
@@ -99,11 +99,7 @@ document.getElementById('select-source').addEventListener('change', async functi
         } if (streamSource == undefined) {
             streamSource = data2.sources.find(x => x.quality === '360')
         }
-        player.unload()
-        player.getNetworkingEngine().registerRequestFilter(function(type, request) {
-            console.log(request);
-            request.headers["x-referer"] = "https://kwik.cx/"
-          });  
-        player.load("https://cdn.nade.me/redirect?url=" + streamSource.url)
+        player.unload() 
+        player.load("https://cors.consumet.stream/" + streamSource.url)
     }
 })

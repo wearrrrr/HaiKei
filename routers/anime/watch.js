@@ -89,10 +89,10 @@ async function getSources(ID) {
             // });
         }
         if (animepaheData !== undefined) { 
-            // availableSources.push("Animepahe")
-            // Object.getOwnPropertyNames(animepaheData).forEach(function (val, idx, array) {
-            //     showIds.sources.push({"data": animepaheData[val].identifier, "source": "Animepahe"})
-            // });
+            availableSources.push("Animepahe")
+            Object.getOwnPropertyNames(animepaheData).forEach(function (val, idx, array) {
+                showIds.sources.push({"data": animepaheData[val].identifier, "source": "Animepahe"})
+            });
 
             // Kill animepahe as a source... for now ;)
         }
