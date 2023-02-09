@@ -55,6 +55,7 @@ async function defaultSourceLoad() {
 let zoroData2;
 defaultSourceLoad()
 document.getElementById('select-source').addEventListener('change', async function(e) {
+    destroyAniSkipButton()
     let source = e.target.value;
     let selector = document.getElementById('select-source')
     let options = selector.options
@@ -65,7 +66,6 @@ document.getElementById('select-source').addEventListener('change', async functi
         data = await url.json()
         streamSource = data.sources.find(x => x.quality === 'default')
         player.unload()
-        streamSource.url.replace('.pro', '.net')
         player.load(streamSource.url)
         destroyAniSkipButton()
     }

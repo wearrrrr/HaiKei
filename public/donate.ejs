@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/index-redesign.css">
     <link rel="stylesheet" href="/css/donate.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body id="full-doc">
     <%- include("./templates/sidenav.ejs") %>
@@ -33,9 +34,27 @@
         <h2>With all that aside (and you hopefully convinced!)<br> Here is how you can donate!</h2>
         <h3><a href="https://cash.app/$wearrx">CashApp ($wearrx)</a></h3>
         <h3><a href="https://www.buymeacoffee.com/haikei">Buy Me A Coffee</a></h3>
-        <h2>Cryptocurrency Addresses</h2>
-        <h3><a href="bitcoin:bc1qvy99pmzlnf6cshq08p2hzdkq0aezljx09wjqd9wnlm8da8feys8s97c2fw?message=HaiKei%20Donations">BTC: bc1qvy99pmzlnf6cshq08p2hzdkq0aezljx09wjqd9wnlm8da8feys8s97c2fw</a></h3>
-        <h3><a href="monero:45Z9q4LJSR99G58DWWPCNRFas2x8iRirmWYBKxy2QazUTseZrQqxyefA38U3T2D3s8UfzCX1RZEJAQrorwX4ct7Q4uAZfFH">XMR: 45Z9q4LJSR99G58DWWPCNRFas2x8iRirmWYBKxy2QazUTseZrQqxyefA38U3T2D3s8UfzCX1RZEJAQrorwX4ct7Q4uAZfFH</a></h3>
+        <h2 style="margin: 0;">Cryptocurrency Addresses</h2>
+        <h4>Tap to copy!</h4>
+        <%# Eventually rewrite this to use an api call to a JSON file and a for each loop :) %>
+        <div class="donate-item-wrapper">
+            <h3 onclick="copyAddr(`45Z9q4LJSR99G58DWWPCNRFas2x8iRirmWYBKxy2QazUTseZrQqxyefA38U3T2D3s8UfzCX1RZEJAQrorwX4ct7Q4uAZfFH`)">XMR: 45Z9q4LJSR99G58DWWPCNRFas2x8iRirmWYBKxy2QazUTseZrQqxyefA38U3T2D3s8UfzCX1RZEJAQrorwX4ct7Q4uAZfFH</h3>
+        </div>
+        <div class="donate-item-wrapper">
+            <h3 onclick="copyAddr(`bc1q4znsy2uz3zxcg8djgrur7fcs6t0gek9pckpztu`)">BTC: bc1q4znsy2uz3zxcg8djgrur7fcs6t0gek9pckpztu</h3>
+        </div>
+        <div class="donate-item-wrapper">
+            <h3 onclick="copyAddr(`0x1D954D78aC53757348eD73793579241390d8A120`)">ETH: 0x1D954D78aC53757348eD73793579241390d8A120</h3>
+        </div>
+        <div class="donate-item-wrapper">
+            <h3 onclick="copyAddr(`DRomCNQNTMnxaYiVk2FtBjT7RSNhQvrpt1`)">DOGE: DRomCNQNTMnxaYiVk2FtBjT7RSNhQvrpt1</h3>
+        </div>
+        <div class="donate-item-wrapper">
+            <h3 onclick="copyAddr(`0x1D954D78aC53757348eD73793579241390d8A120`)">SHIB: 0x1D954D78aC53757348eD73793579241390d8A120</h3>
+        </div>
+        <div class="donate-item-wrapper">
+            <h3 onclick="copyAddr(`LgXYv3MK8WkMSDGQ3XM3usJ3DAdTy4amSV`)">LTC: LgXYv3MK8WkMSDGQ3XM3usJ3DAdTy4amSV</h3>
+        </div>
     </div>
 
     <%- include('./templates/new-footer.ejs') %>
@@ -43,7 +62,9 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/js/iziModal.min.js" integrity="sha512-lR/2z/m/AunQdfBTSR8gp9bwkrjwMq1cP0BYRIZu8zd4ycLcpRYJopB+WsBGPDjlkJUwC6VHCmuAXwwPHlacww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js" integrity="sha512-wdUM0BxMyMC/Yem1RWDiIiXA6ssXMoxypihVEwxDc+ftznGeRu4s9Fmxl8PthpxOh5CQ0eqjqw1Q8ScgNA1moQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>   
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="/js/index.js"></script>
     <script src="/js/app.js"></script>
+    <script src="/js/donate.js"></script>
 </body>
 </html>

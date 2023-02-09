@@ -4134,7 +4134,8 @@ ul.color-list li:nth-of-type(7n+6) a {
 }
 
 .displayed {
-    opacity: 1;
+    border: none;
+    opacity: 0.8;
     z-index: 15;
 }
 

@@ -20,6 +20,20 @@ body {
     align-items: center;
     flex-direction: column;
 }
+.donate-links-container > .donate-item-wrapper > * {
+    text-decoration: none;
+}
+.donate-item-wrapper {
+    width: 75%;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+.donate-item-wrapper > h3 {
+    transition: color 250ms ease-in;
+}
+.donate-item-wrapper > h3:hover {
+    color: var(--light-accent-hover);
+}
 .donation-reasons-container > ul > li {
     color: var(--dark-accent);
     font-size: 24px;
@@ -39,6 +53,11 @@ h3 {
 }
 h3 > a {
     color: var(--light-accent);
+}
+h4 {
+    color: var(--dark-accent);
+    margin: 0;
+    margin-bottom: 10px;
 }
 .donate-header-container > svg {
     width: 10%;
