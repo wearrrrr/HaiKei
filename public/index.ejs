@@ -28,7 +28,7 @@
     <div class="swiper-wrapper">
         <% trendingAnime.forEach(card => { %>
             <div class="swiper-slide">
-                <div loading="lazy" class="background-image" style="background-image: url('<%- card.image %>')"></div>
+                <div loading="lazy" class="background-image" style="background-image: url('<%- `https://img.haikei.xyz/image/` + encodeURIComponent(card.image) %>')"></div>
                 <div class="show-info">
                     <h1 class="title hidden jp-title"><%- card.title.romaji %></h1>
                     <h1 class="title eng-title"><%- card.title.english %></h1>
@@ -63,7 +63,7 @@
             <% recentReleases.forEach(card => { %>
                 <div class="splide__slide">
                 <a aria-label="<%- card.episodeId %>" class="searchLink" href="/watch/<%- card.malId %>/1"></a>
-                    <img loading="lazy" class="recent_releases_img" src="<%- card.image %>" alt="<%- card.title.romaji %>" style="width: 148px; height: 208px; align-self: center"> 
+                    <img class="recent_releases_img" src="<%- `https://img.haikei.xyz/image/` + encodeURIComponent(card.image) %>" alt="<%- card.title.romaji %>" style="width: 153px; height: 218px; align-self: center"> 
                     <p class="splide__animeTitle recent_releases_title"><%- card.title.romaji %></p>
                     <p class="splide__episodeNum">Episode: <%- card.episodeNumber %></p>
                 </div>
