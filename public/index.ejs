@@ -27,13 +27,19 @@
     <div class="swiper">
     <div class="swiper-wrapper">
         <% trendingAnime.forEach(card => { %>
+            <% if (card.status == "Not yet aired") {
+                card.status == "Not Released"
+            } %>
             <div class="swiper-slide">
-                <div loading="lazy" class="background-image" style="background-image: url('<%- `https://img.haikei.xyz/image/` + encodeURIComponent(card.image) %>')"></div>
+                <div loading="lazy" class="background-image" style="background-image: url('<%- card.image %>')"></div>
                 <div class="show-info">
                     <h1 class="title hidden jp-title"><%- card.title.romaji %></h1>
                     <h1 class="title eng-title"><%- card.title.english %></h1>
                     <div class="description">
+                    <% if (card.description) { %>
                         <%- card.description.replace(/(Source:.*)/m, "").replace("(", "") %>
+                    <% } %>
+                       
                     </div>
                     <div class="emblem-info">
                         <% if (card.status == "Completed") { %>
@@ -63,7 +69,7 @@
             <% recentReleases.forEach(card => { %>
                 <div class="splide__slide">
                 <a aria-label="<%- card.episodeId %>" class="searchLink" href="/watch/<%- card.malId %>/1"></a>
-                    <img class="recent_releases_img" src="<%- `https://img.haikei.xyz/image/` + encodeURIComponent(card.image) %>" alt="<%- card.title.romaji %>" style="width: 153px; height: 218px; align-self: center"> 
+                    <img loading="lazy" class="recent_releases_img" src="<%- card.image %>" alt="<%- card.title.romaji %>" style="width: 148px; height: 208px; align-self: center"> 
                     <p class="splide__animeTitle recent_releases_title"><%- card.title.romaji %></p>
                     <p class="splide__episodeNum">Episode: <%- card.episodeNumber %></p>
                 </div>
@@ -78,6 +84,10 @@
     <ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed" data-ad-client="ca-pub-9870376562547077" data-ad-slot="7895320825"></ins>
 </div>
 <script>
+if (localStorage.getItem("_firstload") == undefined) {
+    localStorage.setItem("_noads", false)
+    localStorage.setItem("_firstload", false)
+}
 // ensure that ads only show on the main domains
 if (window.location.hostname == "haikei.xyz" || window.location.hostname == "www.haikei.xyz") {
     if (localStorage.getItem("_noads") == 'false') {
@@ -107,7 +117,6 @@ if (window.location.hostname == "haikei.xyz" || window.location.hostname == "www
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js" integrity="sha512-wdUM0BxMyMC/Yem1RWDiIiXA6ssXMoxypihVEwxDc+ftznGeRu4s9Fmxl8PthpxOh5CQ0eqjqw1Q8ScgNA1moQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>   
 <script src="/js/index.js"></script>
 <script src="/js/modals.js"></script>
-<script src="/js/app.js"></script>
 <% if(loginState == true) { %>
 <script>
     let vidSource = localStorage.getItem('videoSource')
@@ -138,7 +147,11 @@ if (window.location.hostname == "haikei.xyz" || window.location.hostname == "www
     }
     let getVids;
     if (vidSource == "zoro") {
-        document.getElementById('zoro').selected = "selected" 
+        document.getElementById('zoro').selected = "selected"
+        getVids = document.querySelectorAll('.splide__slide > a')
+        for (var i=0; i < getVids.length; i++) {
+            getVids[i].href = getVids[i].href + "/zoro"
+        }
     } else {
         document.getElementById('gogoanime').selected = "selected"  
     }

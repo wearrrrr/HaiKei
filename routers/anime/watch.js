@@ -19,6 +19,9 @@ let redisClient;
   await redisClient.connect();
 })();
 async function handleMalformedURL(req, res) {
+    if (isNaN(req.params.id)) {
+        throw new Error("ID is not a number!")
+    }
     res.redirect(`/watch/${req.params.id}/1`)
 }
 async function getTrending() {
@@ -117,6 +120,9 @@ async function getWatchData(req, res) {
     let showInfo;
 
     try {
+        if (isNaN(req.params.id)) {
+            throw new Error("ID is not a number!")
+        }
         const watchResults = await redisClient.get(watch_dblink);
         const trendingResults = await redisClient.get(trending_dblink);
         const showInfoResults = await redisClient.get(info_dblink);
