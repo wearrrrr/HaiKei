@@ -64,7 +64,7 @@ try {
 
     } catch(e) {
         console.log(e);
-        return res.status(404).render('error.ejs', {loginState: loginState, errCode: "Failed to fetch trending anime!"})
+        return res.status(404).render('error.ejs', {loginState: false, errCode: "Failed to fetch trending anime!"})
     }
  })
 
