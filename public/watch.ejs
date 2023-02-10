@@ -396,7 +396,7 @@
                                                 <%    nextOrPrev = "Next";
                                                     hrefToUse = nextEp; %>
                                                 <% } %>
-                                                <a href="<%- id %>-episode-<%- hrefToUse %>">
+                                                <a href="<%- hrefToUse %>">
                                                 <button class="btn btn-secondary" type="button" style="float:right;height: 32px; margin-top: 3px;font-size: 14px;font-weight: normal;display: block;">
                                                 <% if (nextOrPrev == "Prev") { %>
                                                     <i class="fa-solid fa-backward-step"></i>
@@ -658,7 +658,7 @@
                                                     </div>
                                                     <div class="film-detail">
                                                         <h3 class="film-name">
-														<a href="/watch/<%-ti.id %>-episode-1" title="<%- ti.title.romaji %>" class="dynamic-name" data-jname="<%- ti.title.romaji %>"><%- ti.title.romaji %></a>
+														<a href="/watch/<%-ti.id %>" title="<%- ti.title.romaji %>" class="dynamic-name" data-jname="<%- ti.title.romaji %>"><%- ti.title.romaji %></a>
 														</h3>
 														<div class="fd-infor">
 														<span class="fdi-item">
