@@ -69,7 +69,7 @@ try {
  })
 
  app.get('/anime/:id', async (req, res) => {
-    res.redirect('/watch/' + req.params.id + '-episode-1')
+    res.redirect('/watch/' + req.params.id)
  })
 
  app.get('/donate', async (req, res) => {
