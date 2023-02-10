@@ -2,6 +2,18 @@ $("#login").iziModal();
 $("#userInfo").iziModal();
 $("#register").iziModal();
 
+
+setTimeout(() => {
+  const iziModalCSS = document.createElement("link");
+  iziModalCSS.rel = "stylesheet";
+  iziModalCSS.href = "https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/css/iziModal.css";
+  document.head.appendChild(iziModalCSS);
+
+  const fontAwesomeCSS = document.createElement("link");
+  fontAwesomeCSS.rel = "stylesheet";
+  fontAwesomeCSS.href = "https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css";
+  document.head.appendChild(fontAwesomeCSS);
+}, 10);
 let navFlag = 0; // false
 
 window.addEventListener('keydown', function(e) {
