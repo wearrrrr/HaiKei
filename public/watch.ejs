@@ -38,6 +38,10 @@
         'disqus': 'haikei.disqus.com',
     };
     </script>
+    <script>
+        let totalEpisodes = `<%- showInfo.totalEpisodes %>`
+    </script>
+    <% console.log(showInfo.totalEpisodes) %>
     <%# I am going to genuinely skin someone if I ever have to do this again %>
     <% let watchlistObj = {}; %>
     <% watchlistObj["id"] = showInfo.id %>
@@ -380,8 +384,14 @@
                                             
                                         </div>
                                             <div class="pc-item pc-toggle pc-light">
-                                                <div id="turn-off-light" class="toggle-basic">
-
+                                                <div id="auto-play-toggler" class="toggle-basic off">
+                                                    <div class="auto-play">
+                                                        <label class="checkbox-container">
+                                                            <input type="checkbox">
+                                                            <span id="auto-play-checkbx" class="checkmark"></span>
+                                                          </label>
+                                                        <span>Auto Play</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="pc-right">
@@ -530,7 +540,7 @@
                                                 <span class="item">NO RATING</span>
                                                 <span class="dot"></span>
                                                 <% } else { %>
-                                                <span class="item">★ <%- Math.round(showInfo.rating *2)/2; %> / 10</span>
+                                                <span class="item">★ <%- Math.round(showInfo.rating *2)/2 / 10; %> / 10</span>
                                                 <span class="dot"></span>
                                                 <% } %>
                                                 <span class="item"><%-showInfo.status.toUpperCase() %></span>
@@ -594,41 +604,42 @@
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="tab-content">
+                            <!-- <div class="tab-content">
                                 <div class="block_area-content block_area-list film_list film_list-grid film_list-wfeature">
                                     <div class="film_list-wrap">
-                                    <% recommended.results.forEach((rec) => { %>
+                                    <%# recommended.results.forEach((rec) => { %>
                                         <div class="flw-item ">
                                             <div class="film-poster">
                                                 <div class="tick rtl">
                                                     <div class="tick-item tick-eps amp-algn">EP
-                                                        <%- rec.totalEpisodes %></div>
+                                                        <%#- rec.totalEpisodes %></div>
                                                 </div>
                                                 <img class="film-poster-img lazyload"
-                                                    data-src="<%- rec.image %>"
-                                                    src="<%- rec.image %>"
-                                                    alt="<%- rec.title.romaji %>">
-                                                <a class="film-poster-ahref" href="/watch/<%-rec.id %>/1"
-                                                    title="<% rec.title.romaji %>"><i class="fas fa-play"></i></a>
+                                                    data-src="<%#- rec.image %>"
+                                                    src="<%#- rec.image %>"
+                                                    alt="<%#- rec.title.romaji %>">
+                                                <a class="film-poster-ahref" href="/watch/<%#-rec.id %>/1"
+                                                    title="<%# rec.title.romaji %>"><i class="fas fa-play"></i></a>
                                             </div>
                                             <div class="film-detail">
                                                 <h3 class="film-name">
-                                                    <a class="dynamic-name" href="/watch/<%- rec.id %>/1"
-                                                        title="<%- rec.title.romaji %>" data-jname="<%- rec.title.romaji %>" style="opacity: 1;"><%- rec.title.romaji %></a>
+                                                    <a class="dynamic-name" href="/watch/<%#- rec.id %>/1"
+                                                        title="<%#- rec.title.romaji %>" data-jname="<%#- rec.title.romaji %>" style="opacity: 1;"><%#- rec.title.romaji %></a>
                                                 </h3>
                                                 <div class="fd-infor">
-                                                    <span class="fdi-item"><%- rec.type %></span>
+                                                    <span class="fdi-item"><%#- rec.type %></span>
                                                     <span class="dot"></span>
-                                                    <span class="fdi-item"><%- rec.status %></span>
+                                                    <span class="fdi-item"><%#- rec.status %></span>
                                                 </div>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
-                                    <% }) %>
+                                    <%# }) %>
                                         </div>
                                     <div class="clearfix"></div>
                                 </div>
-                            </div>
+                            </div> -->
+                            <h3>Currently Disabled!</h3>
                         </section>
 
                         <div class="clearfix"></div>
@@ -654,11 +665,11 @@
                                             <li class="item-top">
                                               <div class="film-number"><span><%- trendingIndex %></span></div>
                                                     <div class="film-poster">
-                                                        <img data-src="<%- ti.image %>" class="film-poster-img lazyload" alt="<%- ti.title.romaji %>" src="<%- ti.image %>">
+                                                        <img data-src="<%- ti.image %>" class="film-poster-img lazyload" alt="<%- ti.title %>" src="<%- ti.image %>">
                                                     </div>
                                                     <div class="film-detail">
                                                         <h3 class="film-name">
-														<a href="/watch/<%-ti.id %>" title="<%- ti.title.romaji %>" class="dynamic-name" data-jname="<%- ti.title.romaji %>"><%- ti.title.romaji %></a>
+														<a href="/watch/<%-ti.id %>" title="<%- ti.title %>" class="dynamic-name" data-jname="<%- ti.title %>"><%- ti.title %></a>
 														</h3>
 														<div class="fd-infor">
 														<span class="fdi-item">

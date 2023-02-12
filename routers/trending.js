@@ -1,13 +1,13 @@
 const express = require("express");
 const app = express.Router();
-const ANIME = require("@consumet/extensions").ANIME;
-const gogoanime = new ANIME.Gogoanime();
+const META = require("@consumet/extensions").META;
+const anilist = new META.Anilist();
 
 app.get("/", async (req, res) => {
   try {
-    let trending = await gogoanime.fetchTopAiring("1");
+    let trending = await anilist.fetchTrendingAnime("1");
     let trendingData = await trending.results;
-    let trending2 = await gogoanime.fetchTopAiring("2");
+    let trending2 = await anilist.fetchTrendingAnime("2");
     let trending2Data = await trending2.results;
     let loginState = req.user ? true : false;
     let username = req.user ? req.user.username : null;

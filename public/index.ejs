@@ -44,7 +44,7 @@
                         <div class="type"><i class="fa-light fa-tv-retro"></i> <%- card.type %></div>
                     </div>
                     <div class="btn-wrapper">
-                        <div class="play-btn"><a href="/watch/<%- card.malId %>/1"><i class="fa-solid fa-play"></i> Play Now</a></div>
+                        <div class="play-btn"><a href="/watch/<%- card.id %>/1"><i class="fa-solid fa-play"></i> Play Now</a></div>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
         <div class="recent-releases-grid grid-container">
             <% recentReleases.forEach(card => { %>
                 <div class="splide__slide">
-                <a aria-label="<%- card.episodeId %>" class="searchLink" href="/watch/<%- card.malId %>/1"></a>
+                <a aria-label="<%- card.episodeId %>" class="searchLink" href="/watch/<%- card.id %>/1"></a>
                     <img class="recent_releases_img" src="<%- `https://img.haikei.xyz/image/` + encodeURIComponent(card.image) %>" alt="<%- card.title.romaji %>" style="width: 153px; height: 218px; align-self: center"> 
                     <p class="splide__animeTitle recent_releases_title"><%- card.title.romaji %></p>
                     <p class="splide__episodeNum">Episode: <%- card.episodeNumber %></p>

@@ -29,7 +29,31 @@ function loadDisqus() {
     }
 }
 
+const autoPlayEl = document.getElementById('auto-play-checkbx')
+autoPlayEl.addEventListener('click', (e) => {
+    autoPlayEl.classList.toggle("enabled")
+})
 
+async function determineShakaLoaded() {
+    return new Promise((resolve, reject) => {
+        let interval = setInterval(() => {
+            if (window.shaka) {
+                clearInterval(interval)
+                video.addEventListener("ended", () => {
+                    handleAutoPlay();
+                })
+                resolve()
+            }
+        }, 200)
+    })
+}
+determineShakaLoaded()
+
+function handleAutoPlay() {
+    if (autoPlayEl.classList.contains("enabled")) {
+        nextEpisode()
+    }
+}
 
 function countViewMovie() {
     setTimeout(function() {

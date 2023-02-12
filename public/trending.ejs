@@ -53,16 +53,18 @@
 <br>
 <div class="grid-wrapper-new-release">
             <% trending.forEach(card => { %>
-                <li class="splide__slide" onclick="window.location.href = `${window.location.origin}/watch/<%- card.id %>-episode-1`">
+                <li class="splide__slide" onclick="window.location.href = `${window.location.origin}/watch/<%- card.id %>`">
                     <img src="<%- card.image %>" style="width: 164px; height: 231px; align-self: center"> 
-                    <p class="splide__animeTitle"><%- card.title %></p>
+                    <br>
+                    <p class="splide__animeTitle"><%- card.title.romaji %></p>
                     <p class="splide__episodeNum"><%= card.genres[0 + 1] %></p>
                 </li>
             <% }) %>
             <% trending2.forEach(card => { %>
-                <li class="splide__slide" onclick="window.location.href = `${window.location.origin}/watch/<%- card.id %>-episode-1`">
+                <li class="splide__slide" onclick="window.location.href = `${window.location.origin}/watch/<%- card.id %>`">
                     <img src="<%- card.image %>" style="width: 164px; height: 231px; align-self: center"> 
-                    <p class="splide__animeTitle"><%- card.title %></p>
+                    <br>
+                    <p class="splide__animeTitle"><%- card.title.romaji %></p>
                     <p class="splide__episodeNum"><%= card.genres[0 + 1] %></p>
                 </li>
             <% }) %>

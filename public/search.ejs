@@ -20,7 +20,7 @@
     <div class="grid-container">
         <% searchData.forEach((searchData) => { %>
                 <li class="splide__slide">
-                <a class="searchLink" href="/watch/<%-searchData.malId %>"></a>
+                <a class="searchLink" href="/watch/<%-searchData.id %>"></a>
                     <img style="width: 164px; height: 231px; align-self: center;" src="<%- searchData.image %>" alt="<%- searchData.title.romaji %>">
                     <p style="margin-top: 30px;" class="splide__animeTitle search_result"><%- searchData.title.romaji  %></p>
                 </li>	

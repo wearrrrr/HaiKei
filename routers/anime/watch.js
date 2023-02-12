@@ -20,13 +20,18 @@ let redisClient;
 })();
 async function handleMalformedURL(req, res) {
     if (isNaN(req.params.id)) {
-        throw new Error("ID is not a number!")
+        return res.send("ID is not a number!")
     }
-    res.redirect(`/watch/${req.params.id}/1`)
+    try {
+        return res.redirect(`/watch/${req.params.id}/1`)
+    } catch {
+        return res.send("Malformed URL!")
+    }
+
 }
 async function getTrending() {
     try {
-        let trending = await axios.get(`${consumetURL}meta/anilist/trending`)
+        let trending = await axios.get(`${consumetURL}meta/mal/spy`)
         let trendingData = await trending.data
         return trendingData
     } catch(e) {
@@ -36,7 +41,7 @@ async function getTrending() {
 }
 async function getShowInfo(showID) {
     try {
-        let showInfo = await axios.get(`https://api.consumet.org/meta/mal/info/${showID}`)
+        let showInfo = await axios.get(`https://api.consumet.org/meta/anilist/info/${showID}`)
         let showData = await showInfo.data
         return showData
     } catch(e) {
@@ -121,20 +126,11 @@ async function getWatchData(req, res) {
 
     try {
         if (isNaN(req.params.id)) {
-            throw new Error("ID is not a number!")
+            return res.send("ID is not a number!")
         }
         const watchResults = await redisClient.get(watch_dblink);
         const trendingResults = await redisClient.get(trending_dblink);
         const showInfoResults = await redisClient.get(info_dblink);
-        if (watchResults) {
-            sources = JSON.parse(watchResults)
-        } else {
-            sources = await getSources(req.params.id)
-            await redisClient.set(watch_dblink, JSON.stringify(sources), {
-                EX: 5400,
-                NX: true,
-            });
-        }
         if (trendingResults) {
             trending = JSON.parse(trendingResults)
         } else {
@@ -152,9 +148,15 @@ async function getWatchData(req, res) {
                 EX: 32400,
                 NX: true,
             });
-            if (showInfo.genres[0] == undefined) {
-                recommendedGenre = "Action" // fallback to action shows if genre is undefined (somehow)
-            }
+        }
+        if (watchResults) {
+            sources = JSON.parse(watchResults)
+        } else {
+            sources = await getSources(showInfo.malId)
+            await redisClient.set(watch_dblink, JSON.stringify(sources), {
+                EX: 5400,
+                NX: true,
+            });
         }
         const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
         let showID = req.params.id
