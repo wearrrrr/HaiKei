@@ -5,129 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trending - HaiKei</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" type="text/css">
-    <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/css/m.min.css">
-    <link rel="stylesheet" href="/css/watchpage.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9870376562547077" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="/css/index-redesign.css">
 </head>
 <body>
-<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.21/dist/js/splide.min.js"></script>
-
-<div id="xwrapper">
-<%- include('templates/header') %>
-    <div id="xmain-wrapper">
-        <div id="mw-top">
-            <div class="container">
-            <div class="mwt-content">
-            <div class="mwh-logo">
-                    <div class="clearfix"></div>
-                </div>
-            <div class="xhashtag">
-            <span class="title">Top search:</span>
-            <a href="/search?query=One%20Piece" class="item">One Piece</a>
-            <a href="/search?query=Naruto%3A%20Shippuden" class="item">Naruto: Shippuden</a>
-            <a href="/search?query=Mugen Train" class="item">Demon Slayer Movie: Mugen Train</a>
-            <a href="/search?query=Boruto%3A%20Naruto%20Next%20Generations" class="item">Boruto: Naruto Next Generations</a>
-            <a href="/search?query=Naruto" class="item">Naruto</a>
-            <a href="/search?query=Sorcery+Fight" class="item">Jujutsu Kaisen (TV)</a>
-            <a href="/search?query=Boku+No+Hero+Academia+5th+Season" class="item">My Hero Academia 5th Season</a>
-            <a href="/search?query=Demon%20Slayer%3A%20Kimetsu%20no%20Yaiba" class="item">Demon Slayer: Kimetsu no Yaiba</a>
-            <a href="/search?query=Attack%20on%20Titan" class="item">Attack on Titan</a>
-            <a href="/search?query=Black%20Clover" class="item">Black Clover</a>
-            </div>
-            <div class="clearfix"></div>
-            </div>
-            </div>
-            </div>
-            </div>
+    <%- include("./templates/sidenav.ejs") %>
+    <%- include("./templates/navbar.ejs") %>
+    <div class="trending-items">
+        <h1 class="trending-header">Trending Shows</h1>
+    <div class="recent-releases-grid grid-container">
+        <% trending.forEach(card => { %>
+            <li class="splide__slide">
+                <a aria-label="<%- card.episodeId %>" class="searchLink" href="/watch/<%- card.id %>/1"></a>
+                <img src="<%- card.image %>" style="width: 164px; height: 231px; align-self: center"> 
+                <p class="splide__animeTitle"><%- card.title.romaji %></p>
+                <br>
+                <p class="splide__episodeNum"><%= card.genres[0 + 1] %></p>
+            </li>
+        <% }) %>
+        <% trending2.forEach(card => { %>
+            <li class="splide__slide">
+                <img src="<%- card.image %>" style="width: 164px; height: 231px; align-self: center"> 
+                <p class="splide__animeTitle"><%- card.title.romaji %></p>
+                <br>
+                <p class="splide__episodeNum"><%= card.genres[0 + 1] %></p>
+            </li>
+        <% }) %>
     </div>
 </div>
-
-<div class="new-releases">
-    <h1 style="margin-top: 20px;" class="new_releases header">Trending Shows</h1>
-<div align="center">
-<ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-d9+i-1g-4q+e1" data-ad-client="ca-pub-9870376562547077" data-ad-slot="9808535270"></ins>
-</div>
-<br>
-<div class="grid-wrapper-new-release">
-            <% trending.forEach(card => { %>
-                <li class="splide__slide" onclick="window.location.href = `${window.location.origin}/watch/<%- card.id %>`">
-                    <img src="<%- card.image %>" style="width: 164px; height: 231px; align-self: center"> 
-                    <br>
-                    <p class="splide__animeTitle"><%- card.title.romaji %></p>
-                    <p class="splide__episodeNum"><%= card.genres[0 + 1] %></p>
-                </li>
-            <% }) %>
-            <% trending2.forEach(card => { %>
-                <li class="splide__slide" onclick="window.location.href = `${window.location.origin}/watch/<%- card.id %>`">
-                    <img src="<%- card.image %>" style="width: 164px; height: 231px; align-self: center"> 
-                    <br>
-                    <p class="splide__animeTitle"><%- card.title.romaji %></p>
-                    <p class="splide__episodeNum"><%= card.genres[0 + 1] %></p>
-                </li>
-            <% }) %>
-		</ul>
-  </div>
-</div>
-</div>
-<br>
-<div align="center">
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9870376562547077" data-ad-slot="3343329158" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <br>
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9870376562547077" data-ad-slot="8345843007" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <br>
-    <ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed" data-ad-client="ca-pub-9870376562547077" data-ad-slot="7895320825"></ins>
-</div>
-<script>
-if (localStorage.getItem("_firstload") == undefined) {
-    localStorage.setItem("_noads", false)
-    localStorage.setItem("_firstload", false)
-}
-// ensure that ads only show on the main domains
-if (window.location.hostname == "haikei.xyz" || window.location.hostname == "www.haikei.xyz") {
-    if (localStorage.getItem("_noads") == 'false') {
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    } else {
-        let ads = document.getElementsByClassName("adsbygoogle")
-        for(let i = 0; i < ads.length; i++) {
-            ads[i].style.display = "none"
-        }
-    }
-} else {
-    let ads = document.getElementsByClassName("adsbygoogle")
-    for(let i = 0; i < ads.length; i++) {
-        ads[i].style.display = "none"
-    }
-}
-</script>
-<%- include('templates/footer') %>
-<%- include('templates/login_modals') %>
-<script src="./js/main.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
-<script>
-    $(document).ready(function () {
-    $("#xheader_browser").click(function (e) {
-        $("#xheader_menu, #xheader_browser").toggleClass("active");
-    });
-        $(".register-tab-link").click(function (e) {
-        $("#modal-tab-register").addClass("active show"),
-        $("#modal-tab-login").removeClass("active show");
-    })
-        $(".forgot-tab-link").click(function (e) {
-        $("#modal-tab-forgot").addClass("active show"),
-        $("#modal-tab-login").removeClass("active show");
-    }),
-        $(".login-tab-link").click(function (e) {
-        $("#modal-tab-login").addClass("active show"),
-        $("#modal-tab-register, #modal-tab-forgot").removeClass("active show");
-    })
-});
-</script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/js/iziModal.min.js" integrity="sha512-lR/2z/m/AunQdfBTSR8gp9bwkrjwMq1cP0BYRIZu8zd4ycLcpRYJopB+WsBGPDjlkJUwC6VHCmuAXwwPHlacww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/js/modals.js"></script>
 </body>
 </html>

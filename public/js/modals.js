@@ -13,7 +13,7 @@ setTimeout(() => {
   fontAwesomeCSS.rel = "stylesheet";
   fontAwesomeCSS.href = "https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css";
   document.head.appendChild(fontAwesomeCSS);
-}, 10);
+}, 0);
 let navFlag = 0; // false
 
 window.addEventListener('keydown', function(e) {

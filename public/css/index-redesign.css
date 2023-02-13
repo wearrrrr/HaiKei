@@ -18,13 +18,12 @@
 }
 
 ::-webkit-scrollbar-track {
-    border-radius: 0;
-    background: rgba(0, 0, 0, .2)
+    background: rgba(0, 0, 0, .2);
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius: 0;
-    background: var(--dark-accent)
+    border-radius: 10px;
+    background: var(--dark-accent);
 }
 body {
     background-color: #0a0a0a;
@@ -287,6 +286,14 @@ body {
 .new-releases {
     width: 90%;
     margin: 0 auto;
+}
+.trending-items {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+.trending-header {
+    color: var(--light-accent);
 }
 @media (max-width: 1435px) {
     .navbar-links {
