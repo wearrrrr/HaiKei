@@ -1,5 +1,4 @@
 const ex = require('express');
-const axios = require('axios');
 const app = ex.Router();
 const config = require('../config')
 
