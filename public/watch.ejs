@@ -41,7 +41,6 @@
     <script>
         let totalEpisodes = `<%- showInfo.totalEpisodes %>`
     </script>
-    <% console.log(showInfo.totalEpisodes) %>
     <%# I am going to genuinely skin someone if I ever have to do this again %>
     <% let watchlistObj = {}; %>
     <% watchlistObj["id"] = showInfo.id %>
@@ -387,7 +386,7 @@
                                                 <div id="auto-play-toggler" class="toggle-basic off">
                                                     <div class="auto-play">
                                                         <label class="checkbox-container">
-                                                            <input type="checkbox">
+                                                            <input id="auto-play-input-checkbx" type="checkbox">
                                                             <span id="auto-play-checkbx" class="checkmark"></span>
                                                           </label>
                                                         <span>Auto Play</span>
@@ -665,15 +664,15 @@
                                             <li class="item-top">
                                               <div class="film-number"><span><%- trendingIndex %></span></div>
                                                     <div class="film-poster">
-                                                        <img data-src="<%- ti.image %>" class="film-poster-img lazyload" alt="<%- ti.title %>" src="<%- ti.image %>">
+                                                        <img data-src="<%- ti.image %>" class="film-poster-img lazyload" alt="<%- ti.title.romaji %>" src="<%- ti.image %>">
                                                     </div>
                                                     <div class="film-detail">
                                                         <h3 class="film-name">
-														<a href="/watch/<%-ti.id %>" title="<%- ti.title %>" class="dynamic-name" data-jname="<%- ti.title %>"><%- ti.title %></a>
+														<a href="/watch/<%-ti.id %>" title="<%- ti.title.romaji %>" class="dynamic-name" data-jname="<%- ti.title.romaji %>"><%- ti.title.romaji %></a>
 														</h3>
 														<div class="fd-infor">
 														<span class="fdi-item">
-														<i class="fa fa-tv"></i> Spring 2022  </span> <span class="dot"></span> <span class="fdi-item"><i class="fas fa-calendar mr-1"></i> 2022</span> <span class="dot"></span> <span class="fdi-item"><i class="fas fa-play-circle mr-1"></i> EP 12</span>
+														<i class="fa fa-tv"></i> Spring 2022  </span> <span class="dot"></span> <span class="fdi-item"><i class="fas fa-calendar mr-1"></i> <%- ti.releaseDate %></span> <span class="dot"></span> <span class="fdi-item"><i class="fas fa-play-circle mr-1"></i> EP <%- ti.totalEpisodes %></span>
                                                         </div>
                                                     </div>
                                                 <div class="clearfix"></div>

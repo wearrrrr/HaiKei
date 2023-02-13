@@ -30,12 +30,22 @@ function loadDisqus() {
 }
 
 const autoPlayEl = document.getElementById('auto-play-checkbx')
+const isEnabled = localStorage.getItem("autoPlay") || "disabled";
+if (isEnabled == "enabled") {
+    document.getElementById('auto-play-input-checkbx').checked = true;
+    autoPlayEl.classList.add("enabled")
+}
 autoPlayEl.addEventListener('click', (e) => {
     autoPlayEl.classList.toggle("enabled")
+    if (autoPlayEl.classList.contains("enabled")) {
+        localStorage.setItem("autoPlay", "enabled")
+    } else {
+        localStorage.setItem("autoPlay", "disabled")
+    }
 })
 
 async function determineShakaLoaded() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         let interval = setInterval(() => {
             if (window.shaka) {
                 clearInterval(interval)
@@ -50,9 +60,14 @@ async function determineShakaLoaded() {
 determineShakaLoaded()
 
 function handleAutoPlay() {
-    if (autoPlayEl.classList.contains("enabled")) {
-        nextEpisode()
+    if (localStorage.getItem("autoPlay") == "enabled") {
+        gotoNextEpisode()
     }
+}
+
+function gotoNextEpisode() {
+    if (episode_play.id == totalEpisodes) return;
+    window.location.href = "/watch/" + movie.id + "/" + (parseInt(episode_play.id) + 1)
 }
 
 function countViewMovie() {
