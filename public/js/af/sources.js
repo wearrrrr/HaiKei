@@ -9,7 +9,7 @@ async function loadZoroSource(source) {
     player.unload()
     player.load("https://cors.haikei.xyz/" + streamSource.url)
     video.addEventListener('loadeddata', (e) => {
-        if(video.readyState >= 3){
+        if(video.readyState >= 3 || video.readyState == undefined){
             let subtitles = zoroData2.subtitles;
             let subtitleForm;
             subtitles.forEach((track) => {
