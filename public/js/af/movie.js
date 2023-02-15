@@ -70,6 +70,22 @@ function gotoNextEpisode() {
     window.location.href = "/watch/" + movie.id + "/" + (parseInt(episode_play.id) + 1)
 }
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function loadGenresList() {
+    $.get('/genres.json', function(res) {
+        genreList = res;
+        genres = genreList.genres[0]
+        for (let genre in genres) {
+            if (genre == "slice-of-life") genre = "slice of Life"
+            if (genre == "mahou-shoujo") genre = "mahou Shoujo"
+            console.log(capitalizeFirstLetter(genre)); // Log the genre name
+        }
+    });
+}
+
 function countViewMovie() {
     setTimeout(function() {
         $.post('/' + movieId, function(res) {});
@@ -94,6 +110,7 @@ function pwToggleVisible() {
         pwInput.type = "password";
     }
 }
+
 
 
 // $(document).ready(function() {

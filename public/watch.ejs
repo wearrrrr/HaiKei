@@ -657,84 +657,43 @@
                             <div class="cbox cbox-list cbox-realtime">
                                 <div class="cbox-content">
                                     <div class="tab-content">
-<div id="trending" class="anif-block-ul anif-block-chart tab-pane active">
+                                        <div id="trending" class="anif-block-ul anif-block-chart tab-pane active">
                                             <ul class="ulclear">
-                                            <% let trendingIndex = 1 %>
-                                            <% trending.results.forEach((ti) => { %>
-                                            <li class="item-top">
-                                              <div class="film-number"><span><%- trendingIndex %></span></div>
-                                                    <div class="film-poster">
-                                                        <img data-src="<%- ti.image %>" class="film-poster-img lazyload" alt="<%- ti.title.romaji %>" src="<%- ti.image %>">
-                                                    </div>
-                                                    <div class="film-detail">
-                                                        <h3 class="film-name">
-														<a href="/watch/<%-ti.id %>" title="<%- ti.title.romaji %>" class="dynamic-name" data-jname="<%- ti.title.romaji %>"><%- ti.title.romaji %></a>
-														</h3>
-														<div class="fd-infor">
-														<span class="fdi-item">
-														<i class="fa fa-tv"></i> Spring 2022  </span> <span class="dot"></span> <span class="fdi-item"><i class="fas fa-calendar mr-1"></i> <%- ti.releaseDate %></span> <span class="dot"></span> <span class="fdi-item"><i class="fas fa-play-circle mr-1"></i> EP <%- ti.totalEpisodes %></span>
+                                                <% let trendingIndex = 1 %>
+                                                <% trending.results.forEach((ti) => { %>
+                                                <li class="item-top">
+                                                    <div class="film-number"><span><%- trendingIndex %></span></div>
+                                                        <div class="film-poster">
+                                                            <img data-src="<%- ti.image %>" class="film-poster-img lazyload" alt="<%- ti.title.romaji %>" src="<%- ti.image %>">
                                                         </div>
-                                                    </div>
-                                                <div class="clearfix"></div>
-                                            </li>
-                                            <% trendingIndex++ %>	          
-                                            <% }) %>
-                                        </ul>
+                                                            <div class="film-detail">
+                                                                <h3 class="film-name">
+                                                                <a href="/watch/<%-ti.id %>" title="<%- ti.title.romaji %>" class="dynamic-name" data-jname="<%- ti.title.romaji %>"><%- ti.title.romaji %></a>
+                                                                </h3>
+                                                                <div class="fd-infor">
+                                                                <span class="fdi-item">
+                                                                <i class="fa fa-tv"></i> Spring 2022  </span> <span class="dot"></span> <span class="fdi-item"><i class="fas fa-calendar mr-1"></i> <%- ti.releaseDate %></span> <span class="dot"></span> <span class="fdi-item"><i class="fas fa-play-circle mr-1"></i> EP <%- ti.totalEpisodes %></span>
+                                                                </div>
+                                                            </div>
+                                                        <div class="clearfix"></div>
+                                                    </li>
+                                                <% trendingIndex++ %>	          
+                                                <% }) %>
+                                            </ul>
                                         </div>
-                    </section>
-					
-                        <section class="block_area block_area_sidebar block_area-genres">
-                        <div class="block_area-header">
-                            <div class="float-left bah-heading mr-4">
-                                <h2 class="cat-heading">Genres</h2>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="block_area-content">
-                            <div class="cbox cbox-genres">
-                                <ul class="ulclear color-list sb-genre-list sb-genre-less">
-                                    <li class="nav-item"> <a class="nav-link" href="../genres?sort_genre=Action" title="Action">Action</a> </li>
-<li> <a href="../genres?sort_genre=Adventure" title="Adventure">Adventure</a> </li>
-<li> <a href="../genres?sort_genre=Cars" title="Cars">Cars</a> </li>
-<li> <a href="../genres?sort_genre=Comedy" title="Comedy">Comedy</a> </li>
-<li> <a href="../genres?sort_genre=Dementia" title="Dementia">Dementia</a> </li>
-<li> <a href="../genres?sort_genre=Demons" title="Demons">Demons</a> </li>
-<li> <a href="../genres?sort_genre=Drama" title="Drama">Drama</a> </li>
-<li> <a href="../genres?sort_genre=Ecchi" title="Ecchi">Ecchi</a> </li>
-<li> <a href="../genres?sort_genre=Fantasy" title="Fantasy">Fantasy</a> </li>
-<li> <a href="../genres?sort_genre=Game" title="Game">Game</a> </li>
-<li> <a href="../genres?sort_genre=Harem" title="Harem">Harem</a> </li>
-<li> <a href="../genres?sort_genre=Historical" title="Historical">Historical</a> </li>
-<li> <a href="../genres?sort_genre=Horror" title="Horror">Horror</a> </li>
-<li> <a href="../genres?sort_genre=Josei" title="Josei">Josei</a> </li>
-<li> <a href="../genres?sort_genre=Kids" title="Kids">Kids</a> </li>
-<li> <a href="../genres?sort_genre=Magic" title="Magic">Magic</a> </li>
-<li> <a href="../genres?sort_genre=Martial Arts" title="Martial Arts">Martial Arts</a> </li>
-<li> <a href="../genres?sort_genre=Mecha" title="Mecha">Mecha</a> </li>
-<li> <a href="../genres?sort_genre=Military" title="Military">Military</a> </li>
-<li> <a href="../genres?sort_genre=Music" title="Music">Music</a> </li>
-<li> <a href="../genres?sort_genre=Mystery" title="Mystery">Mystery</a> </li>
-<li> <a href="../genres?sort_genre=Parody" title="Parody">Parody</a> </li>
-<li> <a href="../genres?sort_genre=Police" title="Police">Police</a> </li>
-<li> <a href="../genres?sort_genre=Psychological" title="Psychological">Psychological</a> </li>
-<li> <a href="../genres?sort_genre=Romance" title="Romance">Romance</a> </li>
-<li> <a href="../genres?sort_genre=Samurai" title="Samurai">Samurai</a> </li>
-<li> <a href="../genres?sort_genre=School" title="School">School</a> </li>
-<li> <a href="../genres?sort_genre=Sci-Fi" title="Sci Fi">Sci Fi</a> </li>
-<li> <a href="../genres?sort_genre=Seinen" title="Seinen">Seinen</a> </li>
-<li> <a href="../genres?sort_genre=Shoujo" title="Shoujo">Shoujo</a> </li>
-<li> <a href="../genres?sort_genre=Shoujo Ai" title="Shoujo Ai">Shoujo Ai</a> </li>
-<li> <a href="../genres?sort_genre=Shounen" title="Shounen">Shounen</a> </li>
-<li> <a href="../genres?sort_genre=Shounen Ai" title="Shounen Ai">Shounen Ai</a> </li>
-<li> <a href="../genres?sort_genre=Slice of Life" title="Slice of Life">Slice of Life</a> </li>
-<li> <a href="../genres?sort_genre=Space" title="Space">Space</a> </li>
-<li> <a href="../genres?sort_genre=Sports" title="Sports">Sports</a> </li>
-<li> <a href="../genres?sort_genre=Super Power" title="Super Power">Super Power</a> </li>
-<li> <a href="../genres?sort_genre=Supernatural" title="Supernatural">Supernatural</a> </li>
-<li> <a href="../genres?sort_genre=Thriller" title="Thriller">Thriller</a> </li>
-<li> <a href="../genres?sort_genre=Vampire" title="Vampire">Vampire</a> </li>
-<li> <a href="../genres?sort_genre=Yaoi" title="Yaoi">Yaoi</a> </li>
-<li> <a href="../genres?sort_genre=Yuri" title="Yuri">Yuri</a> </li>  
+                                    </section>
+<section class="block_area block_area_sidebar block_area-genres">
+<div class="block_area-header">
+    <div class="float-left bah-heading mr-4">
+        <h2 class="cat-heading">Genres</h2>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="block_area-content">
+    <div class="cbox cbox-genres">
+        <ul class="ulclear color-list sb-genre-list sb-genre-less">
+            <li class="nav-item"><a class="nav-link" href="/genre?sort=Action" title="Action">Action</a></li>
+            <li class="nav-item"><a class="nav-link" href="/genre?sort=Action" title="Action">Action</a></li>
 							  </ul>
                                 <div class="anime-info">
                                     <a href="<%- id %>"></a>
@@ -773,7 +732,7 @@
                 </script>
             <% } %>
             <br>
-            <div id="footer" data-settings='{"auto_play":1,"auto_next":1,"auto_load_comments":0,"enable_dub":0,"anime_name":"jp","play_original_audio":0}'>
+            <div id="footer">
                 <div id="footer-about">
                     <div class="container">
                         <div class="footer-top">
@@ -796,10 +755,8 @@
                             
                         <div class="clearfix"></div>
                     </div>
-                    <div class="about-text">HaiKei does not store any files on our server, we
-                                only share link to the media which is hosted on 3rd party services.</div>
-                            <p class="copyright">Copyright © 2022 HaiKei. All Rights
-                                Reserved</p>
+                    <div class="about-text">HaiKei does not store any files on our server, we only share links to the media which is hosted on 3rd party services.</div>
+                            <p class="copyright">Copyright © 2022 HaiKei. All Rights Reserved</p>
                         </div>
                     </div>
                 </div>
