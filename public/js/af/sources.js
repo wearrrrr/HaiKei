@@ -9,32 +9,39 @@ async function loadZoroSource(source) {
     player.unload()
     player.load("https://cors.haikei.xyz/" + streamSource.url)
     video.addEventListener('loadeddata', (e) => {
-        if(video.readyState >= 3 || video.readyState == undefined){
-            let subtitles = zoroData2.subtitles;
-            let subtitleForm;
-            subtitles.forEach((track) => {
-            if (track.lang == "English") {
-                subtitleForm = "en"
-            } else if (track.lang == "Arabic - العربية (Arabic)") {
-                subtitleForm = "ar"
-            } else if (track.lang == "French") {
-                subtitleForm = "fr"
-            } else if (track.lang == "Portuguese - Português (Brasil)") {
-                subtitleForm = "pt"
-            } else if (track.lang == "Spanish - Español (España)") {
-                subtitleForm = "es"
-            } else if (track.lang == "Russian - Русский (Russian)") {
-                subtitleForm = "ru"
-            } else if (track.lang == "German - Deutsch") {
-                subtitleForm = "de"
-            } else if (track.lang == "Italian - Italiano (Italian)") {
-                subtitleForm = "it"
+        if (navigator.userAgent.includes("iPhone")) {
+            loadSubsZoro();
+        } else {
+            if (video.readyState >= 3) {
+                loadSubsZoro();
             }
-            
-            player.addTextTrackAsync(track.url, subtitleForm, 'subtitle', 'text/vtt', '', track.lang)
-            }); 
         }
      });
+}
+async function loadSubsZoro() {
+    let subtitles = zoroData2.subtitles;
+    let subtitleForm;
+    subtitles.forEach((track) => {
+    if (track.lang == "English") {
+        subtitleForm = "en"
+    } else if (track.lang == "Arabic - العربية (Arabic)") {
+        subtitleForm = "ar"
+    } else if (track.lang == "French") {
+        subtitleForm = "fr"
+    } else if (track.lang == "Portuguese - Português (Brasil)") {
+        subtitleForm = "pt"
+    } else if (track.lang == "Spanish - Español (España)") {
+        subtitleForm = "es"
+    } else if (track.lang == "Russian - Русский (Russian)") {
+        subtitleForm = "ru"
+    } else if (track.lang == "German - Deutsch") {
+        subtitleForm = "de"
+    } else if (track.lang == "Italian - Italiano (Italian)") {
+        subtitleForm = "it"
+    }
+    
+    player.addTextTrackAsync(track.url, subtitleForm, 'subtitle', 'text/vtt', '', track.lang)
+    }); 
 }
 async function defaultSourceLoad() {
     if (defaultSource == "gogoanime") {
