@@ -1,5 +1,5 @@
 ![logo](https://cdn.discordapp.com/attachments/1062512166986580038/1076241674038149221/logo.png)<br>
-Karasu is an anime streaming website that uses the [consumet](https://github.com/consumet/api.consumet.org) API, and runs ontop of express and ejs, with [redis](https://redis.io/) for caching. We are a fork of HaiKei
+Karasu is an anime streaming website that uses the [consumet](https://github.com/consumet/api.consumet.org) API, and runs ontop of express and ejs, with [redis](https://redis.io/) for caching. We are a fork of [HaiKei](https://haikei.xyz)!
 
 ## Preview is live!
 [karasu.live](https://karasu.live)
