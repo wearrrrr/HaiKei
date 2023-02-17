@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Crawl-delay: 2
-Sitemap: https://haikei.xyz/sitemap.xml
+Sitemap: https://karasu.live/sitemap.xml

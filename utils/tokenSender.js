@@ -18,13 +18,13 @@ async function sendMail(sender, username) {
     });
 
     let info = await transporter.sendMail({
-        from: '"no-reply" <no-reply@haikei.xyz>',
+        from: '"no-reply" <no-reply@karasu.live>',
         to: `${sender}`, 
         subject: `Hello ${username}!`,
-        text: `Hi There!, You recently signed up for HaiKei.xyz. Please verify your email by clicking the link below. (This link will expire in 1 hour!)
+        text: `Hi There!, You recently signed up for karasu.live. Please verify your email by clicking the link below. (This link will expire in 1 hour!)
         ${process.env.WEBSITE_URL}/verify/${token} 
         Thanks!
-        wearr - HaiKei.xyz
+        vlad - karasu.live
 
 
         Not you? You can safely ignore this email!

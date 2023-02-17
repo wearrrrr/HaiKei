@@ -211,7 +211,7 @@ let showTitle;
 async function getShowInfo() {
     let showInformation = await fetch(`${consumetURL}/anime/gogoanime/info/<%- epData[0] %>`)
     showInfo = await showInformation.json();
-    document.title = showInfo.title + " HaiKei"
+    document.title = showInfo.title + " Karasu"
     console.log(showInfo)
     showInfo.episodes.forEach((ep => {
         let episode = document.getElementById('ep')

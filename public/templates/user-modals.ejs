@@ -1,6 +1,6 @@
 <div id="login">
     <form method="POST" action="/login/password">
-        <h2 class="modal-title">Login to HaiKei</h2>
+        <h2 class="modal-title">Login to Karasu</h2>
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <input type="hidden" name="returnURL" value="<%= url %>">
         <input id="login-platform" type="hidden" name="platform" value="">
@@ -22,12 +22,12 @@
 </div>
 <div id="register">
     <form method="POST" action="/signup">
-        <h2 class="modal-title">Register With HaiKei</h2>
+        <h2 class="modal-title">Register With Karasu</h2>
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <input id="platform" type="hidden" name="returnURL" value="<%= url %>">
         <input id="register-platform" type="hidden" name="platform" value="">
         <div class="modal-input-container">
-            <input type="email" id="register-email" name="email" placeholder="alice@haikei.xyz" aria-required="true" required>
+            <input type="email" id="register-email" name="email" placeholder="peter@karasu.live" aria-required="true" required>
             <input type="text" class="form-control" id="register-username" placeholder="username" name="username" aria-required="true" required >
             <input id="register-password" placeholder="password" name="password" required autocomplete="on" type="password" aria-required="true" required>
             <input id="register-confirm-password" placeholder="confirm password" name="confirm_password" required autocomplete="on" type="password" aria-required="true" required>
