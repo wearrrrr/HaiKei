@@ -39,7 +39,7 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "pluralize": "^8.0.0",
-    "redis": "^4.6.1",
+    "redis": "^4.6.2",
     "response-time": "^2.3.2"
   }
 }
