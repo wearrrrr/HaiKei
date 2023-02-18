@@ -9927,8 +9927,8 @@ span#AddMalDiv #AddMal {
     height: 100%;
     background: #000;
     opacity: .6;
-    -webkit-filter: blur(50px);
-    filter: blur(50px)
+    -webkit-filter: blur(10px);
+    filter: blur(10px)
 }
 
 .swiper-container-cube.swiper-container-vertical .swiper-cube-shadow {
