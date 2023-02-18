@@ -232,8 +232,8 @@ body {
     z-index: -1;
     width: 100%;
     height: 100%;
-    -webkit-filter: blur(5px);
-    filter: blur(1px) brightness(0.2);
+    -webkit-filter: blur(1px);
+    filter: blur(1px) brightness(0.7);
     background-size: cover;
     background-position: center 40%;
 }
