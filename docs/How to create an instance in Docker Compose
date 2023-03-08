@@ -1,0 +1,84 @@
+
+
+First Download the Git Repo.
+`git clone https://github.com/wearrrrr/HaiKei.git`
+Then create a folder called `cache` for redis.
+`mkdir cache`
+
+Then create a file called `docker-compose.yaml`.
+`nano docker-compose.yaml`
+This file should contain the following lines:
+
+```
+version: "3"
+services:
+  node:
+    image: "node:18"
+    user: "root"
+    working_dir: /home/node/app/
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./HaiKei:/home/node/app
+    ports:
+      - "3002:3000"
+    command: bash -c "npm install -g npm@9.6.0 && npm install -g yarn --force && yarn && node server.js"
+    restart: unless-stopped
+  redis:
+    image: "redis:latest"
+    restart: unless-stopped
+    volumes:
+      - ./cache:/data
+    command: redis-server --save 20 1 --loglevel warning
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+```
+### Configuring HaiKei
+Before starting it up, please be sure to configure HaiKei correctly!
+In the HaiKei Directory is a file called .env.example.
+Rename it to .env
+`mv HaiKei/.env.example HaiKei/.env`
+Then edit the .env.
+`nano HaiKei/.env`
+
+Change the variables `AUTH_SECRET` `JWT_SECRET` to be equal to a strong/long string like `C6JE8DA0hqP18hLQh72u9Fqro`.
+Add a mail server if you want/need it.
+Change `REDIS_URL` to be equal to `redis://redis:6379`.
+You can also change the website URL in this file but it is not necessary.
+In the end the `.env` file could look like this:
+
+```
+
+WEBSITE_URL=http://localhost:3000
+PORT=3000
+AUTH_SECRET=asdasdasdasdasdasdasdasd
+JWT_SECRET=EXAMPLESECRETasdasdasdasd
+JWT_MSG=basic JWT message
+SMTP_PROVIDER=
+SMTP_PORT=
+MAIL_USERNAME=
+MAIL_PASSWORD=
+REDIS_URL=redis://redis:6379
+
+
+
+```
+### Starting HaiKei
+
+You can now start it up by executing `docker compose up`.
+Required for it to work are the packages: `docker.io docker-compose docker-compose-plugin docker-ce`
+
+### Making Changes to HaiKei
+
+Before changing anything you first have to take your instance of HaiKei offline: `docker compose down`
+Then you can make changes to the .env or docker-compose.yaml.
+After making your changes you can start your instance of HaiKei up again by executing: `docker compose up`
+
+### You now have your own instance of HaiKei!
+
+If you want to host your own API, there's a docker container for that as well at https://hub.docker.com/r/riimuru/consumet-api
+You can also add that container to your docker-compose.yaml.
+Just be sure to add the ports for the docker container and change the config.js at ./HaiKei/config.js to contain the correct consumet api.
+
+
+
