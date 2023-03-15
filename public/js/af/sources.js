@@ -49,7 +49,7 @@ async function defaultSourceLoad() {
         let url = await fetch("https://api.haikei.xyz/anime/gogoanime/watch/" + showID + '-episode-' + ep + "?server=vidstreaming")
         data = await url.json()
         streamSource = data.sources.find(x => x.quality === 'default')
-        player.load("https://hls.haikei.xyz/" + btoa(streamSource.url) + ".m3u8");
+        player.load("https://hls.fantasylegend.de/" + btoa(streamSource.url) + ".m3u8");
     } else if (defaultSource == "zoro") {
         loadZoroSource(document.getElementById('zoro').value)
     } else {
@@ -57,7 +57,7 @@ async function defaultSourceLoad() {
         let url = await fetch("https://api.haikei.xyz/anime/gogoanime/watch/" + showID + '-episode-' + ep + "?server=vidstreaming")
         data = await url.json()
         streamSource = data.sources.find(x => x.quality === 'default')
-        player.load("https://hls.haikei.xyz/" + btoa(streamSource.url) + ".m3u8")
+        player.load("https://hls.fantasylegend.de/" + btoa(streamSource.url) + ".m3u8")
     }
 }
 let zoroData2;
@@ -74,7 +74,7 @@ document.getElementById('select-source').addEventListener('change', async functi
         data = await url.json()
         streamSource = data.sources.find(x => x.quality === 'default')
         player.unload()
-        player.load("https://hls.haikei.xyz/" + btoa(streamSource.url) + ".m3u8");
+        player.load("https://hls.fantasylegend.de/" + btoa(streamSource.url) + ".m3u8");
         destroyAniSkipButton()
     }
     if (selectedIndex == "gogoanime (dub)") {
@@ -82,7 +82,7 @@ document.getElementById('select-source').addEventListener('change', async functi
         data = await url.json()
         streamSource = data.sources.find(x => x.quality === 'default')
         player.unload()
-        player.load("https://hls.haikei.xyz/" + btoa(streamSource.url) + ".m3u8");
+        player.load("https://hls.fantasylegend.de/" + btoa(streamSource.url) + ".m3u8");
         destroyAniSkipButton()
     }
     if (selectedIndex == "zoro") {
