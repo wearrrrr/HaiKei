@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch2Gether | HaiKei</title>
+    <link rel="stylesheet" href="/css/index-redesign.css">
+    <link rel="stylesheet" href="/css/w2g.css">
+</head>
+<body id="full-doc" style="height: 100vh">
+    <%- include("./templates/sidenav.ejs") %>
+    <%- include("./templates/navbar.ejs") %>
+    <div class="room_buttons_container">
+        <a href="/w2g/create" id="create_room">Create a New Room</a>
+        <button id="join_room">Join with Room Code</button>
+    </div>
+    <div class="public-rooms">
+        <h1>Public Rooms</h1>
+        <div class="public-rooms-container">
+        <% const parsedRoomData = JSON.parse(roomData) %>
+        <% Object.keys(parsedRoomData).forEach(room => { %>
+            <div class="public-room">
+                <div class="public-room-info">
+                    <h2><%- parsedRoomData[room].roomName %></h2>
+                    <h4>(<%- parsedRoomData[room].roomID %>)</h4>
+                    <p><%- parsedRoomData[room].roomDescription %></p>
+                </div>
+                <div class="public-room-join">
+                    <a href="/w2g/room/<%- parsedRoomData[room].roomID %>">Join</a>
+                </div>
+            </div>
+        <% }) %>
+        </div>
+    </div>
+    <script src="http://localhost:3001/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io("ws://localhost:3001");
+        const userID = "<%- username %>"
+        socket.on("connect", () => {
+            console.log(userID)
+        });
+        const roomData = JSON.parse(`<%- roomData %>`);
+        console.log(roomData);
+        const joinRoom = document.getElementById("join_room");
+
+        joinRoom.addEventListener("click", () => {
+            const roomName = prompt("Enter the room code");
+            if (roomName) {
+                window.location.href = `/w2g/${roomName}`;
+            }
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/js/iziModal.min.js" integrity="sha512-lR/2z/m/AunQdfBTSR8gp9bwkrjwMq1cP0BYRIZu8zd4ycLcpRYJopB+WsBGPDjlkJUwC6VHCmuAXwwPHlacww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/js/modals.js"></script>
+</body>
+</html>

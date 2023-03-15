@@ -103,8 +103,6 @@ async function getSources(ID) {
             Object.getOwnPropertyNames(animepaheData).forEach(function (val, idx, array) {
                 showIds.sources.push({"data": animepaheData[val].identifier, "source": "Animepahe"})
             });
-
-            // Kill animepahe as a source... for now ;)
         }
         // if (nineanimeData !== undefined) {
         //     availableSources.push("9anime") // do nothing because 9anime cannot be used as a source quite yet. :(

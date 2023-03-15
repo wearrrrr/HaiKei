@@ -1,0 +1,285 @@
+body {
+    font-family: 'Noto Sans', sans-serif;
+}
+.room_buttons_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 50px;
+}
+.room_buttons_container > button, .room_buttons_container > a {
+    width: 200px;
+    padding: 15px;
+    font-size: 16px;
+    border: none;
+    background-color: var(--dark-accent);
+    color: var(--light-accent);
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    text-align: center;
+    text-decoration: none;
+}
+.room_buttons_container > button:hover, .room_buttons_container > a:hover {
+    background-color: var(--light-accent);
+    color: var(--dark-accent);
+}
+.room_buttons_container > button:active, .room_buttons_container > a:active {
+    background-color: var(--dark-accent);
+    color: var(--light-accent);
+}
+.public-rooms-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+.public-rooms > h1 {
+    text-align: center;
+    margin-top: 50px;
+    color: var(--light-accent);
+}
+.public-room-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.public-room-info > h2 {
+    margin-top: 50px;
+    color: var(--light-accent);
+    margin-bottom: 0;
+}
+.public-room-info > h4 {
+    color: var(--light-accent-hover);
+    margin: 0;
+}
+.public-room-info > p {
+    margin-top: 10px;
+    color: var(--light-accent);
+}
+.public-room-join {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.public-room-join > a {
+    width: 100px;
+    padding: 7px;
+    border-radius: 5px;
+    font-size: 16px;
+    border: none;
+    background-color: var(--dark-accent);
+    color: var(--light-accent);
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    text-align: center;
+    text-decoration: none;
+}
+.public-room-join > a:hover {
+    background-color: var(--light-accent);
+    color: var(--dark-accent);
+}
+.room-info-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    align-items: center;
+    gap: 10px;
+}
+.room-description-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    align-items: center;
+    gap: 10px;
+}
+.update-room-name-btn {
+    outline: 0;
+    border: 0;
+    background-color: var(--dark-accent);
+    color: var(--light-accent);
+    padding: 5px;
+    border-radius: 5px;
+}
+.update-room-description-btn {
+    outline: 0;
+    border: 0;
+    background-color: var(--dark-accent);
+    color: var(--light-accent);
+    padding: 5px;
+    border-radius: 5px;
+}
+.room-description-container > .room-description {
+    width: 40%;
+    padding: 5px;
+    background-color: var(--dark-accent);
+    border: none;
+    border-radius: 5px;
+    color: var(--light-accent);
+    outline: none;
+}
+.room-info-container > .room-name {
+    width: 40%;
+    padding: 5px;
+    background-color: var(--dark-accent);
+    border: none;
+    border-radius: 5px;
+    color: var(--light-accent);
+    outline: none;
+}
+.w2g_video_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 5px;
+}
+#w2g_video {
+    height: 30vh;
+    object-fit: contain;
+}
+.users-in-room {
+    color: var(--light-accent);
+    text-align: center;
+    margin-top: 50px;
+}
+.user-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.user-in-server {
+    color: var(--light-accent);
+    background-color: var(--dark);
+    padding: 10px;
+    width: 450px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.user-in-server > .host-indicator {
+    margin: 0;
+    padding: 0;
+}
+.user-in-server > .user-id {
+    font-size: 16px;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+};
+.user-in-server > .user-ping {
+    font-size: 14px;
+}
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    height: 30vh;
+}
+.submit-search {
+    outline: 0;
+    border: 0;
+    background-color: var(--dark-accent);
+    color: var(--light-accent);
+    padding: 5px;
+    border-radius: 5px;
+}
+.search-for-video {
+    width: 80%;
+    padding: 5px;
+    background-color: var(--dark-accent);
+    border: none;
+    border-radius: 5px;
+    color: var(--light-accent);
+    outline: none;
+}
+.search-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 300px;
+}
+.search-input {
+    width: 40%;
+    padding: 5px;
+    background-color: var(--dark-accent);
+    border: none;
+    border-radius: 5px;
+    color: var(--light-accent);
+    outline: none;
+}
+.search-results {
+    overflow: scroll;
+    height: 100%;
+    width: 300px;
+    overflow-x: hidden;
+}
+.search-result-title {
+    color: var(--light-accent);
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    transition: 250ms ease-in-out;
+}
+.search-result-title:hover {
+    color: var(--light-accent-hover);
+    cursor: pointer;
+}
+.source-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.source-selection {
+    width: 300px;
+    padding: 5px;
+    background-color: var(--dark-accent);
+    border: none;
+    border-radius: 5px;
+    color: var(--light-accent);
+    outline: none;
+}
+.episode-list-container {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+.episode-list {
+    color: white;
+    grid-template-columns: 1fr 1fr 1fr;
+    display: grid;
+    gap: 10px;
+    align-items: center;
+    font-size: 14px;
+    height: 15vh;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.episode {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: var(--dark);
+    transition: 250ms ease-in-out;
+    cursor: pointer;
+    min-width: 0;
+}
+.episode-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 85%;
+}
+.shaka-video-container {
+    width: 500px;
+}

@@ -1,7 +1,6 @@
 <div id="login">
     <form method="POST" action="/login/password">
         <h2 class="modal-title">Login to HaiKei</h2>
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <input type="hidden" name="returnURL" value="<%= url %>">
         <input id="login-platform" type="hidden" name="platform" value="">
         <div class="modal-input-container">
@@ -23,7 +22,6 @@
 <div id="register">
     <form method="POST" action="/signup">
         <h2 class="modal-title">Register With HaiKei</h2>
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <input id="platform" type="hidden" name="returnURL" value="<%= url %>">
         <input id="register-platform" type="hidden" name="platform" value="">
         <div class="modal-input-container">
@@ -54,7 +52,6 @@
             <div class="btn-container">
                 <button type="submit" class="modal-btn">Logout</button>
             </div>
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <input type="hidden" name="returnURL" value="<%= url %>">
         </form>
         <div class="input-wrapper">

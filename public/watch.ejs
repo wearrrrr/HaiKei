@@ -784,7 +784,6 @@
                             <br>
                             <form method="POST" action="/logout">
                                 <button type="submit" class="btn btn-block btn-logout">Logout</button>
-                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                 <input type="hidden" name="returnURL" value="<%= url %>">
                             </form>
                               
@@ -896,7 +895,6 @@
                                         <label class="prelabel" for="password">Password</label>
                                         <input type="password" class="form-control" id="password" placeholder="Password"
                                             name="password" required>
-                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                         <input type="hidden" name="returnURL" value="<%= url %>">
                                     </div>
                                     <div class="form-check custom-control custom-checkbox">
@@ -1142,7 +1140,7 @@ document.addEventListener('shaka-ui-loaded', init);
 <script>
 document.getElementById('add-to-watchlist').addEventListener('click', addToWatchlist)
 function addToWatchlist() {
-    $.post("https://haikei.xyz/api/watchlist/add", { data: watchlistObject, _csrf: "<%- csrfToken %>" })
+    $.post("https://haikei.xyz/api/watchlist/add", { data: watchlistObject })
 }
 </script>
 <% } %>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch2Gether | HaiKei</title>
+    <link rel="stylesheet" href="/css/index-redesign.css">
+    <link rel="stylesheet" href="/css/w2g.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/controls.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/youtube-w2g-theme.css">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons+Sharp" rel="stylesheet">
+</head>
+<body id="full-doc" style="height: 100vh">
+    <%- include("./templates/sidenav.ejs") %>
+    <%- include("./templates/navbar.ejs") %>
+    <div class="room-info-container">
+        <input id="roomName" type="text" class="room-name" placeholder="Room Name"><button class="update-room-name-btn" id="roomNameUpdate">Update</button>
+    </div>
+    <div class="room-description-container">
+        <input id="roomDescription" type="text" class="room-description" placeholder="Room Description"><button class="update-room-description-btn" id="roomDescriptionUpdate">Update</button>
+    </div>
+
+    <div class="w2g_video_container">
+        <video autostart="false" data-shaka-player id="youtube-theme"></video>
+        <div class="search-container">
+            <div class="search-input-container">
+                <input id="searchInput" type="text" class="search-for-video"><button id="submitSearch" class="submit-search">Search</button>
+            </div>
+            <div id="searchResults" class="search-results">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="source-selector">
+        <select class="source-selection" name="source" id="selectSource">
+            
+        </select>
+    </div>
+    <div class="episode-list-container">
+        <div class="episode-list" id="episodeList"></div>
+    </div>
+    <div class="users-in-room">
+        Users In Room:
+        <div id="user-container" class="user-container">
+
+            </div>
+        </div>
+    </div>
+    <script src="http://ws.haikei.xyz/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io("ws://ws.haikei.xyz");
+        const userID = "<%- username %>"
+        const roomID = "<%- room %>"
+
+        socket.emit("init", { roomID: roomID, username: userID });
+        setInterval(() => {
+        const start = Date.now();
+
+        socket.emit("ping", () => {
+            const duration = Date.now() - start;
+            socket.emit("updateUserPing", { socketID: socket.id, ping: duration})
+        });
+        }, 1000);
+        setInterval(() => {
+            if (document.getElementById('youtube-theme').readyState == 4) {
+                socket.emit("manifestLoadedClient", { socketID: socket.id })
+            }
+        }, 3000)
+        let isUserHost;
+        socket.on("receiveNewUserList", (data) => {
+            const userContainer = document.getElementById("user-container");
+            userContainer.innerHTML = "";
+            let userList = Object.getOwnPropertyNames(data.users)
+            userList.forEach((user) => {
+                let userID = user
+                const userDiv = document.createElement("div");
+                userDiv.classList.add("user-in-server");
+                let hostIndicator = document.createElement("i");
+                let hostID;
+                if (data.users[user].isHost == true) {
+                    hostIndicator.classList.add("fa-solid");
+                    hostIndicator.classList.add("fa-crown");
+                    hostIndicator.classList.add("host-indicator");
+                    userDiv.appendChild(hostIndicator);
+                    hostID = data.users[user].id
+                    if (hostID == socket.id) {
+                        isUserHost = true;
+                    }
+                } else {
+                    hostIndicator.classList.add("fa-solid");
+                    hostIndicator.classList.add("fa-user");
+                    hostIndicator.classList.add("host-indicator");
+                    userDiv.appendChild(hostIndicator);
+                }
+                let userSpan = document.createElement("span");
+                userSpan.classList.add("user-id");
+                userSpan.textContent = userID;
+                userDiv.appendChild(userSpan);
+                if (data.users[user].id == socket.id) {
+                    userSpan.style.color = "#309c34"
+                }
+                let userPing = document.createElement("span");
+                userPing.classList.add("user-ping");
+                userPing.textContent = " Ping: " + data.users[user].ping;
+                userDiv.appendChild(userPing);
+                userContainer.appendChild(userDiv);
+            });
+        });
+
+        socket.on("receiveNewHostMessage", (data) => {
+            console.log(data.message);
+        });
+
+        socket.on("permissionDenied", (data) => {
+            console.error(data.message);
+        });
+        let currentSource = "gogoanime"
+        socket.on("receiveNewVideo", (data) => {
+            let vidData = data.videoData;
+            let selectSource = document.getElementById('selectSource')
+            selectSource.innerHTML = "";
+            vidData.sources.forEach((source) => {
+                let sourceOption = document.createElement("option");
+                sourceOption.id = source.source.toLowerCase();
+                sourceOption.textContent = source.source
+                sourceOption.dataset.videoSource = source.data
+                selectSource.appendChild(sourceOption)
+            })
+            selectSource.addEventListener('change', (e) => {
+                let sourceName = e.target.children[e.target.selectedIndex].id
+                currentSource = sourceName
+            })
+            let vidInfo = data.showInfo
+            let episodeList = data.showInfo.episodes
+            let episodeListContainer = document.getElementById('episodeList')
+            episodeListContainer.innerHTML = "";
+            episodeList.forEach((episode) => {
+                let episodeDiv = document.createElement("div");
+                episodeDiv.id = episode.number;
+                episodeDiv.classList.add("episode");
+                let episodeNumber = document.createElement("span");
+                episodeNumber.classList.add("episode-number");
+                episodeNumber.id = episode.number;
+                episodeNumber.textContent = "EP " + episode.number + ":";
+                episodeDiv.appendChild(episodeNumber);
+                episodeListContainer.appendChild(episodeDiv);
+                let episodeTitle = document.createElement("span");
+                episodeTitle.id = episode.number;
+                episodeTitle.classList.add("episode-title");
+                episodeTitle.textContent = episode.title;
+                episodeDiv.appendChild(episodeTitle);
+                episodeDiv.addEventListener('click', (e) => {
+                    socket.emit("playNewVideo", {episodeNumber: episode.number, episodeNumber: e.target.id, zoroID: document.getElementById('zoro').dataset.videoSource, source: currentSource, showID: vidInfo.id, episodeID: episode.id, roomID: roomID})
+                })
+            })
+        })
+
+        document.getElementById('roomNameUpdate').addEventListener(('click'), (e) => {
+            if (document.getElementById('roomName').value == "") return;
+            socket.emit("updateRoomName", { roomID: roomID, newRoomName: document.getElementById('roomName').value });
+        });
+        document.getElementById('roomDescriptionUpdate').addEventListener('click', (e) => {
+            if (document.getElementById('roomDescription').value == "") return;
+            socket.emit("updateRoomDescription", { roomID: roomID, newRoomDescription: document.getElementById('roomDescription').value });
+        })
+
+        document.getElementById('submitSearch').addEventListener('click', () => {
+            let searchQuery = document.getElementById('searchInput').value;
+            if (searchQuery == "") return;
+            let resultContainer = document.getElementById('searchResults');
+            request = $.post("http://localhost:3000/ajax/search", {
+                search: searchQuery,
+            }, function(data) {
+                resultContainer.innerHTML = "";
+                data.results.forEach((result) => {
+                    let resultDiv = document.createElement("div");
+                    resultDiv.classList.add("search-result");
+                    let resultTitle = document.createElement("span");
+                    resultTitle.classList.add("search-result-title");
+                    resultTitle.id = result.id
+                    resultTitle.textContent = result.title.romaji;
+                    resultDiv.appendChild(resultTitle);
+                    resultContainer.appendChild(resultDiv);
+                    resultTitle.addEventListener('click', (data) => {
+                        socket.emit("playVideo", { videoID: result.id })
+                    })
+                })
+            })
+        })
+        socket.on("sendNewVideo", (data) => {
+            console.log(data)
+            streamSource = data.source.sources.find(x => x.quality === 'default')
+            init("https://hls.haikei.xyz/" + btoa(streamSource.url) + ".m3u8")
+            socket.emit("serverUpdateManifest", {currentManifest: streamSource.url, roomID: roomID})
+        })
+        socket.on("sendNewVideoZoro", (data) => {
+            console.log(data)
+            streamSource = data.source.sources.find(x => x.quality === 'auto')
+            init("https://cors.haikei.xyz/" + streamSource.url)
+            socket.emit("serverUpdateManifest", {currentManifest: streamSource.url, roomID: roomID})
+        })
+        socket.on("receiveCurrentTime", (data) => {
+            if (isUserHost == false) {
+                video.currentTime = data.currentTime;
+            }
+        })
+        socket.on("receiveUserVideoFromHost", (data) => {
+            async function waitForManifestLoad() {
+                return new Promise((resolve) => {
+                    let interval = setInterval(() => {
+                        if (video.readyState == "4") {
+                            clearInterval(interval)
+                            let video = document.getElementById('youtube-theme')
+                            video.play();
+                            socket.emit("getCurrentTime", {roomID: roomID})
+                            resolve()
+                        }
+                    }, 200)
+                })
+            }
+            async function determineShakaLoaded() {
+                return new Promise((resolve) => {
+                    let interval = setInterval(() => {
+                        if (window.shaka) {
+                            clearInterval(interval)
+                            init("https://hls.haikei.xyz/" + btoa(data.videoData) + ".m3u8")
+                            waitForManifestLoad()
+                            resolve()
+                        }
+                    }, 200)
+                })
+            }
+            determineShakaLoaded()
+
+        })
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="https://github.com/videojs/mux.js/releases/latest/download/mux.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/shaka-player.compiled.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/js/shaka-player-ui.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/js/iziModal.min.js" integrity="sha512-lR/2z/m/AunQdfBTSR8gp9bwkrjwMq1cP0BYRIZu8zd4ycLcpRYJopB+WsBGPDjlkJUwC6VHCmuAXwwPHlacww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/js/modals.js"></script>
+    <script>
+    const video = document.getElementById('youtube-theme');
+    const ui = video['ui'];
+    video.RWButton = class extends shaka.ui.Element {
+        constructor(parent, controls) {
+    super(parent, controls);
+
+    this.button_ = document.createElement('button');
+    this.button_.className = "material-icons-round"
+    this.button_.textContent = 'fast_rewind';
+    this.parent.appendChild(this.button_);
+
+    this.eventManager.listen(this.button_, 'click', () => {
+      const nextManifest = 
+        video.currentTime = video.currentTime - 5;
+    });
+  }
+};
+video.RWButton.Factory = class {
+  create(rootElement, controls) {
+    return new video.RWButton(rootElement, controls);
+  }
+};
+shaka.ui.Controls.registerElement(
+  'fast_rewind',
+  new video.RWButton.Factory());
+video.FFButton = class extends shaka.ui.Element {
+  constructor(parent, controls) {
+    super(parent, controls);
+
+    // The actual button that will be displayed
+    this.button_ = document.createElement('button');
+    this.button_.className = "material-icons-round"
+    this.button_.textContent = 'fast_forward';
+    this.parent.appendChild(this.button_);
+
+    // Listen for clicks on the button to start the next playback
+    this.eventManager.listen(this.button_, 'click', () => {
+      const nextManifest = /* Your logic to pick the next video to be played */
+        video.currentTime = video.currentTime + 5;
+    });
+  }
+};
+video.FFButton.Factory = class {
+  create(rootElement, controls) {
+    return new video.FFButton(rootElement, controls);
+  }
+};
+shaka.ui.Controls.registerElement(
+  'fast_forward',
+  new video.FFButton.Factory());
+
+  async function loadConfig() {
+    const video = document.getElementById('youtube-theme');
+    const ui = video['ui'];
+    let config = {
+        'seekBarColors': {
+            base: 'rgba(255,255,255,1)',
+            buffered: 'rgba(255,255,255,.8)',
+            played: 'rgb(255, 0, 200)',
+        },
+        'overflowMenuButtons': ['quality', 'playback_rate', 'picture_in_picture', 'airplay', 'cast', ],
+        'customContextMenu' : true,
+        'contextMenuElements' : ['statistics', 'loop'],
+        'playbackRates': [0.1, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 4],
+        'controlPanelElements': ['play_pause', 'mute', 'volume', 'fast_rewind', 'fast_forward', 'time_and_duration', 'spacer', 'captions', 'overflow_menu', 'fullscreen'],
+        }
+
+        ui.configure(config);
+
+        const controls = ui.getControls();
+        const player = controls.getPlayer();
+        window.player = player
+  }
+  document.addEventListener('shaka-ui-loaded', loadConfig);
+async function init(manifest) {
+    const vidURL = manifest;
+
+        try {
+            await player.load(vidURL);
+            video.addEventListener('play', () => {
+                socket.emit("updateVideoStatus", { status: true })
+                socket.emit("beginCurrentTimeUpdates", {roomID: roomID})
+            })
+            video.addEventListener('pause', () => {
+                socket.emit("updateVideoStatus", { status: false })
+            })
+            video.play();
+        } catch (error) {
+        }
+        $('.shaka-overflow-menu-button').html('settings');
+        $('.shaka-back-to-overflow-button .material-icons-round').html('arrow_back_ios_new');
+
+        document.getElementsByClassName('player-frame')[0]
+    }
+    </script>
+</body>
+</html>

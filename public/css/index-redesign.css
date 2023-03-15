@@ -14,7 +14,7 @@
   box-sizing: border-box;
 }
 ::-webkit-scrollbar {
-    width: 10px
+    width: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -22,7 +22,6 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
     background: var(--dark-accent);
 }
 body {
@@ -35,8 +34,6 @@ body {
     background-color: #242527;
     display: flex;
     height: 4.25rem;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
 }
 .hamburger-icon {
     width: 80px;
@@ -63,8 +60,6 @@ body {
     height: 50px;
     background-color: #242527;
     display: none;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
 }
 .mobile-searchbar {
     width: 90%;
