@@ -20,7 +20,7 @@ const port = process.env.PORT || 3000;
 const httpServer = createServer(app);
 const io = new Server(httpServer, {   
     cors: {
-    origin: process.env.WEBSITE_URL && "http://localhost:3000",
+    origin: "https://haikei.xyz",
     methods: ["GET", "POST"]
 } });
 
@@ -43,7 +43,8 @@ io.on("connection", (socket) => {
       roomName: "Untitled Room",
       roomDescription: "No description provided.",
       playing: false,
-      currentManifest: ""
+      currentManifest: "",
+      isVideoCurrentlyPlaying: false,
     }
     roomData[room].users[socket.id] = {
       ping: -1,
@@ -61,7 +62,7 @@ io.on("connection", (socket) => {
       isHost: false,
     }
     console.log("send video down to user")
-    if (roomData[room].playing == true) {
+    if (roomData[room].isVideoCurrentlyPlaying == true) {
       if (roomData[room].currentManifest == "") return console.log("No manifest to send to user");
       socket.emit("receiveUserVideoFromHost", {videoData: roomData[room].currentManifest, currentTime: roomData[room].currentTime});
     }
@@ -161,21 +162,25 @@ io.on("connection", (socket) => {
     if (roomData[room].users[socket.id].isHost == false) return socket.emit("permissionDenied", {message: "You are not the host!"});
     if (data.showID == undefined) return socket.emit("permissionDenied", {message: "No video ID provided!"});
     let videoID = data.showID;
+    roomData[room].isVideoCurrentlyPlaying = false;
     if (data.source == "gogoanime") {
-      let sources = await getVideoSourcesGogoanime(data.episodeID);
-      io.to(data.roomID).emit("sendNewVideo", { source: sources })
+      try {
+        let sources = await getVideoSourcesGogoanime(data.episodeID);
+        roomData[room].isVideoCurrentlyPlaying = true;
+        return io.to(data.roomID).emit("sendNewVideo", { source: sources })
+      } catch {
+        return io.to(data.roomID).emit("permissionDenied", {message: "An error occured while trying to obtain video info!"});
+      }
     }
     if (data.source == "zoro") {
-      let sources = await getVideoSourcesZoro(data.zoroID, data.episodeNumber);
-      io.to(data.roomID).emit("sendNewVideoZoro", { source: sources })
+      try {
+        let sources = await getVideoSourcesZoro(data.zoroID, data.episodeNumber);
+        roomData[room].isVideoCurrentlyPlaying = true;
+        return io.to(data.roomID).emit("sendNewVideoZoro", { source: sources })
+      } catch {
+        return io.to(data.roomID).emit("permissionDenied", {message: "An error occured while trying to obtain video info!"});
+      }
     }
-  })
-
-  socket.on("updateVideoStatus", async (data) => {
-    if (roomData[room] === undefined) return;
-    if (roomData[room].users[socket.id].isHost == false) return socket.emit("permissionDenied", {message: "You are not the host!"});
-    roomData[room].playing = data.status;
-    console.log(roomData[room].playing)
   })
 
   socket.on("serverUpdateManifest", (data) => {
@@ -189,21 +194,43 @@ io.on("connection", (socket) => {
     if (roomData[room] === undefined) return;
     socket.emit("receiveCurrentTime", {currentTime: roomData[room].currentTime})
   })
-  
-  socket.on("beginCurrentTimeUpdates", (data) => {
+
+  socket.on("updateVideoStatus", async (data) => {
     if (roomData[room] === undefined) return;
     if (roomData[room].users[socket.id].isHost == false) return socket.emit("permissionDenied", {message: "You are not the host!"});
-    setInterval(() => {
-      console.log(roomData[room].currentTime)
-      socket.emit("receiveCurrentTime", {currentTime: roomData[room].currentTime})
-    }, 5000);
+    roomData[room].playing = data.status;
+    if (roomData[room].playing == true) {
+      io.in(data.roomID).emit("receiveVideoStatus", {status: "play"})
+    } else {
+      io.in(data.roomID).emit("receiveVideoStatus", {status: "pause"})
+    }
+    console.log(roomData[room].playing)
+  })
+  
+  socket.on("updateCurrentTime", (data) => {
+    if (roomData[room] === undefined) return;
+    if (roomData[room].users[socket.id].isHost == false) return socket.emit("permissionDenied", {message: "You are not the host!"});
+    roomData[room].currentTime = data.currentTime;
+    io.in(data.roomID).emit("receiveCurrentTime", {currentTime: roomData[room].currentTime})
+  });
+  
+  socket.on("amIHost", (data) => {
+    if (roomData[room] === undefined) return;
+    if (roomData[room].users[socket.id].isHost == false) return socket.emit("permissionDenied", {message: "You are not the host!"});
+    socket.emit("receiveHostStatus", {isHost: true})
+  });
+
+  socket.on("getVideoPlayState", (data) => {
+    if (roomData[room] === undefined) return;
+    if (roomData[room].playing == undefined) return socket.emit("permissionDenied", {message: "An error occured while trying to obtain video info!"})
+    socket.emit("receiveVideoPlayState", {isVideoCurrentlyPlaying: roomData[room].playing})
   })
 });
 
 
 
 
-io.listen(3001);
+io.listen(8000);
 
 app.locals.pluralize = require('pluralize');
 

@@ -48,9 +48,9 @@
             </div>
         </div>
     </div>
-    <script src="http://ws.haikei.xyz/socket.io/socket.io.js"></script>
+    <script src="https://ws.haikei.xyz/socket.io/socket.io.js"></script>
     <script>
-        const socket = io("ws://ws.haikei.xyz");
+        const socket = io("https://ws.haikei.xyz");
         const userID = "<%- username %>"
         const roomID = "<%- room %>"
 
@@ -62,13 +62,28 @@
             const duration = Date.now() - start;
             socket.emit("updateUserPing", { socketID: socket.id, ping: duration})
         });
+
+        if (document.getElementById('youtube-theme').readyState == 4) {
+            socket.on("receiveCurrentTime", (data) => {
+                console.log("Received Current Time")
+                if (isUserHost == false && Math.abs(video.currentTime - data.currentTime) > 3) {
+                    video.currentTime = data.currentTime;
+                }
+            })
+        }
         }, 1000);
         setInterval(() => {
             if (document.getElementById('youtube-theme').readyState == 4) {
                 socket.emit("manifestLoadedClient", { socketID: socket.id })
             }
+            if (document.getElementById('youtube-theme').readyState == 4) {
+                socket.emit("getVideoPlayState", { socketID: socket.id })
+            }
         }, 3000)
-        let isUserHost;
+        socket.on("receiveVideoPlayState", (data) => {
+            window.isPlaying = data.isVideoCurrentlyPlaying;
+        })
+        let isUserHost = false;
         socket.on("receiveNewUserList", (data) => {
             const userContainer = document.getElementById("user-container");
             userContainer.innerHTML = "";
@@ -111,6 +126,7 @@
 
         socket.on("receiveNewHostMessage", (data) => {
             console.log(data.message);
+            loadConfig();           
         });
 
         socket.on("permissionDenied", (data) => {
@@ -170,7 +186,7 @@
             let searchQuery = document.getElementById('searchInput').value;
             if (searchQuery == "") return;
             let resultContainer = document.getElementById('searchResults');
-            request = $.post("http://localhost:3000/ajax/search", {
+            request = $.post("https://haikei.xyz/ajax/search", {
                 search: searchQuery,
             }, function(data) {
                 resultContainer.innerHTML = "";
@@ -192,7 +208,7 @@
         socket.on("sendNewVideo", (data) => {
             console.log(data)
             streamSource = data.source.sources.find(x => x.quality === 'default')
-            init("https://hls.haikei.xyz/" + btoa(streamSource.url) + ".m3u8")
+            init("https://proxy.vnxservers.com/proxy/m3u8/" + encodeURIComponent(streamSource.url) + "?forcedHeadersProxy=%7B%22Content-Type%22%3A%22video%2FMP2T%22%7D")
             socket.emit("serverUpdateManifest", {currentManifest: streamSource.url, roomID: roomID})
         })
         socket.on("sendNewVideoZoro", (data) => {
@@ -201,11 +217,16 @@
             init("https://cors.haikei.xyz/" + streamSource.url)
             socket.emit("serverUpdateManifest", {currentManifest: streamSource.url, roomID: roomID})
         })
-        socket.on("receiveCurrentTime", (data) => {
-            if (isUserHost == false) {
-                video.currentTime = data.currentTime;
-            }
-        })
+        if (isUserHost == false) {
+            socket.on("receiveVideoStatus", (data) => {
+                if (data.status == "play") {
+                    video.play()
+                }
+                if (data.status == "pause") {
+                    video.pause()
+                }
+            })
+        }
         socket.on("receiveUserVideoFromHost", (data) => {
             async function waitForManifestLoad() {
                 return new Promise((resolve) => {
@@ -213,7 +234,7 @@
                         if (video.readyState == "4") {
                             clearInterval(interval)
                             let video = document.getElementById('youtube-theme')
-                            video.play();
+                            window.timeToUpdateTo = data.currentTime
                             socket.emit("getCurrentTime", {roomID: roomID})
                             resolve()
                         }
@@ -225,7 +246,7 @@
                     let interval = setInterval(() => {
                         if (window.shaka) {
                             clearInterval(interval)
-                            init("https://hls.haikei.xyz/" + btoa(data.videoData) + ".m3u8")
+                            init("https://proxy.vnxservers.com/proxy/m3u8/" + encodeURIComponent(data.videoData) + "?forcedHeadersProxy=%7B%22Content-Type%22%3A%22video%2FMP2T%22%7D")
                             waitForManifestLoad()
                             resolve()
                         }
@@ -313,6 +334,21 @@ shaka.ui.Controls.registerElement(
         'playbackRates': [0.1, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 4],
         'controlPanelElements': ['play_pause', 'mute', 'volume', 'fast_rewind', 'fast_forward', 'time_and_duration', 'spacer', 'captions', 'overflow_menu', 'fullscreen'],
         }
+        await setTimeout(() => {
+            console.log(isUserHost)
+            if (isUserHost == false) {
+                // config['controlPanelElements'].unshift('play_pause')
+                newCtrlPanel = config['controlPanelElements'].filter((item) => item !== 'play_pause')
+                console.log(newCtrlPanel)
+                config['controlPanelElements'] = newCtrlPanel
+                setTimeout(() => {
+                    video.currentTime = timeToUpdateTo
+                    video.play();
+                }, 2000);
+            }
+            ui.configure(config);
+        }, 2000);
+
 
         ui.configure(config);
 
@@ -326,13 +362,6 @@ async function init(manifest) {
 
         try {
             await player.load(vidURL);
-            video.addEventListener('play', () => {
-                socket.emit("updateVideoStatus", { status: true })
-                socket.emit("beginCurrentTimeUpdates", {roomID: roomID})
-            })
-            video.addEventListener('pause', () => {
-                socket.emit("updateVideoStatus", { status: false })
-            })
             video.play();
         } catch (error) {
         }
@@ -340,6 +369,24 @@ async function init(manifest) {
         $('.shaka-back-to-overflow-button .material-icons-round').html('arrow_back_ios_new');
 
         document.getElementsByClassName('player-frame')[0]
+        socket.emit("amIHost", {socketID: socket.id, roomID: roomID})
+        socket.on("receiveHostStatus", (data) => {
+            if (data.isHost == true) {
+                video.addEventListener('timeupdate', () => {
+                    socket.emit("updateCurrentTime", {currentTime: video.currentTime, roomID: roomID})
+                });
+                video.addEventListener('play', () => {
+                    socket.emit("updateVideoStatus", { status: true, roomID: roomID })
+                })
+                video.addEventListener('pause', () => {
+                    socket.emit("updateVideoStatus", { status: false, roomID: roomID })
+                })
+            } else {
+                video.addEventListener('timeupdate', () => {
+                    console.log("timeupdate")
+                })
+            }
+        })
     }
     </script>
 </body>
