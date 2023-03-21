@@ -290,7 +290,7 @@ body {
 .trending-header {
     color: var(--light-accent);
 }
-@media (max-width: 1435px) {
+@media (max-width: 1508px) {
     .navbar-links {
         display: none;
     }
@@ -635,6 +635,11 @@ input[type="checkbox"]:checked::before {
   right: 25px;
   font-size: 36px;
   margin-left: 50px;
+}
+.sidenav-logo {
+    width: 50%;
+    filter: brightness(0.7);
+    margin-left: 20px;
 }
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
