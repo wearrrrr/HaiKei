@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@consumet/extensions": "^1.4.1",
+    "@consumet/extensions": "^1.4.8",
     "@sendgrid/mail": "^7.7.0",
     "art-template": "^4.13.2",
     "axios": "^0.27.2",
