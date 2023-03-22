@@ -3,7 +3,6 @@
     txt.replaceAll(' " ' , " '  " )
 </script>
 <form method="POST" action="/api/watchlist/add">
-    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <input type="hidden" name="data" value="">
     <button type="submit">test post request</button>
 </form>
