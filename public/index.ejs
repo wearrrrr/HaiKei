@@ -31,7 +31,11 @@
                     <h1 class="title hidden jp-title"><%- card.title.romaji %></h1>
                     <h1 class="title eng-title"><%- card.title.english %></h1>
                     <div class="description">
-                        <%- card.description.replace(/(Source:.*)/m, "").replace("(", "") %>
+                        <% if (card.description !== null) { %>
+                            <%- card.description.replace(/(Source:.*)/m, "").replace("(", "") %>
+                        <% } else { %>
+                            <%- card.description = "No description found!" %>
+                        <% } %>
                     </div>
                     <div class="emblem-info">
                         <% if (card.status == "Completed") { %>
