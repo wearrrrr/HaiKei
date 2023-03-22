@@ -16,6 +16,7 @@ const { getSources, getShowInfo, getVideoSourcesGogoanime, getVideoSourcesZoro }
 
 const app = express();
 const port = process.env.PORT || 3000;
+const ejs = require('ejs')
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {   
@@ -255,7 +256,7 @@ app.use(flash());
 app.use(limit({max: 10, period: 5 * 1000, message: "Request Limit Exceeded!" }), passport.authenticate('session'));
 
 app.use(express.static('public'))
-app.engine('art', require('express-art-template'));
+app.engine('ejs', ejs.renderFile);
 
 app.set('views', 'public')
 app.listen(port);

@@ -99,26 +99,29 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
 
       const query = (request.query as { query: string }).query;
 
-      if (action && !actions.includes(action))
+      if (!action)
         return reply.status(400).send({ message: 'action is invalid' });
 
       if (typeof query === 'undefined')
         return reply.status(400).send({ message: 'query is required' });
 
-      const res = {} as { vrf: string };
+      let res = {} as any;
       try {
         switch (action) {
           case "vrf":
-            res.vrf = await nineanime.ev(query);
+            res = await nineanime.ev(query, true);
             break;
           case "searchVrf":
-            res.vrf = await nineanime.searchVrf(query);
+            res = await nineanime.searchVrf(query, true);
             break;
           case "decrypt":
-            res.vrf = await nineanime.decrypt(query);
+            res = await nineanime.decrypt(query, true);
             break;
           case "vizcloud":
-            res.vrf = await nineanime.vizcloud(query);
+            res = await nineanime.vizcloud(query);
+            break;
+          default:
+            res = await nineanime.customRequest(query, action);
             break;
         }
 
