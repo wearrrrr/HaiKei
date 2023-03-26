@@ -7,7 +7,7 @@ async function loadZoroSource(source) {
     zoroData2 = await url2.json()
     streamSource = zoroData2.sources.find(x => x.quality === 'auto')
     player.unload()
-    player.load("https://cors.haikei.xyz/" + streamSource.url)
+    player.load("https://hls.haikei.xyz/" + streamSource.url)
     video.addEventListener('loadeddata', (e) => {
         if (navigator.userAgent.includes("iPhone")) {
             loadSubsZoro();
@@ -49,7 +49,7 @@ async function defaultSourceLoad() {
         let url = await fetch("https://api.haikei.xyz/anime/gogoanime/watch/" + showID + '-episode-' + ep + "?server=vidstreaming")
         data = await url.json()
         streamSource = data.sources.find(x => x.quality === 'default')
-        player.load("https://proxy.vnxservers.com/proxy/m3u8/" + encodeURIComponent(streamSource.url) + "?forcedHeadersProxy=%7B%22Content-Type%22%3A%22video%2FMP2T%22%7D");
+        player.load("https://hls.haikei.xyz/proxy/m3u8/" + encodeURIComponent(streamSource.url) + "?forcedHeadersProxy=%7B%22Content-Type%22%3A%22video%2FMP2T%22%7D");
     } else if (defaultSource == "zoro") {
         loadZoroSource(document.getElementById('zoro').value)
     } else {
@@ -57,7 +57,7 @@ async function defaultSourceLoad() {
         let url = await fetch("https://api.haikei.xyz/anime/gogoanime/watch/" + showID + '-episode-' + ep + "?server=vidstreaming")
         data = await url.json()
         streamSource = data.sources.find(x => x.quality === 'default')
-        player.load("https://proxy.vnxservers.com/proxy/m3u8/" + encodeURIComponent(streamSource.url) + "?forcedHeadersProxy=%7B%22Content-Type%22%3A%22video%2FMP2T%22%7D");
+        player.load("https://hls.haikei.xyz/proxy/m3u8/" + encodeURIComponent(streamSource.url) + "?forcedHeadersProxy=%7B%22Content-Type%22%3A%22video%2FMP2T%22%7D");
     }
 }
 let zoroData2;
@@ -74,7 +74,7 @@ document.getElementById('select-source').addEventListener('change', async functi
         data = await url.json()
         streamSource = data.sources.find(x => x.quality === 'default')
         player.unload()
-        player.load("https://proxy.vnxservers.com/proxy/m3u8/" + encodeURIComponent(streamSource.url) + "?forcedHeadersProxy=%7B%22Content-Type%22%3A%22video%2FMP2T%22%7D");
+        player.load("https://hls.haikei.xyz/proxy/m3u8/" + encodeURIComponent(streamSource.url) + "?forcedHeadersProxy=%7B%22Content-Type%22%3A%22video%2FMP2T%22%7D");
         destroyAniSkipButton()
     }
     if (selectedIndex == "gogoanime (dub)") {
@@ -82,7 +82,7 @@ document.getElementById('select-source').addEventListener('change', async functi
         data = await url.json()
         streamSource = data.sources.find(x => x.quality === 'default')
         player.unload()
-        player.load("https://proxy.vnxservers.com/proxy/m3u8/" + encodeURIComponent(streamSource.url) + "?forcedHeadersProxy=%7B%22Content-Type%22%3A%22video%2FMP2T%22%7D");
+        player.load("https://hls.haikei.xyz/proxy/m3u8/" + encodeURIComponent(streamSource.url) + "?forcedHeadersProxy=%7B%22Content-Type%22%3A%22video%2FMP2T%22%7D");
         destroyAniSkipButton()
     }
     if (selectedIndex == "zoro") {
@@ -108,6 +108,6 @@ document.getElementById('select-source').addEventListener('change', async functi
             streamSource = data2.sources.find(x => x.quality === '360')
         }
         player.unload() 
-        player.load("https://cors.haikei.xyz/" + streamSource.url)
+        player.load("https://hls.haikei.xyz/" + streamSource.url)
     }
 })

@@ -79,3 +79,12 @@ h4 {
 .diamond-donator {
     color: var(--brand-color);
 }
+.gold-donator {
+    color: #FFD700;
+}
+.silver-donator {
+    color: #c0bfbf;
+}
+.bronze-donator {
+    color: #bd752d;
+}
