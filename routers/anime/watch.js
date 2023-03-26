@@ -34,8 +34,10 @@ async function handleMalformedURL(req, res) {
 async function getTrending() {
     try {
         let trending = await axios.get(`${consumetURL}meta/anilist/trending`)
-        let trendingData = await trending.data
-        return trendingData
+        if (trending.status == 200) {
+            let trendingData = await trending.data
+            return trendingData
+        }
     } catch(e) {
         console.log(e)
     }

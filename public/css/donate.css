@@ -63,3 +63,19 @@ h4 {
     width: 10%;
     fill: var(--light-accent);
 }
+.donate-hr-separator {
+    height: 2px;
+    background-color: var(--dark-accent);
+    border: none;
+    width: 100%;
+}
+.donate-item > i {
+    position: relative;
+    top: -1px;
+}
+.platinum-donator {
+    color: #A0B2C6;
+}
+.diamond-donator {
+    color: var(--brand-color);
+}
