@@ -48,9 +48,9 @@
             </div>
         </div>
     </div>
-    <script src="https://ws.haikei.xyz/socket.io/socket.io.js"></script>
+    <script src="https://ws.haikei.cc/socket.io/socket.io.js"></script>
     <script>
-        const socket = io("https://ws.haikei.xyz");
+        const socket = io("https://ws.haikei.cc");
         const userID = "<%- username %>"
         const roomID = "<%- room %>"
 
@@ -186,7 +186,7 @@
             let searchQuery = document.getElementById('searchInput').value;
             if (searchQuery == "") return;
             let resultContainer = document.getElementById('searchResults');
-            request = $.post("https://haikei.xyz/ajax/search", {
+            request = $.post("https://haikei.cc/ajax/search", {
                 search: searchQuery,
             }, function(data) {
                 resultContainer.innerHTML = "";
@@ -208,13 +208,13 @@
         socket.on("sendNewVideo", (data) => {
             console.log(data)
             streamSource = data.source.sources.find(x => x.quality === 'default')
-            init("https://proxy.vnxservers.com/proxy/m3u8/" + encodeURIComponent(streamSource.url) + "?forcedHeadersProxy=%7B%22Content-Type%22%3A%22video%2FMP2T%22%7D")
+            init("https://hls.haikei.xyz/proxy/m3u8/" + encodeURIComponent(streamSource.url) + "?forcedHeadersProxy=%7B%22Content-Type%22%3A%22video%2FMP2T%22%7D")
             socket.emit("serverUpdateManifest", {currentManifest: streamSource.url, roomID: roomID})
         })
         socket.on("sendNewVideoZoro", (data) => {
             console.log(data)
             streamSource = data.source.sources.find(x => x.quality === 'auto')
-            init("https://cors.haikei.xyz/" + streamSource.url)
+            init("https://hls.haikei.xyz/" + streamSource.url)
             socket.emit("serverUpdateManifest", {currentManifest: streamSource.url, roomID: roomID})
         })
         if (isUserHost == false) {

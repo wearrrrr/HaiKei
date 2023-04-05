@@ -1,8 +1,7 @@
 const ex = require('express');
 const app = ex.Router();
 const axios = require('axios')
-const fetch = require('node-fetch')
-const config = require('../../../config.js')
+const config = require('../../config.js')
 const consumetURL = config.app.api_url3
 
 app.get("/", async(req, res) => {

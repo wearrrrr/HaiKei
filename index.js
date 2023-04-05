@@ -1,13 +1,10 @@
 const cp = require('child_process')
 const os = require('os')
-const path = require('path')
 const chalk = require('chalk')
 
 
 // Chalk template for console output.
 const error = chalk.bold.red;
-const warning = chalk.keyword('orange');
-const info = chalk.bold.blue;
 const success = chalk.bold.green;
 
 console.log(success("Starting Web Server..."))
@@ -26,13 +23,18 @@ if (os.platform == "win32") {
 
     console.log(success("Starting Redis..."))
 
-    let memurai = cp.exec('memurai')
-    // memurai.stdout.on('data', (data) => console.log(data.toString()))
-    // memurai.stderr.on('data', (data) => console.log(data.toString()))
-
-    let webserver = cp.spawn('webserver.bat')
-    webserver.stdout.on('data', (data) => {console.log(data.toString())});
-
+    try {
+        cp.exec('memurai')
+    } catch {
+        error("Failed to start memurai! Is it installed?")
+    }
+    try {
+        console.log(success("Starting frontend..."))
+        let webserver = cp.spawn('webserver.bat')
+        webserver.stdout.on('data', (data) => {console.log(data.toString())});
+    } catch {
+        console.log(error("Failed to start frontend! Try running yarn again."))
+    }
 } 
 if (os.platform == 'darwin' || os.platform == 'linux') {
     console.log("platform is " + os.platform)
@@ -50,14 +52,12 @@ if (os.platform == 'darwin' || os.platform == 'linux') {
 }
 if (os.platform == "linux" ) {
     console.log(success("Starting Redis..."))
-    let redis = cp.spawn("redis-server")
-    // redis.stdout.on('data', function (data) {
-    // console.log(data.toString());
-    // });
+    try {
+        cp.spawn("redis-server")
+    } catch {
+        console.log(error("Failed to start redis! Is it installed?"))
+    }
 
-    // redis.stderr.on('data', function (data) {
-    // console.log(data.toString());
-    // });
 }
 
 

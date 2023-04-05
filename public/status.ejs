@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://site-assets.fontawesome.com">
     <title>Genres - HaiKei</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/index-redesign.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/css/iziModal.css" integrity="sha512-uZ+G0SzK4GMUDUzxzbIeLGLjYgAhQ2KrIV4bWIP5o6URt5XVcn8S02eW6C1DH35bqq/XX1jYwlhhNPPIE1+q1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -17,17 +17,14 @@
     <%- include("./templates/sidenav.ejs") %>
     <%- include("./templates/navbar.ejs") %>
 
-    <h1 class="search-by-genre-header">Search By Genre: </h1>
-    <div class="genre-container grid-container">
-        <%# card[String(Object.getOwnPropertyNames(card)[i])] %>
-        <% genreData.genres.forEach((card) => { %>
-            <% for (i = 0; i < Object.getOwnPropertyNames(card).length; i++) { %>
-                <a href="/genre?sort=<%- card[String(Object.getOwnPropertyNames(card)[i])].genre_name.toLowerCase() %>" class="genre-card">
-                    <div style="background-image: url('<%- card[Object.getOwnPropertyNames(card)[i]].image_url %>')" class="genre-image"></div>
-                    <p class="eng-title genre-title splide__animeTitle hidden"><%- card[String(Object.getOwnPropertyNames(card)[i])].genre_name %></p>
-                    <p class="jp-title genre-title splide__animeTitle hidden"><%- card[String(Object.getOwnPropertyNames(card)[i])].genre_name_jp %></p>
+    <h1 class="search-by-status-header"><%- status %></h1>
+    <div class="status-container grid-container">
+        <% data.results.forEach((card) => { %>
+                <a href="/watch/<%- card.id %>/1" class="status-card">
+                    <div style="background-image: url('<%- card.image %>')" class="status-image"></div>
+                    <p class="eng-title status-title splide__animeTitle hidden"><%- card.title.english %></p>
+                    <p class="jp-title status-title splide__animeTitle"><%- card.title.romaji %></p>
                 </a>
-            <% } %>
         <% }) %>
     </div>
 

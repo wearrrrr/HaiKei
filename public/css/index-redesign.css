@@ -204,7 +204,10 @@ body {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
-.swiper-slide > .show-info > .hidden {
+.status-card > .hidden {
+    display: none;
+}
+.genre-card > .hidden {
     display: none;
 }
 .swiper-slide > .show-info > .description {
@@ -397,6 +400,9 @@ body {
     height: 375px;
     transition: 250ms ease-in-out;
 }
+.language-toggleable {
+    transition: 250ms ease-in-out;
+}
 @media (prefers-reduced-motion: reduce) {
     .splide__slide:hover {
         background-color: var(--darker);
@@ -405,8 +411,8 @@ body {
 @media (prefers-reduced-motion: no-preference) {
 .splide__slide:hover {
     background-color: var(--darker);
-    scale: 0.96;
-    transform: rotate(1deg);
+    scale: 0.98;
+    transform: rotate(0.5deg);
 }
 }
 
@@ -424,6 +430,7 @@ body {
     max-width: 215px;
     font-weight: 400;
     overflow: hidden;
+    transition: 250ms ease-in-out;
 }
 .recent_releases_img {
     margin-top: 15px;
@@ -434,7 +441,7 @@ body {
 .recent_releases_title {
     text-overflow: ellipsis;
     overflow: hidden;
-    display: -webkit-box;
+    display: none;
     margin-top: 235px;
     position: absolute;
     -webkit-line-clamp: 2;
@@ -653,6 +660,41 @@ input[type="checkbox"]:checked::before {
     margin-left: 20px;
     margin-top: 50px;
 }
+.search-by-status-header {
+    color: var(--light);
+    margin-left: 20px;
+    margin-top: 50px;
+}
+.status-container {
+    width: 90%;
+    margin: 0 auto;
+}
+.status-card {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: var(--darker);
+    position: relative;
+    align-items: center;
+    height: 350px;
+    border-radius: 20px;
+    text-decoration: none;
+}
+.status-image {
+    background-position: top center;
+    background-size: cover;
+    filter: blur(0px);
+    width: 100%;
+    height: 100%;
+}
+.status-title {
+    background-color: var(--darker);
+    width: 95%;
+    height: 25px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 .genre-container {
     width: 90%;
     margin: 0 auto;
@@ -733,4 +775,18 @@ input[type="checkbox"]:checked::before {
     background-color: #5865F2;
     border-radius: 10px;
     margin-bottom: 30px;
+}
+.dmca > a {
+    color: white;
+}
+.dmca-intro-header-container {
+    width: 90%;
+    margin: 0 auto;
+    color: var(--lighter);
+    margin-bottom: 100px;
+}
+.dmca-requirements-container {
+    width: 80%;
+    margin: 0 auto;
+    color: var(--light-accent);
 }

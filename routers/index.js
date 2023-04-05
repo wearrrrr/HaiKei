@@ -1,9 +1,6 @@
 const express = require('express')
 const app = express.Router();
-const axios = require('axios');
 const redis = require("redis");
-const config = require('../config')
-const consumetURL = config.app.api_url3
 
 const { META } = require('@consumet/extensions')
 const anilist = new META.Anilist();
@@ -11,13 +8,18 @@ const anilist = new META.Anilist();
 let redisClient;
 
 (async () => {
-  redisClient = redis.createClient({
-    url: process.env.REDIS_URL,
-  });
-
-  redisClient.on("error", (error) => console.error(`Error : ${error}`));
-
-  await redisClient.connect();
+try {
+    redisClient = redis.createClient({
+        url: process.env.REDIS_URL,
+      });
+    
+      redisClient.on("error", (error) => console.error(`Error : ${error}`));
+    
+      await redisClient.connect();
+} catch(err) {
+    console.log("Failed to connect to caching database! Output is below: ")
+    console.log(err)
+}
 })();
 
 app.get('/', async (req, res) => {
@@ -99,6 +101,21 @@ try {
         return res.render('contribute.ejs', {loginState: loginState, username: username})
     } else {
         return res.render('contribute.ejs', {loginState: loginState})
+    }
+ })
+
+ app.get("/dmca", async (req, res) => {
+    const fullUrl = `${req.originalUrl}`;
+    if (req.user == undefined) {
+        loginState = false;
+    } else {
+        loginState = true;
+        username = req.username;
+    }
+    if (loginState == true) {
+        return res.render("dmca.ejs", {loginState: loginState, username: username, url: fullUrl});
+    } else {
+        return res.render("dmca.ejs", {loginState: loginState, url: fullUrl});
     }
  })
 

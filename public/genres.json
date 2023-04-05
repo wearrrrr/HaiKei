@@ -3,75 +3,93 @@
         {
             "action": {
                 "genre_name": "Action",
-                "image_url": "https://gogocdn.net/cover/chainsaw-man-1664388043.png"
+                "image_url": "https://gogocdn.net/cover/chainsaw-man-1664388043.png",
+                "genre_name_jp": "アクション"
             },
             "adventure": {
                 "genre_name": "Adventure",
-                "image_url": "https://gogocdn.net/cover/isekai-meikyuu-de-harem-wo.png"
+                "image_url": "https://gogocdn.net/cover/isekai-meikyuu-de-harem-wo.png",
+                "genre_name_jp": "冒険"
             },
             "comedy": {
                 "genre_name": "Comedy",
-                "image_url": "https://gogocdn.net/cover/tensei-shitara-slime-datta-ken-movie-guren-no-kizuna-hen.png"
+                "image_url": "https://gogocdn.net/cover/tensei-shitara-slime-datta-ken-movie-guren-no-kizuna-hen.png",
+                "genre_name_jp": "コメディ"
             },
             "drama": {
                 "genre_name": "Drama",
-                "image_url": "https://gogocdn.net/cover/natsu-e-no-tunnel-sayonara-no-deguchi.png"
+                "image_url": "https://gogocdn.net/cover/natsu-e-no-tunnel-sayonara-no-deguchi.png",
+                "genre_name_jp": "ドラマ"
             }, 
             "ecchi": {
                 "genre_name": "Ecchi",
-                "image_url": "https://gogocdn.net/cover/uzaki-chan-wa-asobitai-double.png"
+                "image_url": "https://gogocdn.net/cover/uzaki-chan-wa-asobitai-double.png",
+                "genre_name_jp": "エッチ"
             },
             "fantasy": {
                 "genre_name": "Fantasy",
-                "image_url": "https://gogocdn.net/cover/tensei-kenja-no-isekai-life-dai-2-no-shokugyou-wo-ete-sekai-saikyou-ni-narimashita.png"
+                "image_url": "https://gogocdn.net/cover/tensei-kenja-no-isekai-life-dai-2-no-shokugyou-wo-ete-sekai-saikyou-ni-narimashita.png",
+                "genre_name_jp": "ファンタジー"
             },
             "horror": {
                 "genre_name": "Horror",
-                "image_url": "https://gogocdn.net/cover/happy-sugar-life-dub.png"
+                "image_url": "https://gogocdn.net/cover/happy-sugar-life-dub.png",
+                "genre_name_jp": "ホラー"
             },
             "mahou-shoujo": {
                 "genre_name": "Mahou Shoujo",
-                "image_url": "https://gogocdn.net/cover/yes-precure-5-gogo.png"
+                "image_url": "https://gogocdn.net/cover/yes-precure-5-gogo.png",
+                "genre_name_jp": "魔法少女"
             },
             "mecha": {
                 "genre_name": "Mecha",
-                "image_url": "https://gogocdn.net/cover/86-2nd-season.png"
+                "image_url": "https://gogocdn.net/cover/86-2nd-season.png",
+                "genre_name_jp": "メカ"
             },
             "music": {
                 "genre_name": "Music",
-                "image_url": "https://gogocdn.net/images/anime/K/K-on.jpg"
+                "image_url": "https://gogocdn.net/images/anime/K/K-on.jpg",
+                "genre_name_jp": "音楽"
             },
             "mystery": {
                 "genre_name": "Mystery",
-                "image_url": "https://gogocdn.net/cover/great-pretender.png"
+                "image_url": "https://gogocdn.net/cover/great-pretender.png",
+                "genre_name_jp": "ミステリー"
             },
             "psychological": {
                 "genre_name": "Psychological",
-                "image_url": "https://gogocdn.net/cover/youkoso-jitsuryoku-shijou-shugi-no-kyoushitsu-e-tv-2nd-season.png"
+                "image_url": "https://gogocdn.net/cover/youkoso-jitsuryoku-shijou-shugi-no-kyoushitsu-e-tv-2nd-season.png",
+                "genre_name_jp": "心理"
             },
             "romance": {
                 "genre_name": "Romance",
-                "image_url": "https://gogocdn.net/cover/kaguya-sama-wa-kokurasetai-ultra-romantic.png"
+                "image_url": "https://gogocdn.net/cover/kaguya-sama-wa-kokurasetai-ultra-romantic.png",
+                "genre_name_jp": "ロマンス"
             },
             "sci-fi": {
                 "genre_name": "Sci-Fi",
-                "image_url": "https://gogocdn.net/cover/dr-stone-ryuusui.png"
+                "image_url": "https://gogocdn.net/cover/dr-stone-ryuusui.png",
+                "genre_name_jp": "サイエンスフィクション"
             },
             "slice-of-life": {
                 "genre_name": "Slice of Life",
-                "image_url": "https://gogocdn.net/cover/kobayashi-san-chi-no-maid-dragon-s-nippon-no-omotenashi-attend-wa-dragon-desu.png"
+                "image_url": "https://gogocdn.net/cover/kobayashi-san-chi-no-maid-dragon-s-nippon-no-omotenashi-attend-wa-dragon-desu.png",
+                "genre_name_jp": "日常"
             },
             "sports": {
                 "genre_name": "Sports",
-                "image_url": "https://gogocdn.net/cover/haikyuu-to-the-top.png"
+                "image_url": "https://gogocdn.net/cover/haikyuu-to-the-top.png",
+                "genre_name_jp": "スポーツ"
             },
             "supernatural": {
                 "genre_name": "Supernatural",
-                "image_url": "https://gogocdn.net/cover/mahoutsukai-no-yoru.png"
+                "image_url": "https://gogocdn.net/cover/mahoutsukai-no-yoru.png",
+                "genre_name_jp": "超自然"
             },
             "thriller": {
                 "genre_name": "Thriller",
-                "image_url": "https://gogocdn.net/cover/magia-record-mahou-shoujo-madokamagica-gaiden-tv-2nd-season.png"
+                "image_url": "https://gogocdn.net/cover/magia-record-mahou-shoujo-madokamagica-gaiden-tv-2nd-season.png",
+                "genre_name_jp": "スリラー"
             }
         }
     ]

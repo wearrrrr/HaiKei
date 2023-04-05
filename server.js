@@ -21,7 +21,7 @@ const ejs = require('ejs')
 const httpServer = createServer(app);
 const io = new Server(httpServer, {   
     cors: {
-    origin: "https://haikei.xyz",
+    origin: "https://haikei.cc",
     methods: ["GET", "POST"]
 } });
 
@@ -274,12 +274,13 @@ module.exports = {
 app.use('/', require('./routers/index.js'));
 app.use('/', require('./routers/auth.js'));
 app.use('/w2g', require('./routers/w2g.js'));
-app.use('/api', require('./routers/api.js'))
-app.use('/ajax', require('./routers/ajax.js'))
-app.use('/watchlist', require('./routers/watchlist.js'))
+app.use('/api', require('./routers/api.js'));
+app.use('/ajax', require('./routers/ajax.js'));
+app.use('/watchlist', require('./routers/watchlist.js'));
 app.use('/search', require('./routers/search.js'));
 app.use('/trending', require('./routers/trending.js'));
 app.use('/releases', require('./routers/releases.js'));
-app.use('/genres', require('./routers/anime/genre/genres.js'));
-app.use('/genre/', require('./routers/anime/genre/genre.js'))
-app.use('/watch', require("./routers/anime/watch.js"));
+app.use('/genres', require('./routers/genre/genres.js'));
+app.use('/genre/', require('./routers/genre/genre.js'));
+app.use("/status", require("./routers/status/status.js"));
+app.use('/watch', require("./routers/watch/watch.js"));
