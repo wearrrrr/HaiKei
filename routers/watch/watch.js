@@ -37,6 +37,7 @@ async function getTrending() {
             let trendingData = await trending.data
             return trendingData
         }
+        return "Failed to get trending data!"
     } catch(e) {
         console.log(e)
     }
@@ -44,7 +45,8 @@ async function getTrending() {
 }
 async function getShowInfo(showID) {
     try {
-        let showInfo = await axios.get(`https://api.consumet.org/meta/anilist/info/${showID}`)
+        let showInfo = await axios.get(`${consumetURL}meta/anilist/info/${showID}`)
+        if (showInfo.status !== 200) return "Failed to get show info!"
         let showData = await showInfo.data
         return showData
     } catch(e) {
@@ -62,6 +64,7 @@ async function getRecommended(genre) {
     }
 }
 async function getSources(ID) {
+    console.log("Getting sources for " + ID)
     try {
         let availableSources = [];
         let showIds = {

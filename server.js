@@ -21,7 +21,7 @@ const ejs = require('ejs')
 const httpServer = createServer(app);
 const io = new Server(httpServer, {   
     cors: {
-    origin: "https://haikei.cc",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"]
 } });
 

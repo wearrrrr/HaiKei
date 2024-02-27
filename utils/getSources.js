@@ -59,7 +59,7 @@ async function getSources(ID) {
 
 async function getShowInfo(ID) {
     try {
-        let showInfo = await axios.get(`https://api.haikei.xyz/meta/anilist/info/${ID}`)
+        let showInfo = await axios.get(`https://api.fl-anime.com/meta/anilist/info/${ID}`)
         let showData = await showInfo.data
         return showData
     } catch(e) {
@@ -69,7 +69,7 @@ async function getShowInfo(ID) {
 
 async function getVideoSourcesGogoanime(videoID, videoEpisode) {
     try {
-        let videoSources = await axios.get(`https://api.haikei.xyz/anime/gogoanime/watch/${videoID}`)
+        let videoSources = await axios.get(`https://api.fl-anime.com/anime/gogoanime/watch/${videoID}`)
         let videoData = await videoSources.data
         return videoData
     } catch(e) {
@@ -79,12 +79,12 @@ async function getVideoSourcesGogoanime(videoID, videoEpisode) {
 
 async function getVideoSourcesZoro(episodeID, episodeNumber) {
     try {
-        let url = `https://api.haikei.xyz/anime/zoro/info?id=${episodeID}`
+        let url = `https://api.fl-anime.com/anime/zoro/info?id=${episodeID}`
         console.log(url)
         let videoSources = await axios.get(url)
         let videoData = await videoSources.data
         let requestedEpisode = videoData.episodes[Number(episodeNumber) - 1]
-        let requestURL = await axios.get("https://api.haikei.xyz/anime/zoro/watch?episodeId=" + requestedEpisode.id)
+        let requestURL = await axios.get("https://api.fl-anime.com/anime/zoro/watch?episodeId=" + requestedEpisode.id)
         await requestURL.data
         return requestURL.data
     } catch(e) {
