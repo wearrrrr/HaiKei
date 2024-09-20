@@ -14,7 +14,7 @@
     "@consumet/extensions": "1.5.6",
     "@sendgrid/mail": "^8.1.2",
     "art-template": "^4.13.2",
-    "axios": "^1.6.8",
+    "axios": "^1.7.4",
     "bcrypt": "^5.1.0",
     "chalk": "^4.1.2",
     "config": "^3.3.8",
